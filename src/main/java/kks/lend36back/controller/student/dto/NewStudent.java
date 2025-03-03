@@ -25,5 +25,9 @@ public class NewStudent implements Serializable {
     @Size(max = 255)
     private String password;
 
+    @NotNull
+    @Size(max = 1)
+    private String status;
+
 
 }

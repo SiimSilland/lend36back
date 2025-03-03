@@ -2,13 +2,20 @@ package kks.lend36back.service;
 
 import jakarta.validation.Valid;
 import kks.lend36back.controller.student.dto.NewStudent;
+import kks.lend36back.infrastructure.Error;
+import kks.lend36back.infrastructure.exception.ForbiddenException;
 import kks.lend36back.persistence.group_email.GroupEmail;
 import kks.lend36back.persistence.group_email.GroupEmailRepository;
 import kks.lend36back.persistence.role.Role;
 import kks.lend36back.persistence.role.RoleRepository;
+import kks.lend36back.persistence.user.User;
 import kks.lend36back.persistence.user.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+import static kks.lend36back.infrastructure.Error.INCORRECT_EMAIL;
 
 @Service
 @RequiredArgsConstructor
@@ -23,22 +30,26 @@ public class StudentService {
     public void addNewStudent(NewStudent newStudent) {
 
         // todo: otsi tabelist ülesse group email rida (sisse tulnud emaili abil)
-        // Boolean studentEmail = groupEmailRepository.findByEmail(newStudent.getEmail());
-
+        Optional<GroupEmail> optionalGroupEmail = groupEmailRepository.findByEmail(newStudent.getEmail());
         // todo: selle saad entity objektina!!!!!!!
-
-
-
-
+        GroupEmail groupEmail = optionalGroupEmail.orElseThrow(() ->
+                new ForbiddenException(INCORRECT_EMAIL.getMessage(), INCORRECT_EMAIL.getErrorCode()));
         // todo: kui aga ei saanud seda ride, siis veateade "Sellist student emaili ei saa...:
-
         // todo: kui saime, siis saame edasi liikuda
+        //email, password, status > muuda status ära GroupEmail'is ning User'is.
+
+        private void createStudent (newStudent){
+
+            User user = userMapper.newStudentToUser(newStudent);
+
+        }
 
         Role role = roleRepository.getReferenceById(ROLE_STUDENT);
-
         // todo: meil on vaja nüüd kõige peaalt lisada uus rida (entoity objekt) user tablisse
 
         // todo: selle rea entity objektida saaks luua mapperi abil
+
+
         // todo: role ei saa mapperiga külge panna, see tuleb ise peale mäppimist käsitsi külge panna
         // todo: user objekt tuleb siis amndmebaasi ära salvestada
         // todo: peale salvestamist on see user objekt ise foreign key järgmise tabeli kandele

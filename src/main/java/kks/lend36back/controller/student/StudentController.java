@@ -1,5 +1,6 @@
 package kks.lend36back.controller.student;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import kks.lend36back.controller.student.dto.NewCompany;
 import kks.lend36back.controller.student.dto.NewStudent;
@@ -16,13 +17,16 @@ public class StudentController {
     private final StudentService studentService;
 
     @PostMapping("/student/register")
+    @Operation(summary = "Uue õppuri lisamine. Kontrollib õppuri emaili admini andmebaasist")
     public void addNewStudent(@RequestBody @Valid NewStudent newStudent){
+
         studentService.addNewStudent(newStudent);
     }
 
-   @PostMapping("/company/register")
-    public void addNewCompany(@RequestBody @Valid NewCompany newCompany){
-        studentService.addNewCompany(newCompany);
+
+   //@PostMapping("/company/register")
+    //public void addNewCompany(@RequestBody @Valid NewCompany newCompany){
+       // studentService.addNewCompany(newCompany);
     }
 
-}
+
