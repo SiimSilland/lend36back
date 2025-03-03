@@ -1,0 +1,86 @@
+package kks.lend36back.service;
+
+import jakarta.validation.Valid;
+import kks.lend36back.controller.student.dto.NewStudent;
+import kks.lend36back.persistence.role.Role;
+import kks.lend36back.persistence.role.RoleRepository;
+import kks.lend36back.persistence.user.UserMapper;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class StudentService {
+
+    public static final int ROLE_STUDENT = 2;
+
+    private static RoleRepository roleRepository;
+    private final UserMapper userMapper;
+
+    public void addNewStudent(NewStudent newStudent) {
+
+        // todo: otsi tabelist ülesse group email rida (sisse tulnud emaili abil)
+        // todo: selle saad entity objektina!!!!!!!
+        // todo: kui aga ei saanud seda ride, siis veateade "Sellist student emaili ei saa...:
+
+        // todo: kui saime, siis saame edasi liikuda
+
+        Role role = roleRepository.getReferenceById(ROLE_STUDENT);
+
+
+        // todo: meil on vaja nüüd kõige peaalt lisada uus rida (entoity objekt) user tablisse
+
+        // todo: selle rea entity objektida saaks luua mapperi abil
+        // todo: role ei saa mapperiga külge panna, see tuleb ise peale mäppimist käsitsi külge panna
+        // todo: user objekt tuleb siis amndmebaasi ära salvestada
+        // todo: peale salvestamist on see user objekt ise foreign key järgmise tabeli kandele
+        // todo: peale salvestamist on see user objekt ise foreign key järgmise tabeli kandele
+
+        // todo: siis oleks vaja lisada uus rida student_profile tabelisse
+
+        // todo: selleks on meil vaja uut student_profile enityti objekti
+
+        // todo: meil on juba olemas 3- väljaga andmed group_email entity objektis
+
+        // todo: Meil oleks mõistilik see student_profile enityti objekt luua mapperi abil
+        //  kasutades seda olemasolevat group_email entity objekti ja tyhjade stringide jaoks constanti
+
+        // todo: user infot ei saa mapperiga panna, see tuleb ise panna student_profile'ile peale mäppimist käsitsi külge
+
+        // todo: peale seda saab student_profile rea ära salvestada
+
+        // todo: peale seda saab student_profile rea ära salvestada
+
+        // todo: nüüd on vaja salvestada uus õpilane user_group tabelisse
+        // todo:on vaja luua uus user_group objekt (seda teha käsitsi()
+
+        // todo: selleks on vaja user objekti (entity) ja group objekti (enityt),
+        // todo: group objekti (enityt) saab kenasti group_email objekti küljest
+
+        // todo: kui user aja group objektid on olamas ja pandud user_group objekti külge
+
+        // todo: siis see rida ära salvestada
+
+        // todo: FINITO! :)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+}

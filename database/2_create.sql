@@ -46,6 +46,8 @@ CREATE TABLE group_email
 (
     id       serial       NOT NULL,
     group_id int          NOT NULL,
+    first_name varchar(255) NOT NULL,
+    last_name  varchar(255) NOT NULL,
     email    varchar(255) NOT NULL,
     status   varchar(1)   NOT NULL,
     CONSTRAINT group_email_pk PRIMARY KEY (id)

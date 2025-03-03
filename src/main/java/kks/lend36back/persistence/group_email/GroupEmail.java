@@ -24,6 +24,16 @@ public class GroupEmail {
 
     @Size(max = 255)
     @NotNull
+    @Column(name = "first_name", nullable = false)
+    private String firstName;
+
+    @Size(max = 255)
+    @NotNull
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
+
+    @Size(max = 255)
+    @NotNull
     @Column(name = "email", nullable = false)
     private String email;
 
