@@ -163,7 +163,7 @@ CREATE TABLE user_image (
 -- Table: user_task
 CREATE TABLE user_task (
                            id serial  NOT NULL,
-                           strundet_user_id int  NOT NULL,
+                           student_user_id int  NOT NULL,
                            task_id int  NOT NULL,
                            status varchar(1)  NOT NULL,
                            CONSTRAINT user_task_pk PRIMARY KEY (id)
@@ -316,7 +316,7 @@ ALTER TABLE user_task ADD CONSTRAINT user_task_task
 
 -- Reference: user_task_user (table: user_task)
 ALTER TABLE user_task ADD CONSTRAINT user_task_user
-    FOREIGN KEY (strundet_user_id)
+    FOREIGN KEY (student_user_id)
         REFERENCES "user" (id)
         NOT DEFERRABLE
             INITIALLY IMMEDIATE
