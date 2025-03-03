@@ -2,6 +2,8 @@ package kks.lend36back.service;
 
 import jakarta.validation.Valid;
 import kks.lend36back.controller.student.dto.NewStudent;
+import kks.lend36back.persistence.group_email.GroupEmail;
+import kks.lend36back.persistence.group_email.GroupEmailRepository;
 import kks.lend36back.persistence.role.Role;
 import kks.lend36back.persistence.role.RoleRepository;
 import kks.lend36back.persistence.user.UserMapper;
@@ -15,18 +17,24 @@ public class StudentService {
     public static final int ROLE_STUDENT = 2;
 
     private static RoleRepository roleRepository;
+    private static GroupEmailRepository groupEmailRepository;
     private final UserMapper userMapper;
 
     public void addNewStudent(NewStudent newStudent) {
 
         // todo: otsi tabelist ülesse group email rida (sisse tulnud emaili abil)
+        // Boolean studentEmail = groupEmailRepository.findByEmail(newStudent.getEmail());
+
         // todo: selle saad entity objektina!!!!!!!
+
+
+
+
         // todo: kui aga ei saanud seda ride, siis veateade "Sellist student emaili ei saa...:
 
         // todo: kui saime, siis saame edasi liikuda
 
         Role role = roleRepository.getReferenceById(ROLE_STUDENT);
-
 
         // todo: meil on vaja nüüd kõige peaalt lisada uus rida (entoity objekt) user tablisse
 
