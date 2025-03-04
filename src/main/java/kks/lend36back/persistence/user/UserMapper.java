@@ -14,19 +14,19 @@ public interface UserMapper {
 
     @Mapping(source = "id", target = "userId")
     @Mapping(source = "role.name", target = "roleName")
-    LoginResponse toLoginResponse(User user);
+    LoginResponse toLoginResponse (User user);
 
-    @Mapping(source = "newStudent.email", target = "email")
-    @Mapping(source = "newStudent.password", target = "password")
-    @Mapping(source = "", target = "status")
-    User newStudentToUser (NewStudent, newStudent);
+    @Mapping(source = "email", target = "email")
+    @Mapping(source = "password", target = "password")
+    @Mapping(source = "status", target = "status")
+    User newStudentToUser (NewStudent newStudent);
 
     @Mapping(source = "", target = "email")
     @Mapping(source = "", target = "password")
     @Mapping(source = "", target = "id")
     @Mapping(source = "", target = "role")
     @Mapping(source = "", target = "status")
-    User newCompany (NewCompany, newCompany);
+    User newCompany (NewCompany newCompany);
 
 
 }

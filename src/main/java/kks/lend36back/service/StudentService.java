@@ -38,16 +38,13 @@ public class StudentService {
         // todo: kui saime, siis saame edasi liikuda
         //email, password, status > muuda status ära GroupEmail'is ning User'is.
 
-        private void createStudent (newStudent){
+        User user = userMapper.newStudentToUser(newStudent);
 
-            User user = userMapper.newStudentToUser(newStudent);
-
-        }
+        // todo: meil on vaja nüüd kõige peaalt lisada uus rida (entoity objekt) user tablisse
+        // todo: selle rea entity objektida saaks luua mapperi abil
 
         Role role = roleRepository.getReferenceById(ROLE_STUDENT);
-        // todo: meil on vaja nüüd kõige peaalt lisada uus rida (entoity objekt) user tablisse
-
-        // todo: selle rea entity objektida saaks luua mapperi abil
+        user.setRole(role);
 
 
         // todo: role ei saa mapperiga külge panna, see tuleb ise peale mäppimist käsitsi külge panna
