@@ -7,6 +7,8 @@ import kks.lend36back.persistence.group_email.GroupEmail;
 import kks.lend36back.persistence.group_email.GroupEmailRepository;
 import kks.lend36back.persistence.role.Role;
 import kks.lend36back.persistence.role.RoleRepository;
+import kks.lend36back.persistence.student_profile.StudentProfileMapper;
+import kks.lend36back.persistence.student_profile.StudentProfileRepository;
 import kks.lend36back.persistence.user.User;
 import kks.lend36back.persistence.user.UserMapper;
 import kks.lend36back.persistence.user.UserRepository;
@@ -27,6 +29,8 @@ public class StudentService {
     private final GroupEmailRepository groupEmailRepository;
     private final UserMapper userMapper;
     private final UserRepository userRepository;
+    private final StudentProfileRepository studentProfileRepository;
+    private final StudentProfileMapper studentProfileMapper;
 
 
     public void addNewStudent(NewStudent newStudent) {
@@ -40,24 +44,21 @@ public class StudentService {
         //email, password, status > muuda status ära GroupEmail'is ning User'is.
 
         User user = userMapper.newStudentToUser(newStudent);
-
         // todo: meil on vaja nüüd kõige peaalt lisada uus rida (entoity objekt) user tablisse
         // todo: selle rea entity objektida saaks luua mapperi abil
 
         Role role = roleRepository.getReferenceById(ROLE_STUDENT);
         user.setRole(role);
-
         userRepository.save(user);
-
         // todo: role ei saa mapperiga külge panna, see tuleb ise peale mäppimist käsitsi külge panna
         // todo: user objekt tuleb siis amndmebaasi ära salvestada
         // todo: peale salvestamist on see user objekt ise foreign key järgmise tabeli kandele
-        // todo: peale salvestamist on see user objekt ise foreign key järgmise tabeli kandele
+       // studentProfileRepository.
+        User userEmail = studentProfileMapper.emailToStudentProfile(user);
+        GroupEmail groupEmailData = studentProfileMapper.studentNameToStudentProfile(groupEmail);
 
         // todo: siis oleks vaja lisada uus rida student_profile tabelisse
-
         // todo: selleks on meil vaja uut student_profile enityti objekti
-
         // todo: meil on juba olemas 3- väljaga andmed group_email entity objektis
 
         // todo: Meil oleks mõistilik see student_profile enityti objekt luua mapperi abil
@@ -80,10 +81,6 @@ public class StudentService {
         // todo: siis see rida ära salvestada
 
         // todo: FINITO! :)
-
-
-
-
 
 
 
