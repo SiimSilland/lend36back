@@ -15,5 +15,7 @@ public interface GroupEmailRepository extends JpaRepository<GroupEmail, Integer>
     Optional<GroupEmail> findByEmail(String email, String status);
 
 
+
+
 }
 
