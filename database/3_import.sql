@@ -7,6 +7,10 @@ INSERT INTO lend."user" (id, role_id, email, password, status) VALUES (default, 
 INSERT INTO lend."user" (id, role_id, email, password, status) VALUES (default, 2, 'student', '123', 'A');
 INSERT INTO lend."user" (id, role_id, email, password, status) VALUES (default, 3, 'company', '123', 'A');
 
+INSERT INTO lend."group" (id, number, period, lector_name) VALUES (default, 26, 'veebruar 2025 - märts 2025 ', 'Rain');
+
+
+
 INSERT INTO lend.group_email (id, group_id, first_name, last_name, email, status) VALUES (default, 1, 'Rain', 'Tüür', 'rain@gmail.ee', 'P');
 INSERT INTO lend.group_email (id, group_id, first_name, last_name, email, status) VALUES (default, 1, 'Siim', 'Silland', 'student', 'A');
 

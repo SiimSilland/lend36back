@@ -28,7 +28,6 @@ public class StudentService {
     private final UserMapper userMapper;
 
     public void addNewStudent(NewStudent newStudent) {
-
         // todo: otsi tabelist ülesse group email rida (sisse tulnud emaili abil)
         Optional<GroupEmail> optionalGroupEmail = groupEmailRepository.findByEmail(newStudent.getEmail());
         // todo: selle saad entity objektina!!!!!!!
