@@ -1,8 +1,7 @@
 package kks.lend36back.service;
 
-import jakarta.validation.Valid;
+
 import kks.lend36back.controller.student.dto.NewStudent;
-import kks.lend36back.infrastructure.Error;
 import kks.lend36back.infrastructure.exception.ForbiddenException;
 import kks.lend36back.persistence.group_email.GroupEmail;
 import kks.lend36back.persistence.group_email.GroupEmailRepository;
@@ -10,6 +9,7 @@ import kks.lend36back.persistence.role.Role;
 import kks.lend36back.persistence.role.RoleRepository;
 import kks.lend36back.persistence.user.User;
 import kks.lend36back.persistence.user.UserMapper;
+import kks.lend36back.persistence.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +23,11 @@ public class StudentService {
 
     public static final int ROLE_STUDENT = 2;
 
-    private static RoleRepository roleRepository;
-    private static GroupEmailRepository groupEmailRepository;
+    private final RoleRepository roleRepository;
+    private final GroupEmailRepository groupEmailRepository;
     private final UserMapper userMapper;
+    private final UserRepository userRepository;
+
 
     public void addNewStudent(NewStudent newStudent) {
         // todo: otsi tabelist ülesse group email rida (sisse tulnud emaili abil)
@@ -45,6 +47,7 @@ public class StudentService {
         Role role = roleRepository.getReferenceById(ROLE_STUDENT);
         user.setRole(role);
 
+        userRepository.save(user);
 
         // todo: role ei saa mapperiga külge panna, see tuleb ise peale mäppimist käsitsi külge panna
         // todo: user objekt tuleb siis amndmebaasi ära salvestada

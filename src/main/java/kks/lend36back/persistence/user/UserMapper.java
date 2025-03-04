@@ -20,13 +20,13 @@ public interface UserMapper {
     @Mapping(source = "password", target = "password")
     @Mapping(source = "status", target = "status")
     User newStudentToUser (NewStudent newStudent);
-
+/*
     @Mapping(source = "", target = "email")
     @Mapping(source = "", target = "password")
     @Mapping(source = "", target = "id")
     @Mapping(source = "", target = "role")
     @Mapping(source = "", target = "status")
     User newCompany (NewCompany newCompany);
-
+*/
 
 }
