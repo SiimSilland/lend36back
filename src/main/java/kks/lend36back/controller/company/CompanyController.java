@@ -23,3 +23,11 @@ public class CompanyController {
         companyService.addNewCompany(newCompany);
     }
 }
+
+/*
+    public void addNewStudent(@RequestBody @Valid NewStudent newStudent){
+
+        studentService.addNewStudent(newStudent);
+    }
+
+        }

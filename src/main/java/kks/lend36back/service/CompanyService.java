@@ -28,7 +28,7 @@ public class CompanyService {
 
 
     public void addNewCompany(NewCompany newCompany) {
-        User user = createAnSaveCompany(NewCompany);
+        User user = createAnSaveCompany(newCompany);
         creatAndSaveNewCompanyProfile(newCompany, user);
     }
     private User createAnSaveCompany(NewCompany newCompany) {
