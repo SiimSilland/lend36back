@@ -12,6 +12,8 @@ import kks.lend36back.persistence.student_profile.StudentProfileRepository;
 import kks.lend36back.persistence.user.User;
 import kks.lend36back.persistence.user.UserMapper;
 import kks.lend36back.persistence.user.UserRepository;
+import kks.lend36back.persistence.user_group.UserGroup;
+import kks.lend36back.persistence.user_group.UserGroupRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,13 +33,14 @@ public class StudentService {
     private final UserRepository userRepository;
     private final StudentProfileRepository studentProfileRepository;
     private final StudentProfileMapper studentProfileMapper;
+    private final UserGroupRepository userGroupRepository;
 
 
     public void addNewStudent(NewStudent newStudent) {
         // todo: otsi tabelist ülesse group email rida (sisse tulnud emaili abil)
         Optional<GroupEmail> optionalGroupEmail = groupEmailRepository.findByEmail(newStudent.getEmail());
         // todo: selle saad entity objektina!!!!!!!
-        GroupEmail groupEmail = optionalGroupEmail.orElseThrow(() ->
+        GroupEmail studentEmail = optionalGroupEmail.orElseThrow(() ->
                 new ForbiddenException(INCORRECT_EMAIL.getMessage(), INCORRECT_EMAIL.getErrorCode()));
         // todo: kui aga ei saanud seda ride, siis veateade "Sellist student emaili ei saa...:
         // todo: kui saime, siis saame edasi liikuda
@@ -50,12 +53,17 @@ public class StudentService {
         Role role = roleRepository.getReferenceById(ROLE_STUDENT);
         user.setRole(role);
         userRepository.save(user);
+
         // todo: role ei saa mapperiga külge panna, see tuleb ise peale mäppimist käsitsi külge panna
         // todo: user objekt tuleb siis amndmebaasi ära salvestada
         // todo: peale salvestamist on see user objekt ise foreign key järgmise tabeli kandele
-       // studentProfileRepository.
-        User userEmail = studentProfileMapper.emailToStudentProfile(user);
-        GroupEmail groupEmailData = studentProfileMapper.studentNameToStudentProfile(groupEmail);
+
+        //StudentProfile studentProfile = new StudentProfile();
+        studentProfileMapper.emailToStudentProfile(user);
+        studentProfileMapper.studentNameFromGroupEmailToStudentProfile();
+
+       studentProfileRepository.save();
+
 
         // todo: siis oleks vaja lisada uus rida student_profile tabelisse
         // todo: selleks on meil vaja uut student_profile enityti objekti
@@ -70,6 +78,7 @@ public class StudentService {
 
         // todo: peale seda saab student_profile rea ära salvestada
 
+
         // todo: nüüd on vaja salvestada uus õpilane user_group tabelisse
         // todo:on vaja luua uus user_group objekt (seda teha käsitsi()
 
@@ -81,14 +90,6 @@ public class StudentService {
         // todo: siis see rida ära salvestada
 
         // todo: FINITO! :)
-
-
-
-
-
-
-
-
 
 
 

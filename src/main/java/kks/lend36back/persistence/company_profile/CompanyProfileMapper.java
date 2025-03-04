@@ -15,6 +15,6 @@ public interface CompanyProfileMapper {
     CompanyProfile toCompanyProfile (NewCompany newCompany);
 
     @Mapping(source = "id", target = "id")
-    void idToCompanyProfile (User user);
+    User idToCompanyProfile (User user);
 
 }

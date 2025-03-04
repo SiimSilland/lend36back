@@ -20,7 +20,7 @@ import java.util.Optional;
 
 import static kks.lend36back.infrastructure.Error.INCORRECT_EMAIL;
 
-
+/*
 @Service
 @RequiredArgsConstructor
 public class CompanyService {
@@ -29,11 +29,11 @@ public class CompanyService {
     private final UserMapper userMapper;
     private final UserRepository userRepository;
     private final CompanyProfileMapper companyProfileMapper;
-    private final CompanyProfileRepository companyProfileRepository;
+    //private final CompanyProfileRepository companyProfileRepository;
+*/
 
-
-    public void addNewCompany(NewCompany newCompany) {
-
+ //   public void addNewCompany(NewCompany newCompany)
+/*
        CompanyProfile companyProfile =  companyProfileMapper.idToCompanyProfile(newCompany);
 
        User user = companyProfileRepository.getReferenceById (ROLE_COMPANY);
@@ -42,7 +42,9 @@ public class CompanyService {
 
         userRepository.save(user);
     }
-    }
+
+ */
+
 
 /*public void addNewUser(NewUser newUser) {
     User user = createAndSaveUser(newUser);

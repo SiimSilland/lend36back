@@ -1,4 +1,5 @@
-package kks.lend36back.controller.company;
+/*
+ package kks.lend36back.controller.company;
 
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,3 +24,6 @@ public class CompanyController {
         companyService.addNewCompany(newCompany);
     }
 }
+
+
+ */
