@@ -35,12 +35,12 @@ public class NewCompany implements Serializable {
     @Size(max = 30)
     private String registration_number;
 
-    @NotNull
+    /*@NotNull
     @Size(max = 255)
     private String description;
 
     @NotNull
     @Size(max = 255)
     private String www;
-
+*/
 }

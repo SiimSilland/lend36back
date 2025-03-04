@@ -9,17 +9,12 @@ import org.mapstruct.*;
 
 public interface CompanyProfileMapper {
     CompanyProfile toEntity(CompanyProfile companyProfile);
-    @Mapping(source = "email", target = "email")
-    @Mapping(source = "password", target = "password")
-    User newCompanyToUser (NewCompany newCompany);
 
+    @Mapping(source = "name", target = "name")
+    @Mapping(source = "registration_number", target = "registrationNumber")
+    CompanyProfile toCompanyProfile (NewCompany newCompany);
 
-    @Mapping(source = "email", target = "email")
-    @Mapping(source = "password", target = "password")
-    @Mapping(source = "email", target = "email")
-    @Mapping(source = "password", target = "password")
-    @Mapping(source = "email", target = "email")
-    @Mapping(source = "password", target = "password")
-    User newCompanyToUser (NewCompany newCompany);
+    @Mapping(source = "id", target = "id")
+    void idToCompanyProfile (User user);
 
 }
