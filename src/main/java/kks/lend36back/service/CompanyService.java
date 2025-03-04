@@ -10,11 +10,8 @@ import kks.lend36back.persistence.user.User;
 import kks.lend36back.persistence.user.UserMapper;
 import kks.lend36back.persistence.user.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.mapstruct.Mapping;
 
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

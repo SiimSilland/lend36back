@@ -18,7 +18,7 @@ public interface UserMapper {
 
     @Mapping(source = "email", target = "email")
     @Mapping(source = "password", target = "password")
-    @Mapping(source = "status", target = "status")
+    @Mapping(expression = "java(Status.ACTIVE.getCode())", target = "status")
     User newStudentToUser (NewStudent newStudent);
 
     @Mapping(source = "email", target = "email")
