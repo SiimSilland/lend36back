@@ -3,10 +3,12 @@ package kks.lend36back.service;
 
 import kks.lend36back.controller.student.dto.NewStudent;
 import kks.lend36back.infrastructure.exception.ForbiddenException;
+import kks.lend36back.persistence.group.Group;
 import kks.lend36back.persistence.group_email.GroupEmail;
 import kks.lend36back.persistence.group_email.GroupEmailRepository;
 import kks.lend36back.persistence.role.Role;
 import kks.lend36back.persistence.role.RoleRepository;
+import kks.lend36back.persistence.student_profile.StudentProfile;
 import kks.lend36back.persistence.student_profile.StudentProfileMapper;
 import kks.lend36back.persistence.student_profile.StudentProfileRepository;
 import kks.lend36back.persistence.user.User;
@@ -14,8 +16,11 @@ import kks.lend36back.persistence.user.UserMapper;
 import kks.lend36back.persistence.user.UserRepository;
 import kks.lend36back.persistence.user_group.UserGroup;
 import kks.lend36back.persistence.user_group.UserGroupRepository;
+import kks.lend36back.status.Status;
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.Mapping;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -36,34 +41,28 @@ public class StudentService {
     private final UserGroupRepository userGroupRepository;
 
 
+    @Transactional
     public void addNewStudent(NewStudent newStudent) {
         // todo: otsi tabelist ülesse group email rida (sisse tulnud emaili abil)
-        Optional<GroupEmail> optionalGroupEmail = groupEmailRepository.findByEmail(newStudent.getEmail());
         // todo: selle saad entity objektina!!!!!!!
-        GroupEmail studentEmail = optionalGroupEmail.orElseThrow(() ->
-                new ForbiddenException(INCORRECT_EMAIL.getMessage(), INCORRECT_EMAIL.getErrorCode()));
         // todo: kui aga ei saanud seda ride, siis veateade "Sellist student emaili ei saa...:
         // todo: kui saime, siis saame edasi liikuda
-        //email, password, status > muuda status ära GroupEmail'is ning User'is.
+        GroupEmail groupEmail = groupEmailRepository.findByEmail(newStudent.getEmail(), Status.ACTIVE.getCode())
+                .orElseThrow(() -> new ForbiddenException(INCORRECT_EMAIL.getMessage(), INCORRECT_EMAIL.getErrorCode()));
 
-        User user = userMapper.newStudentToUser(newStudent);
-        // todo: meil on vaja nüüd kõige peaalt lisada uus rida (entoity objekt) user tablisse
-        // todo: selle rea entity objektida saaks luua mapperi abil
-
+        // todo: role ei saa mapperiga külge panna, see tuleb kõige pealt andmebaasist üles leida
         Role role = roleRepository.getReferenceById(ROLE_STUDENT);
-        user.setRole(role);
-        userRepository.save(user);
 
-        // todo: role ei saa mapperiga külge panna, see tuleb ise peale mäppimist käsitsi külge panna
+
+        // todo: meil on vaja nüüd kõige peaalt lisada uus rida (entoity objekt) 'user' tablisse
+        // todo: selle rea entity objektida saaks luua mapperi abil
+        User user = userMapper.newStudentToUser(newStudent);
+        // todo: kuna role ei saa mapperiga külge panna, see tuleb ise peale mäppimist käsitsi külge panna
+        user.setRole(role);
+
         // todo: user objekt tuleb siis amndmebaasi ära salvestada
         // todo: peale salvestamist on see user objekt ise foreign key järgmise tabeli kandele
-
-        //StudentProfile studentProfile = new StudentProfile();
-        studentProfileMapper.emailToStudentProfile(user);
-        studentProfileMapper.studentNameFromGroupEmailToStudentProfile();
-
-       studentProfileRepository.save();
-
+        userRepository.save(user);
 
         // todo: siis oleks vaja lisada uus rida student_profile tabelisse
         // todo: selleks on meil vaja uut student_profile enityti objekti
@@ -72,31 +71,25 @@ public class StudentService {
         // todo: Meil oleks mõistilik see student_profile enityti objekt luua mapperi abil
         //  kasutades seda olemasolevat group_email entity objekti ja tyhjade stringide jaoks constanti
 
-        // todo: user infot ei saa mapperiga panna, see tuleb ise panna student_profile'ile peale mäppimist käsitsi külge
-
+//        @Mapping(source = "EI SAA MÄPPIDA", target = "user")
+        StudentProfile studentProfile = studentProfileMapper.toStudentProfile(groupEmail);
+        studentProfile.setUser(user);
         // todo: peale seda saab student_profile rea ära salvestada
-
-        // todo: peale seda saab student_profile rea ära salvestada
-
+        studentProfileRepository.save(studentProfile);
 
         // todo: nüüd on vaja salvestada uus õpilane user_group tabelisse
-        // todo:on vaja luua uus user_group objekt (seda teha käsitsi()
+        // todo: selleks on vaja tekitada seostablisse user_group üks uus rida
+        // todo: user_group rida võtab sisse sisuliselt ainult foreign keyd
+        // todo: meil ei ole mõsitlik luua selle rea objekto loomiseks juurde üht mäpperit
+        // todo: lihtsam on ise teha juurde üks UUS (new) user_group objekt
+        //  ja panna setteritega külge vajalikud foreign key objecktid
+        //  Group foreing key saate 'groupEmail' objekti seest
+        // todo: ning siis see rida ära salvestada
 
-        // todo: selleks on vaja user objekti (entity) ja group objekti (enityt),
-        // todo: group objekti (enityt) saab kenasti group_email objekti küljest
+        // todo: Viimase sammuna on vaha muuta ära groupEmail objekti sees tema status from P to A
+        // todo: see satuse muudatus tuleb ka andmebaasi ära salvestada
 
-        // todo: kui user aja group objektid on olamas ja pandud user_group objekti külge
-
-        // todo: siis see rida ära salvestada
-
-        // todo: FINITO! :)
-
-
-
-
-
-
-
+        // FINITO
 
     }
 }
