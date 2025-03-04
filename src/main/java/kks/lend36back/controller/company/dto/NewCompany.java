@@ -1,4 +1,4 @@
-package kks.lend36back.controller.student.dto;
+package kks.lend36back.controller.company.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -34,5 +34,13 @@ public class NewCompany implements Serializable {
     @NotNull
     @Size(max = 30)
     private String registration_number;
+
+    @NotNull
+    @Size(max = 255)
+    private String description;
+
+    @NotNull
+    @Size(max = 255)
+    private String www;
 
 }

@@ -23,8 +23,8 @@ public class StudentService {
 
     public static final int ROLE_STUDENT = 2;
 
-    private static RoleRepository roleRepository;
-    private static GroupEmailRepository groupEmailRepository;
+    private final RoleRepository roleRepository;
+    private final GroupEmailRepository groupEmailRepository;
     private final UserMapper userMapper;
 
     public void addNewStudent(NewStudent newStudent) {
