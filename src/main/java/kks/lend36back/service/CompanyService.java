@@ -1,12 +1,9 @@
 package kks.lend36back.service;
 
 import kks.lend36back.controller.company.dto.NewCompany;
-import kks.lend36back.controller.student.dto.NewStudent;
-import kks.lend36back.infrastructure.exception.ForbiddenException;
 import kks.lend36back.persistence.company_profile.CompanyProfile;
 import kks.lend36back.persistence.company_profile.CompanyProfileMapper;
 import kks.lend36back.persistence.company_profile.CompanyProfileRepository;
-import kks.lend36back.persistence.group_email.GroupEmail;
 import kks.lend36back.persistence.role.Role;
 import kks.lend36back.persistence.role.RoleRepository;
 import kks.lend36back.persistence.user.User;
@@ -14,12 +11,10 @@ import kks.lend36back.persistence.user.UserMapper;
 import kks.lend36back.persistence.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.Mapping;
+
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
-import static kks.lend36back.infrastructure.Error.INCORRECT_EMAIL;
-
 
 @Service
 @RequiredArgsConstructor
@@ -33,16 +28,57 @@ public class CompanyService {
 
 
     public void addNewCompany(NewCompany newCompany) {
-
-       CompanyProfile companyProfile =  companyProfileMapper.idToCompanyProfile(newCompany);
-
-       User user = companyProfileRepository.getReferenceById (ROLE_COMPANY);
-       user.setRole(role);
-
-
+        User user = createAnSaveCompany(NewCompany);
+        creatAndSaveNewCompanyProfile(newCompany, user);
+    }
+    private User createAnSaveCompany(NewCompany newCompany) {
+        User user = createCompany(newCompany);
         userRepository.save(user);
+        return user;
     }
+    private User createCompany(NewCompany newCompany) {
+        Role role = roleRepository.getReferenceById(ROLE_COMPANY);
+        User user = userMapper.newCompanyToUser(newCompany);
+        user.setRole(role);
+        return user;
     }
+    private void creatAndSaveNewCompanyProfile(NewCompany newCompany, User user) {
+        CompanyProfile companyProfile = createProfile(newCompany, user);
+        companyProfileRepository.save(companyProfile);
+    }
+
+    private CompanyProfile createProfile(NewCompany newCompany, User user) {
+        CompanyProfile companyProfile = companyProfileMapper.toCompanyProfile(newCompany);
+        companyProfile.setUser(user);
+        return companyProfile;
+    }
+}
+/*/    
+        role = roleRepository.getReferenceById(ROLE_COMPANY);
+
+        User user = userMapper.newCompanyToUser(newCompany);
+        user.setRole(role);
+        userRepository.set(user);
+
+        private void createAndSaveProfile(NewUser newUser, User user) {
+            Profile profile = createProfile(newUser, user);
+            profileRepository.save(profile);
+        }
+
+        private Profile createProfile(NewUser newUser, User user) {
+            Profile profile = profileMapper.toProfile(newUser);
+            profile.setUser(user);
+            return profile;
+        }
+       /* CompanyProfile companyProfile =  companyProfileMapper.toCompanyProfile(newCompany);
+        companyProfile = companyProfileRepository.getReferenceById(ROLE_COMPANY);
+        user.setRole(role);
+       userRepository.save(user);
+       @Mapping(source = "id", target = "id")
+    void idToCompanyProfile (User user);
+       */
+    
+    
 
 /*public void addNewUser(NewUser newUser) {
     User user = createAndSaveUser(newUser);
