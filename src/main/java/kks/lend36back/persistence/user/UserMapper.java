@@ -1,6 +1,6 @@
 package kks.lend36back.persistence.user;
 
-import kks.lend36back.controller.company.dto.NewCompany;
+import kks.lend36back.controller.company.dto.NewCompanyDto;
 import kks.lend36back.controller.login.dto.LoginResponse;
 import kks.lend36back.controller.student.dto.NewStudent;
 import kks.lend36back.status.Status;
@@ -23,7 +23,7 @@ public interface UserMapper {
     @Mapping(source = "email", target = "email")
     @Mapping(source = "password", target = "password")
     @Mapping(expression = "java(Status.ACTIVE.getCode())", target = "status")
-    User toUser(NewCompany newCompany);
+    User toUser(NewCompanyDto newCompany);
 
 
 

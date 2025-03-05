@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NewCompany implements Serializable {
+public class NewCompanyDto implements Serializable {
 
     @NotNull
     @Size(max = 255)

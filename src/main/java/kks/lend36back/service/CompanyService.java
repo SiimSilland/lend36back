@@ -1,6 +1,6 @@
 package kks.lend36back.service;
 
-import kks.lend36back.controller.company.dto.NewCompany;
+import kks.lend36back.controller.company.dto.NewCompanyDto;
 import kks.lend36back.controller.company.dto.NewCompanyProfile;
 import kks.lend36back.persistence.company_profile.CompanyProfile;
 import kks.lend36back.persistence.company_profile.CompanyProfileMapper;
@@ -27,27 +27,25 @@ public class CompanyService {
     private final CompanyProfileRepository companyProfileRepository;
 
     @Transactional
-    public void addNewCompany(NewCompany newCompany) {
+    public void addNewCompany(NewCompanyDto newCompany) {
         Role role = roleRepository.getReferenceById(ROLE_COMPANY);
         User user = userMapper.toUser(newCompany);
         user.setRole(role);
         userRepository.save(user);
 
-        CompanyProfile companyProfile = companyProfileMapper.toCompanyProfile(newCompany);
+        CompanyProfile companyProfile = companyProfileMapper.toNewCompany(newCompany);
         companyProfile.setUser(user);
         companyProfileRepository.save(companyProfile);
     }
 
-    public List<NewCompanyProfile> getCompanyProfile() {
-        List<CompanyProfile> AllCompanyProfiles = companyProfileRepository.findAll();
-        List<NewCompanyProfile> companyProfiles = companyProfileMapper.toCompanyProfiles(AllCompanyProfiles);
+    public List<CompanyProfile> getCompanyprofiles(String companyName) {
+        List<CompanyProfile> companyProfiles = companyProfileRepository.getCompanyProfilesBy(companyName);
         return companyProfiles;
-    }
+            }
 
     public void updateCompanyProfile(NewCompanyProfile newCompanyProfile) {
-        CompanyProfile companyProfile = CompanyProfileMapper.toCompanyProfiles(newCompanyProfile);
-        companyProfile.setCompanyprofile(companyProfile);
-        companyProfileRepository.save(newCompanyProfile);
+       CompanyProfile companyProfile = companyProfileMapper.toCompanyProfile(newCompanyProfile);
+        companyProfileRepository.save(companyProfile);
     }
 }
    /* public void updateCompanyProfile(NewCompanyProfile newCompanyProfile, NewCompany newCompany) {
