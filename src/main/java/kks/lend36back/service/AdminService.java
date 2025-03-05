@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 
 public class AdminService {
-    public static final int ROLE_ADMIN = 1;
+
     private final GroupRepository groupRepository;
     private final GroupMapper groupMapper;
     private final GroupEmailRepository groupEmailRepository;
@@ -24,11 +24,15 @@ public class AdminService {
 
     public void addNewGroup (NewGroup newGroup){
         Group group = groupMapper.toGroup(newGroup);
-        groupRepository.save(group);
+        Group savedGroup = groupRepository.save(group);
+        System.out.println(savedGroup);
+
     }
 
     public void addNewGroupEmail (NewGroupEmail newGroupEmail) {
         GroupEmail groupEmail = groupEmailMapper.toGroupEmail (newGroupEmail);
         groupEmailRepository.save(groupEmail);
+
     }
+
 }
