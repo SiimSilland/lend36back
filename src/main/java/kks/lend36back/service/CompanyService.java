@@ -9,6 +9,7 @@ import kks.lend36back.persistence.role.RoleRepository;
 import kks.lend36back.persistence.user.User;
 import kks.lend36back.persistence.user.UserMapper;
 import kks.lend36back.persistence.user.UserRepository;
+import kks.lend36back.status.Status;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -24,17 +25,17 @@ public class CompanyService {
     private final CompanyProfileRepository companyProfileRepository;
 
 
-    public void addNewCompany(NewCompany newCompany, User user) {
-        CompanyProfile companyProfile = creatAndSaveNewCompanyProfile(newCompany, user);
+    public void addNewCompany(NewCompany newCompany) {
         Role role = roleRepository.getReferenceById(ROLE_COMPANY);
-        user = userMapper.newCompanyToUser(newCompany);
+        User user = userMapper.newCompanyToUser(newCompany);
         user.setRole(role);
+        user.setStatus(Status.ACTIVE.getCode());
         userRepository.save(user);
-    }
-    private CompanyProfile creatAndSaveNewCompanyProfile(NewCompany newCompany, User user) {
+
         CompanyProfile companyProfile = companyProfileMapper.toCompanyProfile(newCompany);
         companyProfile.setUser(user);
-        return companyProfile;
+        companyProfileRepository.save(companyProfile);
+
     }
 }
 /*/    
