@@ -44,5 +44,24 @@ public class CompanyService {
         return companyProfiles;
     }
 
-
+    public void updateCompanyProfile(NewCompanyProfile newCompanyProfile) {
+        CompanyProfile companyProfile = CompanyProfileMapper.toCompanyProfiles(newCompanyProfile);
+        companyProfile.setCompanyprofile(companyProfile);
+        companyProfileRepository.save(newCompanyProfile);
+    }
 }
+   /* public void updateCompanyProfile(NewCompanyProfile newCompanyProfile, NewCompany newCompany) {
+        Role role = roleRepository.getReferenceById(ROLE_COMPANY);
+        User user = userMapper.toUser(newCompany);
+        user.setRole(role);
+        userRepository.save(user);
+    }
+}
+
+
+   /*1 public void updateCompanyProfile(NewCompanyProfile newCompanyProfile) {
+        CompanyProfile companyProfile = createProfile
+
+    }
+}
+*/

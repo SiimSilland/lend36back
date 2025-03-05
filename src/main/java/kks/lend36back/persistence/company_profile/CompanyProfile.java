@@ -50,4 +50,7 @@ public class CompanyProfile {
     @Column(name = "phone", nullable = false, length = 25)
     private String phone;
 
+    public void setCompanyprofile(CompanyProfile companyProfile) {
+
+    }
 }

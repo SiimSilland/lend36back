@@ -14,6 +14,10 @@ import java.util.List;
 
 public interface CompanyProfileMapper {
 
+    static CompanyProfile toCompanyProfiles(NewCompanyProfile newCompanyProfile) {
+       return newCompanyProfile;
+    }
+
     @Mapping(source = "companyName", target = "name")
     @Mapping(source = "registrationNumber", target = "registrationNumber")
     @Mapping(constant = "", target = "description")
