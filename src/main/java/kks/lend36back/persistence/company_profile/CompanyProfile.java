@@ -45,4 +45,9 @@ public class CompanyProfile {
     @Column(name = "address", length = 225)
     private String address;
 
+    @Size(max = 25)
+    @NotNull
+    @Column(name = "phone", nullable = false, length = 25)
+    private String phone;
+
 }

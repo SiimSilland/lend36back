@@ -19,9 +19,11 @@ CREATE TABLE company_profile
     registration_number varchar(30)  NOT NULL,
     description varchar(1000)  NULL,
     www varchar(255)  NULL,
-    address varchar(225) NULL,
+    address varchar(225)  NOT NULL,
+    phone varchar(25)  NOT NULL,
     CONSTRAINT enterprises_pk PRIMARY KEY (id)
 );
+
 
 -- Table: cv
 CREATE TABLE cv

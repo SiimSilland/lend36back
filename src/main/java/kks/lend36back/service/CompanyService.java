@@ -1,6 +1,7 @@
 package kks.lend36back.service;
 
 import kks.lend36back.controller.company.dto.NewCompany;
+import kks.lend36back.controller.company.dto.NewCompanyProfile;
 import kks.lend36back.persistence.company_profile.CompanyProfile;
 import kks.lend36back.persistence.company_profile.CompanyProfileMapper;
 import kks.lend36back.persistence.company_profile.CompanyProfileRepository;
@@ -12,6 +13,8 @@ import kks.lend36back.persistence.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +36,11 @@ public class CompanyService {
         CompanyProfile companyProfile = companyProfileMapper.toCompanyProfile(newCompany);
         companyProfile.setUser(user);
         companyProfileRepository.save(companyProfile);
+    }
 
+    public List<NewCompanyProfile> getCompanyProfile() {
+        List<CompanyProfile> AllCompanyProfiles = companyProfileRepository.findAll();
+        List<NewCompanyProfile> companyProfiles = companyProfileMapper.toCompanyProfiles(AllCompanyProfiles);
+        return companyProfiles;
     }
 }
