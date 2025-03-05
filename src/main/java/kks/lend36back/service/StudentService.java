@@ -40,19 +40,20 @@ public class StudentService {
     private final StudentProfileMapper studentProfileMapper;
     private final UserGroupRepository userGroupRepository;
 
+// todo: tee transactional
 
-    @Transactional
     public void addNewStudent(NewStudent newStudent) {
         // todo: otsi tabelist ülesse group email rida (sisse tulnud emaili abil)
         // todo: selle saad entity objektina!!!!!!!
         // todo: kui aga ei saanud seda ride, siis veateade "Sellist student emaili ei saa...:
         // todo: kui saime, siis saame edasi liikuda
-        GroupEmail groupEmail = groupEmailRepository.findByEmail(newStudent.getEmail(), Status.ACTIVE.getCode())
+        GroupEmail groupEmail = groupEmailRepository.findByEmail(newStudent.getEmail(), Status.PENDING.getCode())
                 .orElseThrow(() -> new ForbiddenException(INCORRECT_EMAIL.getMessage(), INCORRECT_EMAIL.getErrorCode()));
+
+        // todo: (Siimu lisatud)siin on puudu staatuse kontrolli vastus. kui staatus on groupEmailis A, siis peaks user juba registreeritud olema.
 
         // todo: role ei saa mapperiga külge panna, see tuleb kõige pealt andmebaasist üles leida
         Role role = roleRepository.getReferenceById(ROLE_STUDENT);
-
 
         // todo: meil on vaja nüüd kõige peaalt lisada uus rida (entoity objekt) 'user' tablisse
         // todo: selle rea entity objektida saaks luua mapperi abil
@@ -62,6 +63,8 @@ public class StudentService {
 
         // todo: user objekt tuleb siis amndmebaasi ära salvestada
         // todo: peale salvestamist on see user objekt ise foreign key järgmise tabeli kandele
+        user.setStatus("A");
+
         userRepository.save(user);
 
         // todo: siis oleks vaja lisada uus rida student_profile tabelisse
@@ -78,6 +81,12 @@ public class StudentService {
         studentProfileRepository.save(studentProfile);
 
         // todo: nüüd on vaja salvestada uus õpilane user_group tabelisse
+
+        UserGroup userGroup = new UserGroup();
+        userGroup.setGroup(groupEmail.getGroup());
+        userGroup.setUser(user);
+        userGroupRepository.save(userGroup);
+
         // todo: selleks on vaja tekitada seostablisse user_group üks uus rida
         // todo: user_group rida võtab sisse sisuliselt ainult foreign keyd
         // todo: meil ei ole mõsitlik luua selle rea objekto loomiseks juurde üht mäpperit
