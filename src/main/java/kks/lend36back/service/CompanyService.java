@@ -43,4 +43,6 @@ public class CompanyService {
         List<NewCompanyProfile> companyProfiles = companyProfileMapper.toCompanyProfiles(AllCompanyProfiles);
         return companyProfiles;
     }
+
+
 }
