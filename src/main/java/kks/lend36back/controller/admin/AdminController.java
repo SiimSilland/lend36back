@@ -2,7 +2,7 @@ package kks.lend36back.controller.admin;
 
 import io.swagger.v3.oas.annotations.Operation;
 import kks.lend36back.controller.admin.dto.NewGroup;
-import kks.lend36back.controller.admin.dto.NewStudent;
+import kks.lend36back.controller.admin.dto.AddStudent;
 import kks.lend36back.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,8 +24,8 @@ public class AdminController {
 
     @PostMapping ("/admin/student")
     @Operation (summary = "lisab uue õpilase")
-    public void addNewGroupEmail (@RequestBody NewStudent newStudent) {
-        adminService.addNewGroupEmail(newStudent);
+    public void addNewStudentToGroup(@RequestBody AddStudent addStudent) {
+        adminService.addNewStudentToGroup(addStudent);
     }
 }
 

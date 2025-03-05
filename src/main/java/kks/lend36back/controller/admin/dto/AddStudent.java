@@ -11,7 +11,7 @@ import java.io.Serializable;
  * DTO for {@link GroupEmail}
  */
 @Value
-public class NewStudent implements Serializable {
+public class AddStudent implements Serializable {
     //@NotNull
     //GroupDto group;
 
