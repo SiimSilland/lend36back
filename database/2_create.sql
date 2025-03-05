@@ -13,12 +13,13 @@ CREATE TABLE city
 -- Table: company_profile
 CREATE TABLE company_profile
 (
-    id                  serial        NOT NULL,
-    user_id             int           NOT NULL,
-    name                varchar(255)  NOT NULL,
-    registration_number varchar(30)   NOT NULL,
-    description         varchar(1000) NULL,
-    www                 varchar(255)  NULL,
+    id serial  NOT NULL,
+    user_id int  NOT NULL,
+    name varchar(255)  NOT NULL,
+    registration_number varchar(30)  NOT NULL,
+    description varchar(1000)  NULL,
+    www varchar(255)  NULL,
+    address varchar(225) NULL,
     CONSTRAINT enterprises_pk PRIMARY KEY (id)
 );
 

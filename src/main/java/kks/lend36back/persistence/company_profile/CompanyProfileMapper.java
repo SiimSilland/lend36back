@@ -1,20 +1,21 @@
 package kks.lend36back.persistence.company_profile;
 
 import kks.lend36back.controller.company.dto.NewCompany;
-import kks.lend36back.persistence.user.User;
 import kks.lend36back.status.Status;
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingConstants;
+import org.mapstruct.ReportingPolicy;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, imports = {Status.class})
 
 public interface CompanyProfileMapper {
-    CompanyProfile toEntity(CompanyProfile companyProfile);
 
-    @Mapping(source = "name", target = "name")
-    @Mapping(source = "registration_number", target = "registrationNumber")
+    @Mapping(source = "companyName", target = "name")
+    @Mapping(source = "registrationNumber", target = "registrationNumber")
+    @Mapping(constant = "", target = "description")
+    @Mapping(constant = "", target = "www")
+    @Mapping(constant = "", target = "address")
     CompanyProfile toCompanyProfile (NewCompany newCompany);
-
-    @Mapping(source = "id", target = "id")
-    User idToCompanyProfile (User user);
 
 }

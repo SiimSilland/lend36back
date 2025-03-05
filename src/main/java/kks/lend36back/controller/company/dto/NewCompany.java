@@ -29,18 +29,10 @@ public class NewCompany implements Serializable {
 
     @NotNull
     @Size(max = 255)
-    private String name;
+    private String companyName;
 
     @NotNull
     @Size(max = 30)
-    private String registration_number;
+    private String registrationNumber;
 
-    /*@NotNull
-    @Size(max = 255)
-    private String description;
-
-    @NotNull
-    @Size(max = 255)
-    private String www;
-*/
 }

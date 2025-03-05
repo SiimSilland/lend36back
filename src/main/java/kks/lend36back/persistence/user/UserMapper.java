@@ -18,12 +18,12 @@ public interface UserMapper {
 
     @Mapping(source = "email", target = "email")
     @Mapping(source = "password", target = "password")
-   // @Mapping(source = "", target = "status")
-    User newStudentToUser (NewStudent newStudent);
+    User toUser(NewStudent newStudent);
 
     @Mapping(source = "email", target = "email")
     @Mapping(source = "password", target = "password")
-    User newCompanyToUser (NewCompany newCompany);
+    @Mapping(expression = "java(Status.ACTIVE.getCode())", target = "status")
+    User toUser(NewCompany newCompany);
 
 
 

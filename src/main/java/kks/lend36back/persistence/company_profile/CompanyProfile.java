@@ -17,6 +17,7 @@ public class CompanyProfile {
     @Column(name = "id", nullable = false)
     private Integer id;
 
+
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
@@ -39,5 +40,9 @@ public class CompanyProfile {
     @Size(max = 255)
     @Column(name = "www")
     private String www;
+
+    @Size(max = 225)
+    @Column(name = "address", length = 225)
+    private String address;
 
 }

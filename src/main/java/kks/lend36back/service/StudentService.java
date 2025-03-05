@@ -45,7 +45,7 @@ public class StudentService {
                 .orElseThrow(() -> new ForbiddenException(INCORRECT_EMAIL.getMessage(), INCORRECT_EMAIL.getErrorCode()));
         // todo: promt kui kasutaja on juba registreeritud
         Role role = roleRepository.getReferenceById(ROLE_STUDENT);
-        User user = userMapper.newStudentToUser(newStudent);
+        User user = userMapper.toUser(newStudent);
 
         user.setRole(role);
 
