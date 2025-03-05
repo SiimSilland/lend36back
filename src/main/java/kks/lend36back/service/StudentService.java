@@ -59,7 +59,7 @@ public class StudentService {
         studentProfileRepository.save(studentProfile);
 
         UserGroup userGroup = new UserGroup();
-        userGroup.setGroup(groupEmail.getGroup());
+        userGroup.setGroup(groupEmail.getGroupId());
         userGroup.setUser(user);
         userGroupRepository.save(userGroup);
 

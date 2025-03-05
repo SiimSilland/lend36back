@@ -17,10 +17,15 @@ public class GroupEmail {
     @Column(name = "id", nullable = false)
     private Integer id;
 
+
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "group_id", nullable = false)
-    private Group group;
+    private Group groupId;
+
+    @NotNull
+    @Column(name = "group_number", nullable = false)
+    private Integer groupNumber;
 
     @Size(max = 255)
     @NotNull
