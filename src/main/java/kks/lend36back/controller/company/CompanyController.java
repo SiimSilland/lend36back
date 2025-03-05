@@ -19,7 +19,7 @@ public class CompanyController {
        @PostMapping("/company/register")
    @Operation (summary = "lisab uue firma andmebaasi")
 
-       public void addNewCompany(@RequestBody @Valid NewCompany newCompany) {
+       public void addNewCompany(@RequestBody NewCompany newCompany) {
         companyService.addNewCompany(newCompany);
     }
 }

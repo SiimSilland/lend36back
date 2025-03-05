@@ -24,27 +24,14 @@ public class CompanyService {
     private final CompanyProfileRepository companyProfileRepository;
 
 
-    public void addNewCompany(NewCompany newCompany) {
-        User user = createAnSaveCompany(newCompany);
-        creatAndSaveNewCompanyProfile(newCompany, user);
-    }
-    private User createAnSaveCompany(NewCompany newCompany) {
-        User user = createCompany(newCompany);
-        userRepository.save(user);
-        return user;
-    }
-    private User createCompany(NewCompany newCompany) {
+    public void addNewCompany(NewCompany newCompany, User user) {
+        CompanyProfile companyProfile = creatAndSaveNewCompanyProfile(newCompany, user);
         Role role = roleRepository.getReferenceById(ROLE_COMPANY);
-        User user = userMapper.newCompanyToUser(newCompany);
+        user = userMapper.newCompanyToUser(newCompany);
         user.setRole(role);
-        return user;
+        userRepository.save(user);
     }
-    private void creatAndSaveNewCompanyProfile(NewCompany newCompany, User user) {
-        CompanyProfile companyProfile = createProfile(newCompany, user);
-        companyProfileRepository.save(companyProfile);
-    }
-
-    private CompanyProfile createProfile(NewCompany newCompany, User user) {
+    private CompanyProfile creatAndSaveNewCompanyProfile(NewCompany newCompany, User user) {
         CompanyProfile companyProfile = companyProfileMapper.toCompanyProfile(newCompany);
         companyProfile.setUser(user);
         return companyProfile;
