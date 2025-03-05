@@ -14,9 +14,11 @@ import java.io.Serializable;
 public class NewGroup implements Serializable {
     @NotNull
     Integer number;
+
     @NotNull
     @Size(max = 255)
     String period;
+
     @NotNull
     @Size(max = 255)
     String lectorName;
