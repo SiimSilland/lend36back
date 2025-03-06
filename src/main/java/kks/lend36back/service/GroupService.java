@@ -9,6 +9,7 @@ import kks.lend36back.persistence.group.GroupRepository;
 import kks.lend36back.persistence.groupemail.GroupEmail;
 import kks.lend36back.persistence.groupemail.GroupEmailMapper;
 import kks.lend36back.persistence.groupemail.GroupEmailRepository;
+import kks.lend36back.status.Status;
 import kks.lend36back.validation.ValidationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,7 @@ public class GroupService {
     // Todo: transactional
     public void addNewGroup (NewGroup newGroup){
         Group group = groupMapper.toGroup(newGroup);
-        GroupEmail newRow = groupEmailMapper.toGroupEmail(newGroup);
+        //GroupEmail newRow = groupEmailMapper.toGroupEmail(newGroup);
 
         groupRepository.save(group);
 
@@ -43,17 +44,17 @@ public class GroupService {
 
         // Ei saa MÄPPIDA FOREIGN KEYD @Mapping(source = "", target = "groupId")
         Group group = groupRepository.findById(groupId).orElseThrow(() -> ValidationService.throwForeignKeyNotFoundException("groupId", groupId));
+        GroupEmail groupEmail = groupEmailMapper.toGroupEmail(newGroupEmail);
+        groupEmail.setGroup(group);
+        groupEmail.setStatus(PENDING.getCode());
+        groupEmailRepository.save(groupEmail);
 
 
         // @Mapping(constant = "EI SAA MÄPPIDA", target = "groupNumber")
 
-
-
         //GroupEmail groupEmail = groupEmailMapper.toGroupEmail(newGroupEmail);
         //groupEmail.setGroup(group);
         //groupEmail.setGroupNumber();
-
-
 
         //groupEmail.setStatus(PENDING.getCode());
 
