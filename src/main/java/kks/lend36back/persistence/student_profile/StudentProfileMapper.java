@@ -1,6 +1,6 @@
 package kks.lend36back.persistence.student_profile;
 
-import kks.lend36back.persistence.group_email.GroupEmail;
+import kks.lend36back.persistence.groupemail.GroupEmail;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;

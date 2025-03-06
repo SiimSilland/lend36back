@@ -3,8 +3,8 @@ package kks.lend36back.service;
 
 import kks.lend36back.controller.student.dto.NewStudent;
 import kks.lend36back.infrastructure.exception.ForbiddenException;
-import kks.lend36back.persistence.group_email.GroupEmail;
-import kks.lend36back.persistence.group_email.GroupEmailRepository;
+import kks.lend36back.persistence.groupemail.GroupEmail;
+import kks.lend36back.persistence.groupemail.GroupEmailRepository;
 import kks.lend36back.persistence.role.Role;
 import kks.lend36back.persistence.role.RoleRepository;
 import kks.lend36back.persistence.student_profile.StudentProfile;
@@ -59,7 +59,7 @@ public class StudentService {
         studentProfileRepository.save(studentProfile);
 
         UserGroup userGroup = new UserGroup();
-        userGroup.setGroup(groupEmail.getGroupId());
+        userGroup.setGroup(groupEmail.getGroup());
         userGroup.setUser(user);
         userGroupRepository.save(userGroup);
 

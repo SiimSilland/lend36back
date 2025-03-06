@@ -1,9 +1,6 @@
 package kks.lend36back.persistence.group;
 
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import kks.lend36back.controller.admin.dto.NewGroup;
+import kks.lend36back.controller.group.dto.NewGroup;
 import kks.lend36back.status.Status;
 import org.mapstruct.*;
 

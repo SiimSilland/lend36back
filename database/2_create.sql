@@ -13,14 +13,14 @@ CREATE TABLE city
 -- Table: company_profile
 CREATE TABLE company_profile
 (
-    id serial  NOT NULL,
-    user_id int  NOT NULL,
-    name varchar(255)  NOT NULL,
-    registration_number varchar(30)  NOT NULL,
-    description varchar(1000)  NULL,
-    www varchar(255)  NULL,
-    address varchar(225)  NOT NULL,
-    phone varchar(25)  NOT NULL,
+    id                  serial        NOT NULL,
+    user_id             int           NOT NULL,
+    name                varchar(255)  NOT NULL,
+    registration_number varchar(30)   NOT NULL,
+    description         varchar(1000) NULL,
+    www                 varchar(255)  NULL,
+    address             varchar(225)  NOT NULL,
+    phone               varchar(25)   NOT NULL,
     CONSTRAINT enterprises_pk PRIMARY KEY (id)
 );
 
@@ -44,15 +44,15 @@ CREATE TABLE "group"
     CONSTRAINT group_pk PRIMARY KEY (id)
 );
 -- Table: group_email
-CREATE TABLE group_email (
-                             id           serial       NOT NULL,
-                             group_id     int          NOT NULL,
-                             group_number int          NOT NULL,
-                             first_name   varchar(255) NOT NULL,
-                             last_name    varchar(255) NOT NULL,
-                             email        varchar(255) NOT NULL,
-                             status       varchar(1)   NOT NULL,
-                             CONSTRAINT group_email_pk PRIMARY KEY (id)
+CREATE TABLE group_email
+(
+    id           serial       NOT NULL,
+    group_id     int          NOT NULL,
+    first_name   varchar(255) NOT NULL,
+    last_name    varchar(255) NOT NULL,
+    email        varchar(255) NOT NULL,
+    status       varchar(1)   NOT NULL,
+    CONSTRAINT group_email_pk PRIMARY KEY (id)
 );
 
 

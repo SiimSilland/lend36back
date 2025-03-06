@@ -18,10 +18,10 @@ public class StudentController {
     @PostMapping("/student/register")
     @Operation(summary = "Uue õppuri lisamine. Kontrollib õppuri emaili admini andmebaasist")
 
-    public void addNewStudent(@RequestBody @Valid NewStudent newStudent){
+    public void addNewStudent(@RequestBody @Valid NewStudent newStudent) {
         studentService.addNewStudent(newStudent);
     }
 
-        }
+}
 
 
