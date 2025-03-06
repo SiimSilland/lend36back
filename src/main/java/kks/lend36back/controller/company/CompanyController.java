@@ -13,17 +13,17 @@ import java.util.ArrayList;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/company/profile")
+@RequestMapping("/company")
 public class CompanyController {
     private final CompanyService companyService;
 
-    @PostMapping("/company/register")
+    @PostMapping("/register")
     @Operation(summary = "lisab uue firma andmebaasi")
     public void addNewCompany(@RequestBody NewCompanyDto newCompany) {
         companyService.addNewCompany(newCompany);
-    }
+    };
 
-    @GetMapping("/company/profiles")
+    @GetMapping("/profiles")
     @Operation(
             summary = "Leiab süsteemist (andmebaasist Company profile tabelist nime järgi kõik firmad",
             description = "Tagastab firmad andmetega")
@@ -45,7 +45,7 @@ public class CompanyController {
         return simplifiedProfiles;
     };
 
-    @PutMapping("/company/profile")
+    @PutMapping("/profile")
     @Operation(summary = "Muudetakse firma profiili")
     public void updateCompanyProfile(@RequestBody NewCompanyProfileDto newCompanyProfileDto) {
     companyService.updateCompanyProfile(newCompanyProfileDto);

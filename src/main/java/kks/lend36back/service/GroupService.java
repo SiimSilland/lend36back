@@ -31,7 +31,6 @@ public class GroupService {
     public void addNewGroup (NewGroup newGroup){
         Group group = groupMapper.toGroup(newGroup);
         //GroupEmail newRow = groupEmailMapper.toGroupEmail(newGroup);
-
         groupRepository.save(group);
 
         //GroupEmail groupEmail = groupEmailMapper.toGroupEmail(newGroup);

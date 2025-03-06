@@ -11,7 +11,7 @@ public interface InternshipMapper {
     @Mapping(source = "description", target = "description")
     @Mapping(source = "coordinatorName", target = "coordinatorName")
     @Mapping(source = "coordinatorEmail", target = "coordinatorEmail")
-
+    @Mapping(target = "companyUser", ignore = true) // We will set this manually
 
     Internship toInternship(InternshipDto internship);
 
