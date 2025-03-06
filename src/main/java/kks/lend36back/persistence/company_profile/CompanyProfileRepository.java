@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
-/*
+
 public interface CompanyProfileRepository extends JpaRepository<CompanyProfile, Integer> {
 
     @Query("select c from CompanyProfile c where c.name = :companyName")
@@ -13,4 +13,3 @@ public interface CompanyProfileRepository extends JpaRepository<CompanyProfile, 
 
 }
 
- */
