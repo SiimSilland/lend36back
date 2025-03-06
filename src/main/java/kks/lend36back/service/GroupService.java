@@ -49,19 +49,19 @@ public class GroupService {
 
 
 
-        GroupEmail groupEmail = groupEmailMapper.toGroupEmail(newGroupEmail);
-        groupEmail.setGroup(group);
-        groupEmail.setGroupNumber();
+        //GroupEmail groupEmail = groupEmailMapper.toGroupEmail(newGroupEmail);
+        //groupEmail.setGroup(group);
+        //groupEmail.setGroupNumber();
 
 
 
-        groupEmail.setStatus(PENDING.getCode());
+        //groupEmail.setStatus(PENDING.getCode());
 
         // Ei saa MÄPPIDA @Mapping(source = "", target = "status")
         // Ei saa MäPPIDA @Mapping(source = "", target = "groupNumber")
 
 
-        groupEmailRepository.save(groupEmail);
+       // groupEmailRepository.save(groupEmail);
 
     }
 
