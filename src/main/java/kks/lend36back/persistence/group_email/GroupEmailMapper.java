@@ -1,6 +1,8 @@
 package kks.lend36back.persistence.group_email;
 
 import kks.lend36back.controller.admin.dto.AddStudent;
+import kks.lend36back.controller.admin.dto.NewGroup;
+import kks.lend36back.persistence.group.Group;
 import kks.lend36back.status.Status;
 import org.mapstruct.*;
 
@@ -23,6 +25,11 @@ public interface GroupEmailMapper {
     @Mapping(source = "email", target = "email")
     // Ei saa MÄPPIDA @Mapping(source = "", target = "status")
     GroupEmail toGroupEmail (AddStudent addStudent);
+
+//    @Mapping(source = "" , target = "groupId")
+    @Mapping(source = "number" , target = "groupNumber")
+    GroupEmail addNewRow (NewGroup newGroup);
+
 
 
 }

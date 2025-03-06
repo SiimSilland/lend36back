@@ -7,6 +7,7 @@ import kks.lend36back.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -22,9 +23,9 @@ public class AdminController {
     };
 
 
-    @PostMapping ("/admin/student")
+    @PostMapping ("/admin/student/?36")
     @Operation (summary = "lisab uue õpilase")
-    public void addNewStudentToGroup(@RequestBody AddStudent addStudent) {
+    public void addNewStudentToGroup(@RequestBody AddStudent addStudent @RequestParam Integer groupNumber) {
         adminService.addNewStudentToGroup(addStudent);
     }
 }

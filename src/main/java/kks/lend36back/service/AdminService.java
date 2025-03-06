@@ -13,6 +13,8 @@ import kks.lend36back.status.Status;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import static kks.lend36back.status.Status.PENDING;
+
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +29,8 @@ public class AdminService {
     // Todo: transactional
     public void addNewGroup (NewGroup newGroup){
         Group group = groupMapper.toGroup(newGroup);
+        GroupEmail newRow = groupEmailMapper.addNewRow(newGroup);
+
         groupRepository.save(group);
 
         //GroupEmail groupEmail = groupEmailMapper.toGroupEmail(newGroup);
@@ -34,23 +38,26 @@ public class AdminService {
 
     }
 
-    public void addNewStudentToGroup(AddStudent newStudent) {
+    public void addNewStudentToGroup(AddStudent addStudent) {
 
-        GroupEmail addStudent = groupEmailMapper.toGroupEmail(newStudent);
+        GroupEmail studentInfo = groupEmailMapper.toGroupEmail(addStudent);
+
+
 
         Group group = new Group();
-        Integer groupId = group.getId();
+        //Integer groupId = group.getId();
+       // studentInfo.setGroupId(groupId);
 
        // addStudent.setGroupId(groupId);
         // Ei saa MÄPPIDA @Mapping(source = "", target = "groupId")
 
-        addStudent.setStatus(Status.PENDING.getCode());
+        studentInfo.setStatus(PENDING.getCode());
 
         // Ei saa MÄPPIDA @Mapping(source = "", target = "status")
         // Ei saa MäPPIDA @Mapping(source = "", target = "groupNumber")
 
 
-        groupEmailRepository.save(addStudent);
+        groupEmailRepository.save(studentInfo);
 
     }
 

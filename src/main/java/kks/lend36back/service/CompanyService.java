@@ -1,5 +1,6 @@
-package kks.lend36back.service;
 /*
+package kks.lend36back.service;
+
 import kks.lend36back.controller.company.dto.NewCompanyDto;
 import kks.lend36back.controller.company.dto.NewCompanyProfile;
 import kks.lend36back.persistence.company_profile.CompanyProfile;
