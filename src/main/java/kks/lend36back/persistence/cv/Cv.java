@@ -20,9 +20,11 @@ public class Cv {
     @Column(name = "data", nullable = false)
     private byte[] data;
 
-    @NotNull
+
+   @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
 
 }
