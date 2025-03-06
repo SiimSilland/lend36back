@@ -1,3 +1,4 @@
+
 package kks.lend36back.service;
 
 import kks.lend36back.controller.company.dto.NewCompanyDto;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor

@@ -12,3 +12,4 @@ public interface CompanyProfileRepository extends JpaRepository<CompanyProfile, 
     List<CompanyProfile> getCompanyProfilesBy(String companyName);
 
 }
+
