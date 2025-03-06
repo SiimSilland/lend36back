@@ -43,9 +43,10 @@ public class CompanyService {
         return companyProfiles;
             }
 
-    public void updateCompanyProfile(NewCompanyProfile newCompanyProfile) {
+    public CompanyProfile updateCompanyProfile(NewCompanyProfile newCompanyProfile) {
        CompanyProfile companyProfile = companyProfileMapper.toCompanyProfile(newCompanyProfile);
         companyProfileRepository.save(companyProfile);
+        return companyProfile;
     }
 }
    /* public void updateCompanyProfile(NewCompanyProfile newCompanyProfile, NewCompany newCompany) {
