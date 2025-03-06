@@ -1,4 +1,4 @@
-package kks.lend36back.controller.internship;
+package kks.lend36back.controller.internship.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

@@ -2,7 +2,7 @@
 package kks.lend36back.service;
 
 import kks.lend36back.controller.company.dto.NewCompanyDto;
-import kks.lend36back.controller.company.dto.NewCompanyProfile;
+import kks.lend36back.controller.company.dto.NewCompanyProfileDto;
 import kks.lend36back.persistence.company_profile.CompanyProfile;
 import kks.lend36back.persistence.company_profile.CompanyProfileMapper;
 import kks.lend36back.persistence.company_profile.CompanyProfileRepository;
@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
 @Service
 @RequiredArgsConstructor
 public class CompanyService {
@@ -27,6 +26,7 @@ public class CompanyService {
     private final UserRepository userRepository;
     private final CompanyProfileMapper companyProfileMapper;
     private final CompanyProfileRepository companyProfileRepository;
+    private NewCompanyDto NewCompanyProfileDto;
 
     @Transactional
     public void addNewCompany(NewCompanyDto newCompany) {
@@ -45,10 +45,10 @@ public class CompanyService {
         return companyProfiles;
             }
 
-    public CompanyProfile updateCompanyProfile(NewCompanyProfile newCompanyProfile) {
-       CompanyProfile companyProfile = companyProfileMapper.toCompanyProfile(newCompanyProfile);
+    public void updateCompanyProfile(NewCompanyProfileDto newCompanyProfile) {
+       CompanyProfile companyProfile = companyProfileMapper.toCompanyProfile(NewCompanyProfileDto);
         companyProfileRepository.save(companyProfile);
-        return companyProfile;
+
     }
 }
    /* public void updateCompanyProfile(NewCompanyProfile newCompanyProfile, NewCompany newCompany) {
