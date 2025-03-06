@@ -21,7 +21,7 @@ public interface GroupEmailMapper {
     @Mapping(source = "firstName", target = "firstName")
     @Mapping(source = "lastName", target = "lastName")
     @Mapping(source = "email", target = "email")
-    @Mapping(constant = "A", target = "status")
+    // panen otse GroupEmaili külge   @Mapping(constant = "P", target = "status")
     GroupEmail toGroupEmail(NewGroupEmail newGroupEmail);
 
 
