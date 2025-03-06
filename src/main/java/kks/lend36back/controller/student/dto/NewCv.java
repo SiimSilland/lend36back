@@ -17,5 +17,7 @@ import java.io.Serializable;
 public class NewCv implements Serializable {
     @NotNull
     private byte[] data;
-    private Integer userId;
+    @NotNull
+    private Integer user;
+
 }
