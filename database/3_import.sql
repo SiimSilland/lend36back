@@ -12,5 +12,6 @@ INSERT INTO lend."user" (id, role_id, email, password, status) VALUES (default, 
 INSERT INTO lend."user" (id, role_id, email, password, status) VALUES (default, 2, 'student', '123', 'A');
 INSERT INTO lend."user" (id, role_id, email, password, status) VALUES (default, 3, 'company', '123', 'A');
 
+INSERT INTO lend.company_profile (id, user_id, name, registration_number, description, www, address, phone) VALUES (default, 1, 'Apple', '123421341234', 'IT and Communication', null, 'Smith Street Tallinn', '234234234');
 
 
