@@ -7,6 +7,8 @@ import org.mapstruct.*;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, imports = {Status.class})
 public interface GroupEmailMapper {
+}
+
 
 
 
@@ -26,4 +28,5 @@ public interface GroupEmailMapper {
     GroupEmail toGroupEmail (NewStudent newStudent);
 
 
-}
+
+

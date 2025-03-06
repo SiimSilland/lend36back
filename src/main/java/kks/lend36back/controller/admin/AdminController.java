@@ -15,13 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminController {
     private final AdminService adminService;
 
-    @PostMapping ("/admin")
-    @Operation (summary = "lisab uue lennu/")
-    public void addNewGroup (@RequestBody NewGroup newGroup) {
+    @PostMapping("/admin")
+    @Operation(summary = "lisab uue lennu/")
+    public void addNewGroup(@RequestBody NewGroup newGroup) {
         adminService.addNewGroup(newGroup);
-    };
+    }
 
-
+    ;
+}
+/*
     @PostMapping ("/admin/student")
     @Operation (summary = "lisab uue õpilase")
     public void addNewGroupEmail (@RequestBody NewStudent newStudent) {
@@ -29,3 +31,4 @@ public class AdminController {
     }
 }
 
+*/

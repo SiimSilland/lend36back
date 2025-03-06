@@ -24,14 +24,15 @@ public class AdminService {
     private final GroupEmailRepository groupEmailRepository;
     private final GroupEmailMapper groupEmailMapper;
 
-    public void addNewGroup (NewGroup newGroup){
+    public void addNewGroup(NewGroup newGroup) {
         Group group = groupMapper.toGroup(newGroup);
         groupRepository.save(group);
 
         //GroupEmail groupEmail = groupEmailMapper.toGroupEmail(newGroup);
-       // GroupEmail groupEmail = groupEmailMapper.toGroupEmail(user);
+        // GroupEmail groupEmail = groupEmailMapper.toGroupEmail(user);
 
     }
+
 
     public void addNewGroupEmail (NewStudent newStudent) {
 
