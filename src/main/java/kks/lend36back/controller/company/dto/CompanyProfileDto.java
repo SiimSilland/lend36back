@@ -33,5 +33,4 @@ public class CompanyProfileDto implements Serializable {
             this.phone = phone;
         }
 
-        // Getters and setters (optional, depending on how you handle this)
     }

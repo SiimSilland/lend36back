@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import kks.lend36back.service.CompanyService;
 import java.util.List;
 import java.util.stream.Collectors;
-
+import java.util.ArrayList;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,7 +29,26 @@ public class CompanyController {
     @Operation(
             summary = "Leiab süsteemist (andmebaasist Company profile tabelist nime järgi kõik firmad",
             description = "Tagastab firmad andmetega")
+
     public List<CompanyProfileResponseDto> getCompanyProfiles(@RequestParam String companyName) {
+        List<CompanyProfile> companyProfiles = companyService.getCompanyprofiles(companyName);
+        List<CompanyProfileResponseDto> simplifiedProfiles = new ArrayList<>();
+        for (CompanyProfile companyProfile : companyProfiles) {
+            CompanyProfileResponseDto response = new CompanyProfileResponseDto(
+                    companyProfile.getName(),
+                    companyProfile.getRegistrationNumber(),
+                    companyProfile.getDescription(),
+                    companyProfile.getWww(),
+                    companyProfile.getAddress(),
+                    companyProfile.getPhone()
+            );
+            simplifiedProfiles.add(response);
+        }
+
+        return simplifiedProfiles;
+    }
+
+    /*public List<CompanyProfileResponseDto> getCompanyProfiles(@RequestParam String companyName) {
         List<CompanyProfile> companyProfiles = companyService.getCompanyprofiles(companyName);
         return companyProfiles.stream().map(companyProfile -> {
             CompanyProfileResponseDto response = new CompanyProfileResponseDto();
@@ -42,7 +61,7 @@ public class CompanyController {
             return response;
         }).collect(Collectors.toList());
     }
-
+*/
     /*0public List<CompanyProfile> getCompanyProfiles(@RequestParam String companyName) {
         return companyService.getCompanyprofiles(companyName);
     }*/
