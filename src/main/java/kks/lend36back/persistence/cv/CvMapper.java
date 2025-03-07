@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 public interface CvMapper {
 
 
-    @Mapping(source = "data", target = "data")
-    @Mapping(numberFormat = "", target = "user")
-    Cv toEntity(NewCv newCv);
+  //  @Mapping(source = "data", target = "data")
+    //@Mapping(numberFormat = "", target = "user")
+    //Cv toEntity(NewCv newCv);
 
     }
 
