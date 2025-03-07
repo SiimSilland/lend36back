@@ -1,14 +1,12 @@
 package kks.lend36back.controller.company;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import kks.lend36back.controller.company.dto.NewCompanyDto;
-import kks.lend36back.controller.company.dto.NewCompanyProfile;
-import kks.lend36back.persistence.company_profile.CompanyProfile;
+import kks.lend36back.controller.company.dto.NewCompanyProfileDto;
+import kks.lend36back.service.CompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import kks.lend36back.service.CompanyService;
-import java.util.List;
-
 
 @RestController
 @RequiredArgsConstructor
@@ -22,21 +20,16 @@ public class CompanyController {
         companyService.addNewCompany(newCompany);
     }
 
-    @GetMapping("/company/profiles")
+    @GetMapping("/company/profile")
     @Operation(
-            summary = "Leiab süsteemist (andmebaasist Company profile tabelist) kõik firmad",
-            description = "Tagastab firmad andmetega")
-    public List<CompanyProfile> getCompanyProfiles(@RequestParam String companyName) {
-        return companyService.getCompanyprofiles(companyName);
+            summary = "Leiab süsteemist Company profilili andmed userId järgi")
+    public void getCompanyProfile(@RequestParam Integer userId) {
+        companyService.getCompanyProfile(userId);   //todo: vaja teha
     }
 
     @PutMapping("/company/profile")
     @Operation(summary = "Muudetakse firma profiili")
-    public void updateCompanyProfile(@RequestBody NewCompanyProfile newCompanyProfile) {
-        companyService.updateCompanyProfile(newCompanyProfile);
+    public void updateCompanyProfile(@RequestParam Integer userId, @RequestBody @Valid NewCompanyProfileDto newCompanyProfileDto) {
+        companyService.updateCompanyProfile(userId, newCompanyProfileDto);
     }
-
 }
-
-
-
