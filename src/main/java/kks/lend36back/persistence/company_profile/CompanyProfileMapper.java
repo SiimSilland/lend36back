@@ -23,7 +23,7 @@ public interface CompanyProfileMapper {
     @Mapping(constant = "", target = "description")
     @Mapping(constant = "", target = "www")
     @Mapping(constant = "", target = "address")
-    CompanyProfile toNewCompany(NewCompanyDto newCompany);
+    CompanyProfile toNewCompany(NewCompanyDto newCompanyDto );
 
     List<NewCompanyProfile> getCompanyProfiles(List<CompanyProfile> companyProfiles);
 

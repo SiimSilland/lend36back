@@ -1,6 +1,7 @@
 package kks.lend36back.controller.company;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import kks.lend36back.controller.company.dto.CompanyProfileResponseDto;
 import kks.lend36back.controller.company.dto.NewCompanyDto;
 import kks.lend36back.controller.company.dto.NewCompanyProfileDto;
@@ -13,17 +14,17 @@ import java.util.ArrayList;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/company")
+
 public class CompanyController {
     private final CompanyService companyService;
 
-    @PostMapping("/register")
+    @PostMapping("/company/register")
     @Operation(summary = "lisab uue firma andmebaasi")
     public void addNewCompany(@RequestBody NewCompanyDto newCompany) {
         companyService.addNewCompany(newCompany);
     };
 
-    @GetMapping("/profiles")
+    @GetMapping("/company/profiles")
     @Operation(
             summary = "Leiab süsteemist (andmebaasist Company profile tabelist nime järgi kõik firmad",
             description = "Tagastab firmad andmetega")
@@ -45,9 +46,9 @@ public class CompanyController {
         return simplifiedProfiles;
     };
 
-    @PutMapping("/profile")
+    @PutMapping("/company/profile")
     @Operation(summary = "Muudetakse firma profiili")
-    public void updateCompanyProfile(@RequestBody NewCompanyProfileDto newCompanyProfileDto) {
+    public void updateCompanyProfile(@RequestBody @Valid NewCompanyProfileDto newCompanyProfileDto) {
     companyService.updateCompanyProfile(newCompanyProfileDto);
     };
  }

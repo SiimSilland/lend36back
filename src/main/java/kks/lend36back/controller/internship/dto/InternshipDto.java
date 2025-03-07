@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class InternshipDto implements Serializable {
 
     @NotNull
-    private Integer companyUserId; // Add this field
+    private Integer companyUserId;
 
     @NotNull
     @Size(max = 1000)

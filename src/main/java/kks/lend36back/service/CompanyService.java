@@ -28,7 +28,6 @@ public class CompanyService {
     private final CompanyProfileRepository companyProfileRepository;
     private NewCompanyDto NewCompanyProfileDto;
 
-    @Transactional
     public void addNewCompany(NewCompanyDto newCompany) {
         Role role = roleRepository.getReferenceById(ROLE_COMPANY);
         User user = userMapper.toUser(newCompany);
@@ -41,8 +40,7 @@ public class CompanyService {
     }
 
     public List<CompanyProfile> getCompanyprofiles(String companyName) {
-        List<CompanyProfile> companyProfiles = companyProfileRepository.getCompanyProfilesBy(companyName);
-        return companyProfiles;
+        return companyProfileRepository.getCompanyProfilesBy(companyName);
             }
 
     public void updateCompanyProfile(NewCompanyProfileDto newCompanyProfile) {
@@ -51,18 +49,3 @@ public class CompanyService {
 
     }
 }
-   /* public void updateCompanyProfile(NewCompanyProfile newCompanyProfile, NewCompany newCompany) {
-        Role role = roleRepository.getReferenceById(ROLE_COMPANY);
-        User user = userMapper.toUser(newCompany);
-        user.setRole(role);
-        userRepository.save(user);
-    }
-}
-
-
-   /*1 public void updateCompanyProfile(NewCompanyProfile newCompanyProfile) {
-        CompanyProfile companyProfile = createProfile
-
-    }
-}
-*/
