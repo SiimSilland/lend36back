@@ -30,39 +30,19 @@ public class GroupService {
     // Todo: transactional
     public void addNewGroup (NewGroup newGroup){
         Group group = groupMapper.toGroup(newGroup);
-        //GroupEmail newRow = groupEmailMapper.toGroupEmail(newGroup);
 
         groupRepository.save(group);
-
-        //GroupEmail groupEmail = groupEmailMapper.toGroupEmail(newGroup);
-       // GroupEmail groupEmail = groupEmailMapper.toGroupEmail(user);
 
     }
 
     public void addGroupEmail(NewGroupEmail newGroupEmail) {
         Integer groupId = newGroupEmail.getGroupId();
 
-        // Ei saa MÄPPIDA FOREIGN KEYD @Mapping(source = "", target = "groupId")
         Group group = groupRepository.findById(groupId).orElseThrow(() -> ValidationService.throwForeignKeyNotFoundException("groupId", groupId));
         GroupEmail groupEmail = groupEmailMapper.toGroupEmail(newGroupEmail);
         groupEmail.setGroup(group);
         groupEmail.setStatus(PENDING.getCode());
         groupEmailRepository.save(groupEmail);
-
-
-        // @Mapping(constant = "EI SAA MÄPPIDA", target = "groupNumber")
-
-        //GroupEmail groupEmail = groupEmailMapper.toGroupEmail(newGroupEmail);
-        //groupEmail.setGroup(group);
-        //groupEmail.setGroupNumber();
-
-        //groupEmail.setStatus(PENDING.getCode());
-
-        // Ei saa MÄPPIDA @Mapping(source = "", target = "status")
-        // Ei saa MäPPIDA @Mapping(source = "", target = "groupNumber")
-
-
-       // groupEmailRepository.save(groupEmail);
 
     }
 
