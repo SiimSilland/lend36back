@@ -1,20 +1,16 @@
 package kks.lend36back.persistence.cv;
 
-import kks.lend36back.controller.student.dto.NewCv;
-import kks.lend36back.persistence.user.User;
-import kks.lend36back.persistence.user.UserRepository;
+import kks.lend36back.controller.cv.dto.CvDto;
 import org.mapstruct.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
-public interface CvMapper {
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)public interface CvMapper {
+    @Mapping(source = "userId", target = "user.id")
+    Cv toEntity(CvDto cvDto);
 
+    @Mapping(source = "user.id", target = "userId")
+    CvDto toDto(Cv cv);
 
-  //  @Mapping(source = "data", target = "data")
-    //@Mapping(numberFormat = "", target = "user")
-    //Cv toEntity(NewCv newCv);
-
-    }
-
-
-
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+            @Mapping(source = "userId", target = "user.id")
+    Cv partialUpdate(CvDto cvDto, @MappingTarget Cv cv);
+}

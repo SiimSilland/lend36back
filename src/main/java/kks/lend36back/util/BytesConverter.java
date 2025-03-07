@@ -1,7 +1,10 @@
 package kks.lend36back.util;
 
+import org.springframework.stereotype.Service;
+
 import java.nio.charset.StandardCharsets;
 
+@Service
 public class BytesConverter {
 
         public static byte[] stringToBytesArray(String value){
