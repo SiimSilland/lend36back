@@ -17,12 +17,12 @@ public class Cv {
     private Integer id;
 
     @NotNull
-    @Column(name = "data", nullable = false)
-    private byte[] data;
-
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @NotNull
+    @Column(name = "data", nullable = false)
+    private byte[] data;
 
 }

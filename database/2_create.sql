@@ -29,8 +29,8 @@ CREATE TABLE company_profile
 CREATE TABLE cv
 (
     id      serial NOT NULL,
-    data    bytea  NOT NULL,
     user_id int    NOT NULL,
+    data    bytea  NOT NULL,
     CONSTRAINT cv_pk PRIMARY KEY (id)
 );
 
