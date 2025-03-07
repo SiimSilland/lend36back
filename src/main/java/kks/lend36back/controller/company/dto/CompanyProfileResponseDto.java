@@ -1,7 +1,5 @@
 package kks.lend36back.controller.company.dto;
 
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import kks.lend36back.persistence.company_profile.CompanyProfile;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,10 +14,10 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CompanyProfileResponseDto implements Serializable {
-        private String name;
-        private String registrationNumber;
-        private String description;
-        private String www;
-       private String address;
-       private String phone;
+    private String companyName;
+    private String registrationNumber;
+    private String description;
+    private String www;
+    private String address;
+    private String phone;
 }
