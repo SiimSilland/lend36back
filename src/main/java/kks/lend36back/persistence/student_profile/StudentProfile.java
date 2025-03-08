@@ -33,15 +33,15 @@ public class StudentProfile {
     private String lastName;
 
     @Size(max = 255)
-    @Column(name = "address")
+    @Column(name = "address", nullable = false)
     private String address;
 
     @Size(max = 255)
-    @Column(name = "phone")
+    @Column(name = "phone", nullable = false)
     private String phone;
 
     @Size(max = 255)
-    @Column(name = "linkedin")
+    @Column(name = "linkedin", nullable = false)
     private String linkedin;
 
     @Size(max = 255)

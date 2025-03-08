@@ -1,7 +1,9 @@
 package kks.lend36back.service;
 
 
+import jakarta.validation.Valid;
 import kks.lend36back.controller.student.dto.NewStudent;
+import kks.lend36back.controller.student.dto.StudentProfileDto;
 import kks.lend36back.infrastructure.exception.ForbiddenException;
 import kks.lend36back.persistence.groupemail.GroupEmail;
 import kks.lend36back.persistence.groupemail.GroupEmailRepository;
@@ -17,6 +19,7 @@ import kks.lend36back.persistence.user_group.UserGroup;
 import kks.lend36back.persistence.user_group.UserGroupRepository;
 import kks.lend36back.status.Status;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,7 +56,7 @@ public class StudentService {
 
         userRepository.save(user);
 
-        StudentProfile studentProfile = studentProfileMapper.toStudentProfile(groupEmail);
+        StudentProfile studentProfile = studentProfileMapper.toStudentProfile(new StudentProfileDto());
         studentProfile.setUser(user);
 
         studentProfileRepository.save(studentProfile);
@@ -66,5 +69,23 @@ public class StudentService {
         groupEmail.setStatus(ACTIVE.getCode());
         groupEmailRepository.save(groupEmail);
 
+
     }
-}
+
+    public void createAndSaveStudentProfile(@Valid StudentProfileDto studentProfileDto, User user) {
+            StudentProfile studentProfile = createStudentProfile (studentProfileDto, user);
+            studentProfileRepository.save(studentProfile);
+        }
+
+        private StudentProfile createStudentProfile (StudentProfileDto studentProfileDto, User user){
+            StudentProfile studentProfile = studentProfileMapper.toStudentProfile(studentProfileDto);
+            studentProfile.setUser(user);
+            return studentProfile;
+
+        }
+
+
+    }
+
+
+
