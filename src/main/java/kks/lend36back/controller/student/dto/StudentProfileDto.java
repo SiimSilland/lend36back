@@ -16,24 +16,18 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StudentProfileDto implements Serializable {
-
     @NotNull
     @Size(max = 255)
     private String firstName;
-
     @NotNull
     @Size(max = 255)
     private String lastName;
-
     @Size(max = 255)
     private String address;
-
     @Size(max = 255)
     private String phone;
-
     @Size(max = 255)
     private String linkedin;
-
     @NotNull
     @Size(max = 255)
     private String email;
