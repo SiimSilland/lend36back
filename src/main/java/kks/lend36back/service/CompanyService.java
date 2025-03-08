@@ -47,8 +47,6 @@ public class CompanyService {
     public void updateCompanyProfile(Integer userId, NewCompanyProfileDto newCompanyProfile) {
       CompanyProfile companyProfile = companyProfileRepository.findProfileBy(userId)
         .orElseThrow(() -> ValidationService.throwPrimaryKeyNotFoundException("userId", userId));
-
-// Update only non-null fields
     companyProfileMapper.updateCompanyProfile(newCompanyProfile, companyProfile);
     companyProfileRepository.save(companyProfile);
 }
