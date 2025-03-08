@@ -80,6 +80,7 @@ public class GroupService {
          */
 
     }
+
     public void addStudentName(StudentProfileDto studentProfileDto, User user){
         StudentProfile studentProfile = createStudentProfile(studentProfileDto, user);
         studentProfileRepository.save(studentProfile);
@@ -91,8 +92,5 @@ public class GroupService {
 
     }
 
-    public void addStudentName(StudentProfileDto studentProfileDto) {
-
-    }
 }
 
