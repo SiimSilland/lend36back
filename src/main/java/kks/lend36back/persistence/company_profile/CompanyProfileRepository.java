@@ -10,5 +10,8 @@ public interface CompanyProfileRepository extends JpaRepository<CompanyProfile, 
 
     @Query("select c from CompanyProfile c where c.user.id = :userId")
     Optional<CompanyProfile> findProfileBy(Integer userId);
+
+    boolean existsByRegistrationNumber(String registrationNumber);
+
 }
 
