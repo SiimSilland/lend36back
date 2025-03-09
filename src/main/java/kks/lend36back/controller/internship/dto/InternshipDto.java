@@ -33,4 +33,5 @@ public class InternshipDto implements Serializable {
     @Size(max = 255)
     private String coordinatorEmail;
 
+    private String status;
 }

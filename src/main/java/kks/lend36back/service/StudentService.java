@@ -89,4 +89,15 @@ public class StudentService {
 }
 
 
+/*
+    public void addStudentName(StudentProfileDto studentProfileDto, User user){
+        StudentProfile studentProfile = createStudentProfile(studentProfileDto, user);
+        studentProfileRepository.save(studentProfile);
+    }
+    private StudentProfile  createStudentProfile (StudentProfileDto studentProfileDto, User user) {
+        StudentProfile studentProfile = studentProfileMapper.toStudentProfile(studentProfileDto);
+        studentProfile.setUser(user);
+        return studentProfile;
 
+    }
+*/

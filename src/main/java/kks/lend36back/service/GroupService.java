@@ -2,10 +2,9 @@ package kks.lend36back.service;
 
 
 
-import jakarta.persistence.EntityNotFoundException;
 import kks.lend36back.controller.group.dto.NewGroup;
 import kks.lend36back.controller.group.dto.NewGroupEmail;
-import kks.lend36back.controller.student.dto.StudentProfileDto;
+import kks.lend36back.controller.student.dto.NameToStudentProfileDto;
 import kks.lend36back.persistence.group.Group;
 import kks.lend36back.persistence.group.GroupMapper;
 import kks.lend36back.persistence.group.GroupRepository;
@@ -42,7 +41,6 @@ public class GroupService {
         Group group = groupMapper.toGroup(newGroup);
         //GroupEmail newRow = groupEmailMapper.toGroupEmail(newGroup);
         groupRepository.save(group);
-
     }
 
     public void addGroupEmail(NewGroupEmail newGroupEmail) {
@@ -55,42 +53,43 @@ public class GroupService {
         groupEmail.setStatus(PENDING.getCode());
         groupEmailRepository.save(groupEmail);
 
-
-
         // @Mapping(constant = "EI SAA MÄPPIDA", target = "groupNumber")
-
         //GroupEmail groupEmail = groupEmailMapper.toGroupEmail(newGroupEmail);
         //groupEmail.setGroup(group);
         //groupEmail.setGroupNumber();
-
         //groupEmail.setStatus(PENDING.getCode());
-
         // Ei saa MÄPPIDA @Mapping(source = "", target = "status")
         // Ei saa MäPPIDA @Mapping(source = "", target = "groupNumber")
-
-
        // groupEmailRepository.save(groupEmail);
 
-        /*public void addStudentName(StudentProfileDto studentProfileDto) {
+    }
+    public void addStudentName(NameToStudentProfileDto nameToStudentProfileDto, User user) {
+        StudentProfile studentProfile = createStudentProfile(nameToStudentProfileDto, user);
+        studentProfileRepository.save(studentProfile);
+    }
+
+    private StudentProfile createStudentProfile(NameToStudentProfileDto nameToStudentProfileDto, User user) {
+        StudentProfile studentProfile = studentProfileMapper.nameToStudentProfile(nameToStudentProfileDto);
+        studentProfile.setUser(user);
+        if (studentProfile.getEmail() == null) {
+            studentProfile.setEmail("");
+        }
+        return studentProfile;
+    }
+}
+
+ /*
+    private StudentProfile  createStudentProfile (NameToStudentProfileDto nameToStudentProfileDto, User user) {
+        StudentProfile studentProfile = studentProfileMapper.nameToStudentProfile(nameToStudentProfileDto);
+        studentProfile.setUser(user);
+        return studentProfile;
+
+    }
+
+    public void addStudentName(StudentProfileDto studentProfileDto) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
         StudentProfile studentProfile = studentProfileMapper.toStudentProfile(studentProfileDto);
         studentProfile.setUser(user);
         studentProfileRepository.save(studentProfile);
          */
-
-    }
-
-    public void addStudentName(StudentProfileDto studentProfileDto, User user){
-        StudentProfile studentProfile = createStudentProfile(studentProfileDto, user);
-        studentProfileRepository.save(studentProfile);
-    }
-    private StudentProfile  createStudentProfile (StudentProfileDto studentProfileDto, User user) {
-        StudentProfile studentProfile = studentProfileMapper.toStudentProfile(studentProfileDto);
-        studentProfile.setUser(user);
-        return studentProfile;
-
-    }
-
-}
-

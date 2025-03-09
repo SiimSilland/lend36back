@@ -7,6 +7,7 @@ import kks.lend36back.persistence.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
+
 @Getter
 @Setter
 @Entity
@@ -45,6 +46,6 @@ public class Internship {
     @Size(max = 1)
     @NotNull
     @Column(name = "status", nullable = false, length = 1)
-    private String status;
+    private String status = "A";
 
 }

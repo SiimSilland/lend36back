@@ -5,6 +5,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import kks.lend36back.controller.group.dto.NewGroup;
 import kks.lend36back.controller.group.dto.NewGroupEmail;
+import kks.lend36back.controller.student.dto.NameToStudentProfileDto;
 import kks.lend36back.controller.student.dto.StudentProfileDto;
 import kks.lend36back.persistence.user.User;
 import kks.lend36back.persistence.user.UserRepository;
@@ -37,11 +38,11 @@ public class GroupController {
     }
 
     @PostMapping("/student/profile")
-    @Operation(summary = "lisab ees ja perekkonnanime proofili tabeliss")
-    public void addStudentName(@RequestBody StudentProfileDto studentProfileDto, @RequestParam Long userId) {
+    @Operation(summary = "lisab ees ja perekonnanime student_profile tabelisse")
+    public void addStudentName(@RequestBody NameToStudentProfileDto nameToStudentProfileDto, @RequestParam Long userId) {
        User user = userRepository.findById(Math.toIntExact(userId))
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
-        groupService.addStudentName(studentProfileDto, user);
+        groupService.addStudentName(nameToStudentProfileDto, user);
     }
 }
 
