@@ -9,8 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@RequiredArgsConstructor
+
 @Service
+@RequiredArgsConstructor
 public class CityService {
 
     private final CityRepository cityRepository;
@@ -19,8 +20,8 @@ public class CityService {
     public List<CityList> getCities(){
 
         List<City> cities = cityRepository.findAll();
-        List<CityList> cityList = cityMapper.toCityList(cities);
-        return cityList;
+        List<CityList> allCities = cityMapper.toCityList(cities);
+        return allCities;
 
 
     }
