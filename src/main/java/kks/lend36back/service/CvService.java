@@ -25,6 +25,9 @@ public class CvService {
         byte[] bytes = bytesConverter.stringToBytesArray(cvDto.getCvData());
         cv.setData(bytes);
         cvRepository.save(cv);
-
+    }
+    public void deleteCv(Integer userId) {
+        User userById = userRepository.findUserById(userId);
+        cvRepository.deleteCv(userById);
     }
 }
