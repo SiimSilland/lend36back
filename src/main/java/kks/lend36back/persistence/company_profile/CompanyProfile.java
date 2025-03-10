@@ -25,7 +25,7 @@ public class CompanyProfile {
     @Size(max = 255)
     @NotNull
     @Column(name = "name", nullable = false)
-    private String name;
+    private String companyName;
 
     @Size(max = 30)
     @NotNull
@@ -45,7 +45,6 @@ public class CompanyProfile {
     private String address;
 
     @Size(max = 25)
-    @NotNull
     @Column(name = "phone", nullable = false, length = 25)
     private String phone;
 
