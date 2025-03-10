@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import kks.lend36back.controller.company.dto.NewCompanyDto;
 import kks.lend36back.controller.company.dto.NewCompanyProfileDto;
+import kks.lend36back.persistence.user.User;
 import kks.lend36back.service.CompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +28,15 @@ public class CompanyController {
         companyService.getCompanyProfile(userId);   //todo: vaja teha
     }
 
-    @PutMapping("/company/profile")
+    @PutMapping("/company/profile/update")
     @Operation(summary = "Muudetakse firma profiili")
     public void updateCompanyProfile(@RequestParam Integer userId, @RequestBody @Valid NewCompanyProfileDto newCompanyProfileDto) {
         companyService.updateCompanyProfile(userId, newCompanyProfileDto);
+    }
+
+    @PostMapping("/company/profile/create")
+    @Operation (summary = "loob uue firma profiili")
+    public void createCompanyProfile(@RequestBody NewCompanyProfileDto newCompanyProfileDto, @RequestParam Integer userId) {
+        companyService.saveCompanyProfile (newCompanyProfileDto, userId);
     }
 }

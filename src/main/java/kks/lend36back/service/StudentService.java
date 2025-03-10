@@ -1,7 +1,11 @@
 package kks.lend36back.service;
 
 
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import kks.lend36back.controller.student.dto.NewStudent;
+import kks.lend36back.controller.student.dto.StudentProfileDto;
 import kks.lend36back.infrastructure.exception.ForbiddenException;
 import kks.lend36back.persistence.groupemail.GroupEmail;
 import kks.lend36back.persistence.groupemail.GroupEmailRepository;
@@ -53,11 +57,11 @@ public class StudentService {
 
         userRepository.save(user);
 
-        StudentProfile studentProfile = studentProfileMapper.toStudentProfile(groupEmail);
+       /* StudentProfile studentProfile = studentProfileMapper.toStudentProfile(new StudentProfileDto());
         studentProfile.setUser(user);
 
         studentProfileRepository.save(studentProfile);
-
+*/
         UserGroup userGroup = new UserGroup();
         userGroup.setGroup(groupEmail.getGroup());
         userGroup.setUser(user);
@@ -66,5 +70,34 @@ public class StudentService {
         groupEmail.setStatus(ACTIVE.getCode());
         groupEmailRepository.save(groupEmail);
 
+
+        }
+
+    public void createAndSaveStudentProfile(@Valid StudentProfileDto studentProfileDto, Integer userId) {
+            User user = (User) userRepository.findById(userId)
+                    .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
+            StudentProfile studentProfile = createStudentProfile (studentProfileDto, user);
+        studentProfileRepository.save(studentProfile);
+    }
+
+    private StudentProfile createStudentProfile (StudentProfileDto studentProfileDto, User user){
+        StudentProfile studentProfile = studentProfileMapper.toStudentProfile(studentProfileDto);
+        studentProfile.setUser(user);
+        return studentProfile;
+
     }
 }
+
+
+/*
+    public void addStudentName(StudentProfileDto studentProfileDto, User user){
+        StudentProfile studentProfile = createStudentProfile(studentProfileDto, user);
+        studentProfileRepository.save(studentProfile);
+    }
+    private StudentProfile  createStudentProfile (StudentProfileDto studentProfileDto, User user) {
+        StudentProfile studentProfile = studentProfileMapper.toStudentProfile(studentProfileDto);
+        studentProfile.setUser(user);
+        return studentProfile;
+
+    }
+*/

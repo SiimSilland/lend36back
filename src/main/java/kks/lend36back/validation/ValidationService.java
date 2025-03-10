@@ -1,6 +1,8 @@
 package kks.lend36back.validation;
 
 import kks.lend36back.infrastructure.exception.DataNotFoundException;
+import kks.lend36back.infrastructure.exception.DuplicationResourceException;
+import kks.lend36back.persistence.company_profile.CompanyProfile;
 // import kks.lend36back.persistence.location.Location;
 
 import java.util.List;
@@ -17,10 +19,4 @@ public class ValidationService {
         return new DataNotFoundException(FOREIGN_KEY_NOT_FOUND.getMessage() + fieldName + " = " + value, FOREIGN_KEY_NOT_FOUND.getErrorCode());
     }
 
- //   public static void validateAtLeastOneLocationExists(List<Location> locations) {
-    /*    if (locations.isEmpty()) {
-            throw new DataNotFoundException(NO_LOCATION_FOUND.getMessage(), NO_LOCATION_FOUND.getErrorCode());
-        }
-    }
-*/
 }

@@ -37,4 +37,6 @@ public class User {
     @Column(name = "status", nullable = false, length = 1)
     private String status;
 
+
+
 }

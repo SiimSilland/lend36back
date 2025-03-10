@@ -22,9 +22,11 @@ public class InternshipService {
 
     public void addNewInternship (InternshipDto internshipDto) {
         Integer companyUserId = internshipDto.getCompanyUserId();
-        @NotNull User companyUser = userRepository.findById(internshipDto.getCompanyUserId())
+        User companyUser = userRepository.findById(companyUserId)
                 .orElseThrow(() -> ValidationService.throwForeignKeyNotFoundException("companyUserId", companyUserId));
         Internship internship = internshipMapper.toInternship(internshipDto);
+        internship.setCompanyUser(companyUser);
+        internship.setStatus("A");
         internshipRepository.save(internship);
     }
 }
