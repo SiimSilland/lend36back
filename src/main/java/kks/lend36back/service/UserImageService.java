@@ -1,7 +1,6 @@
 package kks.lend36back.service;
 
 import kks.lend36back.controller.user_image.dto.UserImageDto;
-import kks.lend36back.persistence.student_profile.StudentProfileRepository;
 import kks.lend36back.persistence.user.User;
 import kks.lend36back.persistence.user.UserRepository;
 import kks.lend36back.persistence.user_image.UserImage;
