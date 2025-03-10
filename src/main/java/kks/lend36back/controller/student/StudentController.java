@@ -34,18 +34,3 @@ public class StudentController {
         }
 
     }
-
-/*
-PostMapping("/student/profile")
-@Operation(summary = "uue profiili lisamine")
-public void createAndSaveStudentProfile(@RequestBody @Valid StudentProfileDto studentProfileDto) {
-    studentService.createAndSaveStudentProfile(studentProfileDto);
-
-    @PostMapping("/student/profile")
-    @Operation(summary = "lisab ees ja perekkonnanime proofili tabeliss")
-    public void addStudentName(@RequestBody StudentProfileDto studentProfileDto, @RequestParam Long userId) {
-       User user = userRepository.findById(Math.toIntExact(userId))
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
-        groupService.addStudentName(studentProfileDto, user);
-    }
-*/

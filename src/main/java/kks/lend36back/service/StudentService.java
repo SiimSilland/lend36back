@@ -74,7 +74,7 @@ public class StudentService {
         }
 
     public void createAndSaveStudentProfile(@Valid StudentProfileDto studentProfileDto, Integer userId) {
-            User user = (User) userRepository.findById(userId)
+            User user = userRepository.findById(userId)
                     .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
             StudentProfile studentProfile = createStudentProfile (studentProfileDto, user);
         studentProfileRepository.save(studentProfile);
@@ -88,16 +88,3 @@ public class StudentService {
     }
 }
 
-
-/*
-    public void addStudentName(StudentProfileDto studentProfileDto, User user){
-        StudentProfile studentProfile = createStudentProfile(studentProfileDto, user);
-        studentProfileRepository.save(studentProfile);
-    }
-    private StudentProfile  createStudentProfile (StudentProfileDto studentProfileDto, User user) {
-        StudentProfile studentProfile = studentProfileMapper.toStudentProfile(studentProfileDto);
-        studentProfile.setUser(user);
-        return studentProfile;
-
-    }
-*/
