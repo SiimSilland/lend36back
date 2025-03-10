@@ -30,4 +30,9 @@ public class Group {
     @Column(name = "lector_name", nullable = false)
     private String lectorName;
 
+    @Size(max = 1)
+    @NotNull
+    @Column(name = "status", nullable = false, length = 1)
+    private String status;
+
 }
