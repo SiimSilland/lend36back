@@ -71,7 +71,7 @@ public class StudentService {
         groupEmailRepository.save(groupEmail);
 
 
-        }
+    }
 
     public void createAndSaveStudentProfile(@Valid StudentProfileDto studentProfileDto, Integer userId) {
             User user = (User) userRepository.findById(userId)

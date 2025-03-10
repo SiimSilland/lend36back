@@ -1,9 +1,9 @@
 
 package kks.lend36back.service;
 
-import kks.lend36back.controller.company.dto.NewCompanyDto;
-import kks.lend36back.controller.company.dto.NewCompanyProfileDto;
-import kks.lend36back.infrastructure.exception.DuplicationResourceException;
+import jakarta.validation.Valid;
+import kks.lend36back.controller.company.dto.CompanyDto;
+import kks.lend36back.controller.company.dto.NewCompany;
 import kks.lend36back.persistence.company_profile.CompanyProfile;
 import kks.lend36back.persistence.company_profile.CompanyProfileMapper;
 import kks.lend36back.persistence.company_profile.CompanyProfileRepository;
@@ -14,12 +14,11 @@ import kks.lend36back.persistence.user.UserMapper;
 import kks.lend36back.persistence.user.UserRepository;
 import kks.lend36back.validation.ValidationService;
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.control.MappingControl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-import static kks.lend36back.infrastructure.Error.COMPANY_NUMBER_IN_USE;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +32,56 @@ public class CompanyService {
     private final CompanyProfileRepository companyProfileRepository;
 
     @Transactional
+    public void updateCompanyProfile(Integer userId, @Valid CompanyDto companyDto) {
+        User user = userRepository.findById(userId).orElseThrow(() -> ValidationService.throwPrimaryKeyNotFoundException("userId", userId));
+        user.setEmail(companyDto.getEmail());
+        userRepository.save(user);
+
+        CompanyProfile existingProfile = companyProfileRepository.findProfileBy(userId).
+                orElseThrow(() -> ValidationService.throwForeignKeyNotFoundException("userId", userId));
+        companyProfileMapper.updateCompanyProfile(companyDto, existingProfile);
+        companyProfileRepository.save(existingProfile);
+    }
+
+    public List<NewCompany> getAllCompanyProfiles() {
+        List<CompanyProfile> companyProfiles = companyProfileRepository.findAll();
+        List<NewCompany> allCompanyProfiles = companyProfileMapper.toCompanyProfile(companyProfiles);
+        return allCompanyProfiles;
+    }
+
+    public void addNewCompany(NewCompany newCompany) {
+        User user = createAndSaveCompanyUser(newCompany);
+        createAndSaveCompanyProfile(newCompany, user);
+    }
+
+    private User createAndSaveCompanyUser(NewCompany newCompany) {
+        User user = createCompanyUser(newCompany);
+        userRepository.save(user);
+        return user;
+    }
+
+    private User createCompanyUser(NewCompany newCompany) {
+        Role role = roleRepository.getReferenceById(ROLE_COMPANY);
+        User user = userMapper.toUser(newCompany);
+        user.setRole(role);
+        return user;
+    }
+
+    private void createAndSaveCompanyProfile(NewCompany newCompany, User user) {
+        CompanyProfile companyProfile = createCompanyProfile(newCompany, user);
+        companyProfileRepository.save(companyProfile);
+
+    }
+
+    private CompanyProfile createCompanyProfile(NewCompany newCompany, User user) {
+        CompanyProfile companyProfile = companyProfileMapper.toCompanyProfile(newCompany);
+        companyProfile.setUser(user);
+        return companyProfile;
+    }
+
+}
+
+/*
     public void addNewCompany(NewCompanyDto newCompany) {
         Role role = roleRepository.getReferenceById(ROLE_COMPANY);
         User user = userMapper.toUser(newCompany);
@@ -47,7 +96,7 @@ public class CompanyService {
     public CompanyProfile getCompanyProfile(Integer userId) {
         return companyProfileRepository.findProfileBy(userId)
                 .orElseThrow(() -> ValidationService.throwPrimaryKeyNotFoundException("userId", userId));
-            }
+    }
 
     public void updateCompanyProfile(Integer userId, NewCompanyProfileDto newCompanyProfileDto) {
         CompanyProfile existingProfile = companyProfileRepository.findProfileBy(userId).
@@ -61,7 +110,7 @@ public class CompanyService {
         return allCompanyProfiles;
 
     }
-        public void saveCompanyProfile(NewCompanyProfileDto newCompanyProfileDto, Integer userId) {
+    public void saveCompanyProfile(NewCompanyProfileDto newCompanyProfileDto, Integer userId) {
         CompanyProfile companyProfile = createCompanyProfile(newCompanyProfileDto, userId);
         companyProfileRepository.save(companyProfile);
 
@@ -73,59 +122,4 @@ public class CompanyService {
         companyProfile.setUser(user);
         return companyProfile;
     }
-
-
-}
-
-/*private StudentProfile createStudentProfile(NameToStudentProfileDto nameToStudentProfileDto, User user) {
-        StudentProfile studentProfile = studentProfileMapper.nameToStudentProfile(nameToStudentProfileDto);
-        studentProfile.setUser(user);
-
-        // Ensure email is not null if required
-        if (studentProfile.getEmail() == null) {
-            studentProfile.setEmail(""); // Set empty string or default value
-        }
-
-        return studentProfile;
-    }
-
-private CompanyProfile createCompanyProfile (@Valid  NewCompanyProfileDto newCompanyProfileDto, User user) {
-
-    }public void addNewInternship (InternshipDto internshipDto) {
-    Integer companyUserId = internshipDto.getCompanyUserId();
-    User companyUser = userRepository.findById(companyUserId)
-            .orElseThrow(() -> ValidationService.throwForeignKeyNotFoundException("companyUserId", companyUserId));
-    Internship internship = internshipMapper.toInternship(internshipDto);
-    internship.setCompanyUser(companyUser);
-    internship.setStatus("A");
-    internshipRepository.save(internship);
-
-     public void addStudentName(NameToStudentProfileDto nameToStudentProfileDto, User user) {
-        StudentProfile studentProfile = createStudentProfile(nameToStudentProfileDto, user);
-        studentProfileRepository.save(studentProfile);
-    }
-
-    private StudentProfile createStudentProfile(NameToStudentProfileDto nameToStudentProfileDto, User user) {
-        StudentProfile studentProfile = studentProfileMapper.nameToStudentProfile(nameToStudentProfileDto);
-        studentProfile.setUser(user);
-
-        // Ensure email is not null if required
-        if (studentProfile.getEmail() == null) {
-            studentProfile.setEmail(""); // Set empty string or default value
-        }
-        return studentProfile;
-    }
-public void createAndSaveStudentProfile(@Valid StudentProfileDto studentProfileDto, Integer userId) {
-            User user = (User) userRepository.findById(userId)
-                    .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
-            StudentProfile studentProfile = createStudentProfile (studentProfileDto, user);
-        studentProfileRepository.save(studentProfile);
-    }
-    private StudentProfile createStudentProfile (StudentProfileDto studentProfileDto, User user){
-        StudentProfile studentProfile = studentProfileMapper.toStudentProfile(studentProfileDto);
-        studentProfile.setUser(user);
-        return studentProfile;
-
-    }
-
-    */
+ */
