@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class StudentController {
     private final StudentService studentService;
 
-    @PostMapping("/student/register")
+    @PostMapping("/user")
     @Operation(summary = "Uue õppuri lisamine. Kontrollib õppuri emaili admini andmebaasist")
 
     public void addNewStudent(@RequestBody @Valid NewStudent newStudent) {
