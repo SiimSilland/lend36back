@@ -1,6 +1,7 @@
 package kks.lend36back.service;
 
 import kks.lend36back.controller.user_image.dto.UserImageDto;
+import kks.lend36back.persistence.student_profile.StudentProfileRepository;
 import kks.lend36back.persistence.user.User;
 import kks.lend36back.persistence.user.UserRepository;
 import kks.lend36back.persistence.user_image.UserImage;
@@ -17,6 +18,7 @@ public class UserImageService {
     private final BytesConverter bytesConverter;
     private final UserImageRepository userImageRepository;
 
+
     public void addUserImage(UserImageDto userImageDto) {
         User userById = userRepository.findUserById(userImageDto.getUserId());
         UserImage userImage = new UserImage();
@@ -24,5 +26,10 @@ public class UserImageService {
         byte[] bytes = bytesConverter.stringToBytesArray(userImageDto.getUserImageData());
         userImage.setData(bytes);
         userImageRepository.save(userImage);
+    }
+
+    public void deleteUserImage(Integer userId) {
+        User userById = userRepository.findUserById(userId);
+        userImageRepository.deleteUserImage(userById);
     }
 }
