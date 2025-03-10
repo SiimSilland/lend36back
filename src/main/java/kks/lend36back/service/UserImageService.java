@@ -17,6 +17,7 @@ public class UserImageService {
     private final BytesConverter bytesConverter;
     private final UserImageRepository userImageRepository;
 
+
     public void addUserImage(UserImageDto userImageDto) {
         User userById = userRepository.findUserById(userImageDto.getUserId());
         UserImage userImage = new UserImage();
@@ -24,5 +25,10 @@ public class UserImageService {
         byte[] bytes = bytesConverter.stringToBytesArray(userImageDto.getUserImageData());
         userImage.setData(bytes);
         userImageRepository.save(userImage);
+    }
+
+    public void deleteUserImage(Integer userId) {
+        User userById = userRepository.findUserById(userId);
+        userImageRepository.deleteUserImage(userById);
     }
 }

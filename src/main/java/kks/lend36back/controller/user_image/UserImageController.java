@@ -4,9 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import kks.lend36back.controller.user_image.dto.UserImageDto;
 import kks.lend36back.service.UserImageService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,9 +13,13 @@ public class UserImageController {
 
     @PostMapping("/image")
     @Operation(summary = "lisab kasutaja pildi")
-
     public void addUserImage(@RequestBody UserImageDto userImageDto) {
         userImageService.addUserImage(userImageDto);
     }
 
+    @DeleteMapping("/delete-image")
+    @Operation(summary = "kustutab kasutaja pildi")
+    public void deleteUserImage(@RequestParam Integer userId) {
+        userImageService.deleteUserImage(userId);
+    }
 }
