@@ -4,10 +4,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import kks.lend36back.controller.company.dto.NewCompanyDto;
 import kks.lend36back.controller.company.dto.NewCompanyProfileDto;
-import kks.lend36back.persistence.user.User;
 import kks.lend36back.service.CompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,22 +22,28 @@ public class CompanyController {
         companyService.addNewCompany(newCompany);
     }
 
-    @GetMapping("/company/profile")
-    @Operation(
-            summary = "Leiab süsteemist Company profilili andmed userId järgi")
-    public void getCompanyProfile(@RequestParam Integer userId) {
-        companyService.getCompanyProfile(userId);   //todo: vaja teha
-    }
-
     @PutMapping("/company/profile/update")
     @Operation(summary = "Muudetakse firma profiili")
     public void updateCompanyProfile(@RequestParam Integer userId, @RequestBody @Valid NewCompanyProfileDto newCompanyProfileDto) {
         companyService.updateCompanyProfile(userId, newCompanyProfileDto);
     }
 
+    @GetMapping("/company/profile/all")
+@Operation(summary = "Leiab süsteemist Company profilili andmed")
+    public List<NewCompanyProfileDto> getAllCompanyProfiles () {
+        return companyService.getAllCompanyProfiles();
+
+    }
     @PostMapping("/company/profile/create")
     @Operation (summary = "loob uue firma profiili")
     public void createCompanyProfile(@RequestBody NewCompanyProfileDto newCompanyProfileDto, @RequestParam Integer userId) {
         companyService.saveCompanyProfile (newCompanyProfileDto, userId);
     }
 }
+/*@GetMapping("/company/profile")
+@Operation(
+        summary = "Leiab süsteemist Company profilili andmed userId järgi")
+public void getCompanyProfile(@RequestParam Integer userId) {
+    companyService.getCompanyProfile(userId);   //todo: vaja teha
+}
+*/

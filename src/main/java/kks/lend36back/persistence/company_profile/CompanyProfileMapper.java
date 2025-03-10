@@ -7,6 +7,8 @@ import kks.lend36back.controller.company.dto.NewCompanyProfileDto;
 import kks.lend36back.status.Status;
 import org.mapstruct.*;
 
+import java.util.List;
+
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, imports = {Status.class})
 public interface CompanyProfileMapper {
 
@@ -43,4 +45,5 @@ public interface CompanyProfileMapper {
     @Mapping(source = "www", target = "www")
     CompanyProfile toCompanyProfile(@Valid NewCompanyProfileDto newCompanyProfileDto);
 
+    List<NewCompanyProfileDto> toCompanyProfile (List<CompanyProfile> companyProfiles);
 }

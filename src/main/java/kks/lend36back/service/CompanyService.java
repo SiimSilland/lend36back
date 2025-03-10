@@ -17,6 +17,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static kks.lend36back.infrastructure.Error.COMPANY_NUMBER_IN_USE;
 
 @Service
@@ -53,8 +55,13 @@ public class CompanyService {
         companyProfileMapper.updateCompanyProfile(newCompanyProfileDto, existingProfile);
         companyProfileRepository.save(existingProfile);
     }
+    public List<NewCompanyProfileDto> getAllCompanyProfiles() {
+        List<CompanyProfile> companyProfiles = companyProfileRepository.findAll();
+        List<NewCompanyProfileDto> allCompanyProfiles = companyProfileMapper.toCompanyProfile (companyProfiles);
+        return allCompanyProfiles;
 
-    public void saveCompanyProfile(NewCompanyProfileDto newCompanyProfileDto, Integer userId) {
+    }
+        public void saveCompanyProfile(NewCompanyProfileDto newCompanyProfileDto, Integer userId) {
         CompanyProfile companyProfile = createCompanyProfile(newCompanyProfileDto, userId);
         companyProfileRepository.save(companyProfile);
 
@@ -66,6 +73,8 @@ public class CompanyService {
         companyProfile.setUser(user);
         return companyProfile;
     }
+
+
 }
 
 /*private StudentProfile createStudentProfile(NameToStudentProfileDto nameToStudentProfileDto, User user) {
