@@ -19,21 +19,16 @@ public class CvService {
 
 
     public void addCV(CvDto cvDto) {
-        // todo: userId on meil foreign key
-        // todo: JPA tehnoloogia mõistes tähendab see seda, et me peame selle userId abil repository kaudu leidma ülesse User objekti
+
 
         User userById = userRepository.findUserById(cvDto.getUserId());
-        // todo: Pole pointi hakata uut Cv objekti (rida) mapperiga tegema
-        // todo: Mõistlik ise see objekt luua
+
         Cv cv = new Cv();
 
-        // todo: Kui uus CV objetk on olemas
-        // todo: siis panna kohe talle külge tema foreign key object User
+
         cv.setUser(userById);
 
-        // todo: nuud on vaja külge panna ka data (byte massiiv).
-        // todo: meil tuleb see sisse kui String
-        // todo: seega enne külge panemist on meil vaja konverteerida String -> Byte arrayks
+
         byte[] bytes = bytesConverter.stringToBytesArray(cvDto.getCvData());
 
         // todo: siis saame selle CV objektile külge panna
