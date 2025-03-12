@@ -3,7 +3,6 @@ package kks.lend36back.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import kks.lend36back.controller.student.dto.NewStudent;
 import kks.lend36back.controller.student.dto.StudentProfileDto;
 import kks.lend36back.infrastructure.exception.ForbiddenException;
@@ -20,11 +19,10 @@ import kks.lend36back.persistence.user.UserRepository;
 import kks.lend36back.persistence.user_group.UserGroup;
 import kks.lend36back.persistence.user_group.UserGroupRepository;
 import kks.lend36back.status.Status;
+import kks.lend36back.validation.ValidationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 import static kks.lend36back.infrastructure.Error.INCORRECT_EMAIL;
 import static kks.lend36back.status.Status.ACTIVE;
@@ -59,6 +57,16 @@ public class StudentService {
 
         userRepository.save(user);
 
+        StudentProfile studentProfile = new StudentProfile();
+        studentProfile.setUser(user);
+        studentProfile.setFirstName(groupEmail.getFirstName());
+        studentProfile.setLastName(groupEmail.getLastName());
+        studentProfile.setEmail(groupEmail.getEmail());
+        studentProfile.setAddress("");
+        studentProfile.setPhone("");
+        studentProfile.setLinkedin("");
+        studentProfileRepository.save(studentProfile);
+
         UserGroup userGroup = new UserGroup();
         userGroup.setGroup(groupEmail.getGroup());
         userGroup.setUser(user);
@@ -71,13 +79,13 @@ public class StudentService {
     }
 
     public void createAndSaveStudentProfile(@Valid StudentProfileDto studentProfileDto, Integer userId) {
-            User user = userRepository.findById(userId)
-                    .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
-            StudentProfile studentProfile = createStudentProfile (studentProfileDto, user);
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
+        StudentProfile studentProfile = createStudentProfile(studentProfileDto, user);
         studentProfileRepository.save(studentProfile);
     }
 
-    private StudentProfile createStudentProfile (StudentProfileDto studentProfileDto, User user){
+    private StudentProfile createStudentProfile(StudentProfileDto studentProfileDto, User user) {
         StudentProfile studentProfile = studentProfileMapper.toStudentProfile(studentProfileDto);
         studentProfile.setUser(user);
         return studentProfile;
@@ -85,11 +93,17 @@ public class StudentService {
     }
 
     public StudentProfileDto getStudentProfileByUserId(Integer userId) {
-        StudentProfile studentProfile = studentProfileRepository.findByUserId(userId);
-               // .orElseThrow(() -> new EntityNotFoundException("Studentprofile not found: " + userId));
+        StudentProfile studentProfile = studentProfileRepository.findByUserId(userId)
+                .orElseThrow(() -> ValidationService.throwForeignKeyNotFoundException("userId", userId));
         StudentProfileDto studentProfileDto = studentProfileMapper.mapToStudentProfileDto(studentProfile);
         return studentProfileDto;
     }
 
+    public void updateStudentProfile(Integer userId, StudentProfileDto studentProfileDto) {
+        StudentProfile studentProfile = studentProfileRepository.findByUserId(userId)
+                .orElseThrow(() -> ValidationService.throwForeignKeyNotFoundException("userId", userId));
+        studentProfileMapper.updateStudentProfile(studentProfileDto, studentProfile);
+        studentProfileRepository.save(studentProfile);
+    }
 }
 
