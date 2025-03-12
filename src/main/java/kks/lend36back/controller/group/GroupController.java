@@ -39,6 +39,7 @@ public class GroupController {
     }
 
     @GetMapping("/groups")
+    @Operation(summary = "Toob ära kõikide aktiivsete lendude info")
     public List<GroupInfo> getAllActiveGroups() {
         List<GroupInfo> allActiveGroups = groupService.getAllActiveGroups();
         return allActiveGroups;
