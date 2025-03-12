@@ -33,11 +33,10 @@ public class InternshipService {
         internship.setStatus("A");
         internshipRepository.save(internship);
     }
-    public List<InternshipDto> getAllInterships() {
+    public List<InternshipDto> getAllInternships() {
         List<Internship> internships = internshipRepository.findAll();
-        List<InternshipDto> allInternships = internshipMapper.toInternship(internships);
-        return allInternships;
-    }
+        return internshipMapper.toInternship(internships);
 
+    }
 }
 

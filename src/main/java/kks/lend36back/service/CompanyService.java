@@ -45,8 +45,7 @@ public class CompanyService {
 
     public List<NewCompany> getAllCompanyProfiles() {
         List<CompanyProfile> companyProfiles = companyProfileRepository.findAll();
-        List<NewCompany> allCompanyProfiles = companyProfileMapper.toCompanyProfile(companyProfiles);
-        return allCompanyProfiles;
+        return companyProfileMapper.toCompanyProfile(companyProfiles);
     }
 
     public void addNewCompany(NewCompany newCompany) {
