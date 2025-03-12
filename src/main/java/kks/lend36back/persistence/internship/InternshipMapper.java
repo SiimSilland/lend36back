@@ -1,5 +1,6 @@
 package kks.lend36back.persistence.internship;
 
+import jakarta.validation.Valid;
 import kks.lend36back.controller.company.dto.NewCompany;
 import kks.lend36back.controller.internship.dto.InternshipDto;
 import kks.lend36back.persistence.company_profile.CompanyProfile;
@@ -20,4 +21,6 @@ import java.util.List;
         Internship toInternship(InternshipDto internshipDto);
 
         List<InternshipDto> toInternship (List<Internship> internships);
-    }
+
+
+}

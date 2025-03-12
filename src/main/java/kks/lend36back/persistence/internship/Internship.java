@@ -48,4 +48,7 @@ public class Internship {
     @Column(name = "status", nullable = false, length = 1)
     private String status = "A";
 
+    public void setUser(User user) {
+
+    }
 }

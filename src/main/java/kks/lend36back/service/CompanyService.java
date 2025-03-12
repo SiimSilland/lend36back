@@ -66,7 +66,7 @@ public class CompanyService {
         return user;
     }
 
-    private void createAndSaveCompanyProfile(NewCompany newCompany, User user) {
+    public void createAndSaveCompanyProfile(NewCompany newCompany, User user) {
         CompanyProfile companyProfile = createCompanyProfile(newCompany, user);
         companyProfileRepository.save(companyProfile);
 

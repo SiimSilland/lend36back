@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import kks.lend36back.controller.company.dto.NewCompany;
 import kks.lend36back.controller.internship.dto.InternshipDto;
+import kks.lend36back.persistence.user.User;
 import kks.lend36back.service.InternshipService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +27,7 @@ public class InternshipController {
     }
     @PostMapping("/company/internship")
     @Operation(summary = "lisab uue praktikakoha ja uuendab juhendaja andmeid/")
-    public void addNewInternship (@RequestBody InternshipDto internshipDto) {
-        internshipService.addNewInternship(internshipDto);
+    public void addNewInternship (@RequestBody InternshipDto internshipDto, @RequestParam User user) {
+        internshipService.addNewInternship(user, internshipDto);
     }
 }
