@@ -30,4 +30,11 @@ public class InternshipController {
     public void addNewInternship (@RequestBody InternshipDto internshipDto, @RequestParam User user) {
         internshipService.addNewInternship(user, internshipDto);
     }
+
+    @DeleteMapping("/company/internship/delete")
+    @Operation(summary = "kustutab praktika sisendi")
+    public void deleteInternship (@RequestParam User comnpanyUser) {
+        internshipService.deleteInternship(comnpanyUser);
+    }
+
 }
