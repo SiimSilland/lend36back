@@ -78,48 +78,8 @@ public class CompanyService {
         companyProfile.setUser(user);
         return companyProfile;
     }
-
+    public void deleteCompanyProfile(Integer userId) {
+        User userById = userRepository.findUserById(userId);
+        companyProfileRepository.deleteCompanyProfile(userById);
+    }
 }
-
-/*
-    public void addNewCompany(NewCompanyDto newCompany) {
-        Role role = roleRepository.getReferenceById(ROLE_COMPANY);
-        User user = userMapper.toUser(newCompany);
-        user.setRole(role);
-        userRepository.save(user);
-
-        CompanyProfile companyProfile = companyProfileMapper.toNewCompany(newCompany);
-        companyProfile.setUser(user);
-        companyProfileRepository.save(companyProfile);
-    }
-
-    public CompanyProfile getCompanyProfile(Integer userId) {
-        return companyProfileRepository.findProfileBy(userId)
-                .orElseThrow(() -> ValidationService.throwPrimaryKeyNotFoundException("userId", userId));
-    }
-
-    public void updateCompanyProfile(Integer userId, NewCompanyProfileDto newCompanyProfileDto) {
-        CompanyProfile existingProfile = companyProfileRepository.findProfileBy(userId).
-                orElseThrow(() -> ValidationService.throwPrimaryKeyNotFoundException("userId not found with id: ", userId));
-        companyProfileMapper.updateCompanyProfile(newCompanyProfileDto, existingProfile);
-        companyProfileRepository.save(existingProfile);
-    }
-    public List<NewCompanyProfileDto> getAllCompanyProfiles() {
-        List<CompanyProfile> companyProfiles = companyProfileRepository.findAll();
-        List<NewCompanyProfileDto> allCompanyProfiles = companyProfileMapper.toCompanyProfile (companyProfiles);
-        return allCompanyProfiles;
-
-    }
-    public void saveCompanyProfile(NewCompanyProfileDto newCompanyProfileDto, Integer userId) {
-        CompanyProfile companyProfile = createCompanyProfile(newCompanyProfileDto, userId);
-        companyProfileRepository.save(companyProfile);
-
-    }
-    private CompanyProfile createCompanyProfile(NewCompanyProfileDto newCompanyProfileDto, Integer userId) {
-        User user = (User) userRepository.findById(userId)
-                .orElseThrow (() -> new DuplicationResourceException(COMPANY_NUMBER_IN_USE.getMessage(), COMPANY_NUMBER_IN_USE.getErrorCode()));
-        CompanyProfile companyProfile = companyProfileMapper.toCompanyProfile(newCompanyProfileDto);
-        companyProfile.setUser(user);
-        return companyProfile;
-    }
- */

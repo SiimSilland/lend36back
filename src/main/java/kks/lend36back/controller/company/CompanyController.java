@@ -34,7 +34,11 @@ public class CompanyController {
         return companyService.getAllCompanyProfiles();
 
     }
-
+    @DeleteMapping("/company/profile/delete")
+    @Operation(summary = "kustutab kompanii profiili")
+    public void deleteCompanyProfile (@RequestParam Integer userId) {
+        companyService.deleteCompanyProfile (userId);
+    }
 }
 /*@GetMapping("/company/profile")
 @Operation(

@@ -1,6 +1,8 @@
 package kks.lend36back.service;
 
+import kks.lend36back.controller.company.dto.NewCompany;
 import kks.lend36back.controller.user_image.dto.UserImageDto;
+import kks.lend36back.persistence.company_profile.CompanyProfile;
 import kks.lend36back.persistence.user.User;
 import kks.lend36back.persistence.user.UserRepository;
 import kks.lend36back.persistence.user_image.UserImage;
@@ -8,6 +10,8 @@ import kks.lend36back.persistence.user_image.UserImageRepository;
 import kks.lend36back.util.BytesConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor

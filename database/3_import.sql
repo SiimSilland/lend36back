@@ -2,10 +2,10 @@ INSERT INTO lend.role (id, name) VALUES (default, 'admin');
 INSERT INTO lend.role (id, name) VALUES (default, 'student');
 INSERT INTO lend.role (id, name) VALUES (default, 'company');
 
-INSERT INTO lend."group" (id, number, period, lector_name) VALUES (2, 36, 'jan 25 - feb 25', 'Rain');
+INSERT INTO lend."group" (id, number, period, lector_name, status) VALUES (2, 36, 'jan 25 - feb 25', 'Rain', 'A');
 
-INSERT INTO lend.group_email (id, group_id, first_name, last_name, email, status) VALUES (8, 2, 'Siim', 'Silland', 'siim@mail.ee', 'P');
-INSERT INTO lend.group_email (id, group_id, first_name, last_name, email, status) VALUES (9, 2, 'Krisse', 'Talts', 'krisse@mail.ee', 'A');
+INSERT INTO lend.group_email (id, group_id, first_name, last_name, email, status) VALUES (default, 2, 'Siim', 'Silland', 'siim@mail.ee', 'P');
+INSERT INTO lend.group_email (id, group_id, first_name, last_name, email, status) VALUES (default, 2, 'Krisse', 'Talts', 'krisse@mail.ee', 'A');
 
 
 INSERT INTO lend."user" (id, role_id, email, password, status) VALUES (default, 1, 'admin', '123', 'A');

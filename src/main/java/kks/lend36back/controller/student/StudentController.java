@@ -20,7 +20,7 @@ public class StudentController {
     @Operation(summary = "Uue õppuri lisamine. Kontrollib õppuri emaili admini andmebaasist")
 
     public void addNewStudent(@RequestBody @Valid NewStudent newStudent) {
-        studentService.addNewStudent(newStudent);
+                studentService.addNewStudent(newStudent);
     }
 
     @PostMapping("/student/profile/create")

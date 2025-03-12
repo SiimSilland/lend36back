@@ -18,8 +18,7 @@ public class InternshipController {
 
     @PostMapping("/company/internship")
     @Operation(summary = "lisab uue praktikakoha ja uuendab juhendaja andmeid/")
-    public void addNewInternship (@RequestBody @Valid InternshipDto internshipDto) {
+    public void addNewInternship (@RequestBody InternshipDto internshipDto) {
         internshipService.addNewInternship(internshipDto);
     }
-
 }
