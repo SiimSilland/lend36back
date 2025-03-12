@@ -28,8 +28,5 @@ public class CompanyDto {
     private String phone;
 
     @NotNull
-    private String email;
-
-    @NotNull
     private String www;
 }
