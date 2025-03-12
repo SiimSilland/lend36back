@@ -2,6 +2,8 @@ package kks.lend36back.service;
 
 
 
+import jakarta.persistence.EntityNotFoundException;
+import kks.lend36back.controller.group.dto.GroupInfo;
 import kks.lend36back.controller.group.dto.NewGroup;
 import kks.lend36back.controller.group.dto.NewGroupEmail;
 import kks.lend36back.controller.student.dto.NameToStudentProfileDto;
@@ -16,9 +18,12 @@ import kks.lend36back.persistence.student_profile.StudentProfileMapper;
 import kks.lend36back.persistence.student_profile.StudentProfileRepository;
 import kks.lend36back.persistence.user.User;
 import kks.lend36back.persistence.user.UserRepository;
+import kks.lend36back.status.Status;
 import kks.lend36back.validation.ValidationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 import static kks.lend36back.status.Status.PENDING;
 
@@ -63,9 +68,17 @@ public class GroupService {
        // groupEmailRepository.save(groupEmail);
 
     }
-    public void addStudentName(NameToStudentProfileDto nameToStudentProfileDto, User user) {
+    public void addStudentName(NameToStudentProfileDto nameToStudentProfileDto, Long userId) {
+        User user = userRepository.findById(Math.toIntExact(userId))
+                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
         StudentProfile studentProfile = createStudentProfile(nameToStudentProfileDto, user);
         studentProfileRepository.save(studentProfile);
+    }
+
+    public List<GroupInfo> getAllActiveGroups() {
+        List<Group> groups = groupRepository.findGroupsBy(Status.ACTIVE.getCode());
+        List<GroupInfo> groupInfos = groupMapper.toGroupInfos(groups);
+        return groupInfos;
     }
 
     private StudentProfile createStudentProfile(NameToStudentProfileDto nameToStudentProfileDto, User user) {
@@ -76,20 +89,6 @@ public class GroupService {
         }
         return studentProfile;
     }
+
+
 }
-
- /*
-    private StudentProfile  createStudentProfile (NameToStudentProfileDto nameToStudentProfileDto, User user) {
-        StudentProfile studentProfile = studentProfileMapper.nameToStudentProfile(nameToStudentProfileDto);
-        studentProfile.setUser(user);
-        return studentProfile;
-
-    }
-
-    public void addStudentName(StudentProfileDto studentProfileDto) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
-        StudentProfile studentProfile = studentProfileMapper.toStudentProfile(studentProfileDto);
-        studentProfile.setUser(user);
-        studentProfileRepository.save(studentProfile);
-         */
