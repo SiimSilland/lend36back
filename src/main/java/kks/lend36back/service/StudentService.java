@@ -24,6 +24,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 import static kks.lend36back.infrastructure.Error.INCORRECT_EMAIL;
 import static kks.lend36back.status.Status.ACTIVE;
 
@@ -57,11 +59,6 @@ public class StudentService {
 
         userRepository.save(user);
 
-       /* StudentProfile studentProfile = studentProfileMapper.toStudentProfile(new StudentProfileDto());
-        studentProfile.setUser(user);
-
-        studentProfileRepository.save(studentProfile);
-*/
         UserGroup userGroup = new UserGroup();
         userGroup.setGroup(groupEmail.getGroup());
         userGroup.setUser(user);
@@ -86,5 +83,13 @@ public class StudentService {
         return studentProfile;
 
     }
+
+    public StudentProfileDto getStudentProfileByUserId(Integer userId) {
+        StudentProfile studentProfile = studentProfileRepository.findByUserId(userId);
+               // .orElseThrow(() -> new EntityNotFoundException("Studentprofile not found: " + userId));
+        StudentProfileDto studentProfileDto = studentProfileMapper.mapToStudentProfileDto(studentProfile);
+        return studentProfileDto;
+    }
+
 }
 

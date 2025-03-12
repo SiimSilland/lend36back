@@ -8,10 +8,7 @@ import kks.lend36back.controller.student.dto.StudentProfileRequest;
 import kks.lend36back.persistence.user.User;
 import kks.lend36back.service.StudentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -30,7 +27,16 @@ public class StudentController {
     @Operation(summary = "uue profiili lisamine")
     public void createAndSaveStudentProfile(@RequestBody @Valid StudentProfileRequest request, @RequestParam Integer userId) {
         studentService.createAndSaveStudentProfile(request.getStudentProfileDto(), userId);
+    }
 
-        }
+    @GetMapping("/student/profile/get")
+    @Operation(summary = "Returns student profile by userId")
+    public StudentProfileDto getStudentProfile(@RequestParam Integer userId){
+        StudentProfileDto studentProfileByUserId = studentService.getStudentProfileByUserId(userId);
+        return studentProfileByUserId;
 
     }
+
+
+
+}

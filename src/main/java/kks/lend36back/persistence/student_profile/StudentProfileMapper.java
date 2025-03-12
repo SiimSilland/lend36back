@@ -22,5 +22,12 @@ public interface StudentProfileMapper {
     @Mapping(source = "lastName", target = "lastName")
     StudentProfile nameToStudentProfile (NameToStudentProfileDto studentProfileDto);
 
+    @Mapping(source = "firstName", target = "firstName")
+    @Mapping(source = "lastName", target = "lastName")
+    @Mapping(source = "address", target = "address")
+    @Mapping(source = "phone", target = "phone")
+    @Mapping(source = "linkedin", target = "linkedin")
+    @Mapping(source = "email", target = "email")
+    StudentProfileDto mapToStudentProfileDto (StudentProfile studentProfile);
 
 }

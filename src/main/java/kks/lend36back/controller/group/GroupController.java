@@ -1,27 +1,22 @@
 package kks.lend36back.controller.group;
 
 import io.swagger.v3.oas.annotations.Operation;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
+import kks.lend36back.controller.group.dto.GroupInfo;
 import kks.lend36back.controller.group.dto.NewGroup;
 import kks.lend36back.controller.group.dto.NewGroupEmail;
 import kks.lend36back.controller.student.dto.NameToStudentProfileDto;
-import kks.lend36back.controller.student.dto.StudentProfileDto;
-import kks.lend36back.persistence.user.User;
-import kks.lend36back.persistence.user.UserRepository;
 import kks.lend36back.service.GroupService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 
 public class GroupController {
     private final GroupService groupService;
-    private final UserRepository userRepository;
 
 
     @PostMapping ("/group")
@@ -40,25 +35,14 @@ public class GroupController {
     @PostMapping("/student/profile")
     @Operation(summary = "lisab ees ja perekonnanime student_profile tabelisse")
     public void addStudentName(@RequestBody NameToStudentProfileDto nameToStudentProfileDto, @RequestParam Long userId) {
-       User user = userRepository.findById(Math.toIntExact(userId))
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
-        groupService.addStudentName(nameToStudentProfileDto, user);
+        groupService.addStudentName(nameToStudentProfileDto, userId);
     }
-}
 
-/*@PostMapping("/student/profile")
-@Operation (summary = "lisab ees ja perekkonnanime proofili tabeliss")
-public void addStudentName(@RequestBody StudentProfileDto studentProfileDto) {
-    groupService.addStudentName(studentProfileDto);
-
-    @PostMapping("/student/profile")
-    @Operation(summary = "lisab ees ja perekkonnanime proofili tabeliss")
-    public void addStudentName(@RequestBody StudentProfileRequest request) {
-        groupService.addStudentName(request.getStudentProfileDto(), request.getUser().getId());
-
-@PostMapping("/student/profile")
-@Operation(summary = "lisab ees ja perekkonnanime proofili tabelisse")
-public void addStudentName(@RequestBody StudentProfileDto studentProfileDto,  {
+    @GetMapping("/groups")
+    public List<GroupInfo> getAllActiveGroups() {
+        List<GroupInfo> allActiveGroups = groupService.getAllActiveGroups();
+        return allActiveGroups;
+    }
 
 }
-}*/
+
