@@ -40,14 +40,3 @@ public class CompanyController {
         companyService.deleteCompanyProfile (userId);
     }
 }
-/*@GetMapping("/company/profile")
-@Operation(
-        summary = "Leiab süsteemist Company profilili andmed userId järgi")
-public void getCompanyProfile(@RequestParam Integer userId) {
-    companyService.getCompanyProfile(userId);   //todo: vaja teha
-} @PostMapping("/company/profile/create")
-    @Operation (summary = "loob uue firma profiili")
-    public void createCompanyProfile(@RequestBody NewCompanyProfileDto newCompanyProfileDto, @RequestParam Integer userId) {
-        companyService.saveCompanyProfile (newCompanyProfileDto, userId);
-    }
-*/

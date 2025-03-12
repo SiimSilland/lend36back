@@ -1,17 +1,12 @@
 package kks.lend36back.service;
 
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-import kks.lend36back.controller.company.dto.NewCompany;
 import kks.lend36back.controller.internship.dto.InternshipDto;
-import kks.lend36back.persistence.company_profile.CompanyProfile;
 import kks.lend36back.persistence.internship.Internship;
 import kks.lend36back.persistence.internship.InternshipMapper;
 import kks.lend36back.persistence.internship.InternshipRepository;
 import kks.lend36back.persistence.user.User;
 import kks.lend36back.persistence.user.UserRepository;
-import kks.lend36back.validation.ValidationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,6 +35,11 @@ public class InternshipService {
         List<Internship> internships = internshipRepository.findAll();
         return internshipMapper.toInternship(internships);
 
+    }
+    @Transactional
+    public void deleteInternship(User companyUser) {
+        Internship internship = internshipRepository.findInternshipBy(companyUser);
+        internshipRepository.deleteInternship(companyUser);
     }
 }
 
