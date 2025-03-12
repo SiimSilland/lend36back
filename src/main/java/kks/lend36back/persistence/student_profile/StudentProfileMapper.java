@@ -2,10 +2,7 @@ package kks.lend36back.persistence.student_profile;
 
 import kks.lend36back.controller.student.dto.NameToStudentProfileDto;
 import kks.lend36back.controller.student.dto.StudentProfileDto;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface StudentProfileMapper {
@@ -29,5 +26,14 @@ public interface StudentProfileMapper {
     @Mapping(source = "linkedin", target = "linkedin")
     @Mapping(source = "email", target = "email")
     StudentProfileDto mapToStudentProfileDto (StudentProfile studentProfile);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(source = "firstName", target = "firstName")
+    @Mapping(source = "lastName", target = "lastName")
+    @Mapping(source = "address", target = "address")
+    @Mapping(source = "phone", target = "phone")
+    @Mapping(source = "linkedin", target = "linkedin")
+    @Mapping(source = "email", target = "email")
+    StudentProfile updateStudentProfile(StudentProfileDto studentProfileDto, @MappingTarget StudentProfile studentProfile);
 
 }
