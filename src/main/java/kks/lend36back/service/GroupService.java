@@ -1,7 +1,6 @@
 package kks.lend36back.service;
 
 
-
 import jakarta.persistence.EntityNotFoundException;
 import kks.lend36back.controller.group.dto.GroupInfo;
 import kks.lend36back.controller.group.dto.NewGroup;
@@ -42,7 +41,7 @@ public class GroupService {
     private final UserRepository userRepository;
 
     // Todo: transactional
-    public void addNewGroup (NewGroup newGroup){
+    public void addNewGroup(NewGroup newGroup) {
         Group group = groupMapper.toGroup(newGroup);
         //GroupEmail newRow = groupEmailMapper.toGroupEmail(newGroup);
         groupRepository.save(group);
@@ -65,9 +64,10 @@ public class GroupService {
         //groupEmail.setStatus(PENDING.getCode());
         // Ei saa MÄPPIDA @Mapping(source = "", target = "status")
         // Ei saa MäPPIDA @Mapping(source = "", target = "groupNumber")
-       // groupEmailRepository.save(groupEmail);
+        // groupEmailRepository.save(groupEmail);
 
     }
+
     public void addStudentName(NameToStudentProfileDto nameToStudentProfileDto, Long userId) {
         User user = userRepository.findById(Math.toIntExact(userId))
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));

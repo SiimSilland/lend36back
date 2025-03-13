@@ -45,7 +45,7 @@ public class StudentService {
     @Transactional
     public void addNewStudent(NewStudent newStudent) {
 
-        GroupEmail groupEmail = groupEmailRepository.findByEmail(newStudent.getEmail(), Status.PENDING.getCode())
+        GroupEmail groupEmail = groupEmailRepository.findGroupEmailBy(newStudent.getEmail(), Status.PENDING.getCode())
                 .orElseThrow(() -> new ForbiddenException(INCORRECT_EMAIL.getMessage(), INCORRECT_EMAIL.getErrorCode()));
         // todo: promt kui kasutaja on juba registreeritud
         Role role = roleRepository.getReferenceById(ROLE_STUDENT);
