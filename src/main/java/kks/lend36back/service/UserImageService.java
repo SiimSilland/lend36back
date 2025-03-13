@@ -20,8 +20,8 @@ public class UserImageService {
 
 
 
-    public void addUserImage(UserImageDto userImageDto) {
-        User userById = userRepository.findUserById(userImageDto.getUserId());
+    public void addUserImage(Integer userId, UserImageDto userImageDto) {
+        User userById = userRepository.findUserById(userId);
         UserImage userImage = new UserImage();
         userImage.setUser(userById);
         byte[] bytes = bytesConverter.stringToBytesArray(userImageDto.getUserImageData());
