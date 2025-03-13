@@ -17,9 +17,18 @@ public class UserImageController {
         userImageService.addUserImage(userImageDto);
     }
 
-    @DeleteMapping("/delete-image")
+    @DeleteMapping("/image")
     @Operation(summary = "kustutab kasutaja pildi")
     public void deleteUserImage(@RequestParam Integer userId) {
         userImageService.deleteUserImage(userId);
     }
+
+    @GetMapping("/image")
+    public UserImageDto getUserImage(@RequestParam Integer userId){
+        UserImageDto userImageDto = userImageService.getUserImage(userId);
+        return userImageDto;
+    }
+
+
+
 }
