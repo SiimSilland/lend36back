@@ -22,13 +22,13 @@ public class InternshipService {
     private final UserRepository userRepository; //
 
     @Transactional
-    public void addNewInternship (User user, InternshipDto internshipDto) {
-        Internship internship = createNewInternship(internshipDto, user);
+    public void addNewInternship (User companyUser, InternshipDto internshipDto) {
+        Internship internship = createNewInternship(internshipDto, companyUser);
         internshipRepository.save(internship);
         }
-    private Internship createNewInternship(InternshipDto internshipDto, User user) {
+    private Internship createNewInternship(InternshipDto internshipDto, User companyUser) {
             Internship internship = internshipMapper.toInternship(internshipDto);
-            internship.setUser(user);
+            internship.setUser(companyUser);
             return internship;
     }
     public List<InternshipDto> getAllInternships() {

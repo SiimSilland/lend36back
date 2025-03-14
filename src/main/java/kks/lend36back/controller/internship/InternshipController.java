@@ -26,11 +26,7 @@ public class InternshipController {
         return internshipService.getAllInternships();
     }
 
-    @PutMapping("/company/internship")
-    @Operation(summary = "lisab uue praktikakoha ja uuendab juhendaja andmeid/")
-    public void addNewInternship (@RequestBody InternshipDto internshipDto, @RequestParam User user) {
-        internshipService.addNewInternship(user, internshipDto);
-    }
+
 
     @DeleteMapping("/company/internship/delete")
     @Operation(summary = "kustutab praktika sisendi")
@@ -38,4 +34,17 @@ public class InternshipController {
         internshipService.deleteInternship(comnpanyUser);
     }
 
+    @PostMapping("/company/internship")
+    public void addNewInternship(@RequestBody InternshipDto internshipDto, @RequestParam Long userId) {
+        User companyUser = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        internshipService.addNewInternship(companyUser, internshipDto);
+    }
+
 }
+/*
+@PostMapping("/company/internship")
+    @Operation(summary = "lisab uue praktikakoha ja uuendab juhendaja andmeid/")
+    public void addNewInternship (@RequestBody InternshipDto internshipDto, @RequestParam User companyUser) {
+        internshipService.addNewInternship(companyUser, internshipDto);
+    }
+ */
