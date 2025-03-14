@@ -37,14 +37,19 @@ public class InternshipController {
     }
 
     @PostMapping("/company/internship")
-    public void addNewInternship(@RequestBody InternshipDto internshipDto, @RequestParam Long userId) {
-        User companyUser = internshipRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        internshipService.updateInternship(companyUser, internshipDto);
+    public void addNewInternship(@RequestBody InternshipDto internshipDto, @RequestParam User companyUser) {
+        internshipRepository.findById(companyUser.getId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        internshipService.addNewInternship(companyUser, internshipDto);
     }
 
 }
 /*
 @PostMapping("/company/internship")
+    public void addNewInternship(@RequestBody InternshipDto internshipDto, @RequestParam Long userId) {
+        User companyUser = internshipRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        internshipService.updateInternship(companyUser, internshipDto);
+    }@PostMapping("/company/internship")
     @Operation(summary = "lisab uue praktikakoha ja uuendab juhendaja andmeid/")
     public void addNewInternship (@RequestBody InternshipDto internshipDto, @RequestParam User companyUser) {
         internshipService.addNewInternship(companyUser, internshipDto);

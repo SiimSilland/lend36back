@@ -22,7 +22,7 @@ public class InternshipService {
     private final UserRepository userRepository; //
 
     @Transactional
-    public void updateInternship (User companyUser, InternshipDto internshipDto) {
+    public void addNewInternship (User companyUser, InternshipDto internshipDto) {
         Internship internship = createNewInternship(internshipDto, companyUser);
         internshipRepository.save(internship);
         }

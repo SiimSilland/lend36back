@@ -23,7 +23,7 @@ import java.util.List;
         @Mapping(source = "description", target = "description")
         @Mapping(source = "name", target = "name")
         @Mapping(source = "email", target = "email")
-        Internship updateInternship(InternshipDto internshipDto, @MappingTarget Internship internship);
+        Internship addNewInternship(InternshipDto internshipDto, @MappingTarget Internship internship);
 
           List<InternshipDto> toInternship (List<Internship> internships);
 
