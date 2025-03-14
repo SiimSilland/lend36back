@@ -14,8 +14,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class InternshipDto implements Serializable {
 
-    @NotNull
-    private Integer companyUserId;
 
     @NotNull
     @Size(max = 1000)
