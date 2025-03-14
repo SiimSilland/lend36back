@@ -14,6 +14,7 @@ public interface GroupMapper {
     @Mapping(source = "number", target = "number")
     @Mapping(source = "period", target = "period")
     @Mapping(source = "lectorName", target = "lectorName")
+    @Mapping(constant = "A", target = "status")
     Group toGroup(NewGroup newGroup);
 
     @Mapping(source = "id", target = "groupId")
