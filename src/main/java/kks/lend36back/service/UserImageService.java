@@ -1,17 +1,14 @@
 package kks.lend36back.service;
 
-import kks.lend36back.controller.company.dto.NewCompany;
 import kks.lend36back.controller.user_image.dto.UserImageDto;
-import kks.lend36back.persistence.company_profile.CompanyProfile;
 import kks.lend36back.persistence.user.User;
 import kks.lend36back.persistence.user.UserRepository;
 import kks.lend36back.persistence.user_image.UserImage;
 import kks.lend36back.persistence.user_image.UserImageRepository;
 import kks.lend36back.util.BytesConverter;
+import kks.lend36back.validation.ValidationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -22,8 +19,9 @@ public class UserImageService {
     private final UserImageRepository userImageRepository;
 
 
-    public void addUserImage(UserImageDto userImageDto) {
-        User userById = userRepository.findUserById(userImageDto.getUserId());
+
+    public void addUserImage(Integer userId, UserImageDto userImageDto) {
+        User userById = userRepository.findUserById(userId);
         UserImage userImage = new UserImage();
         userImage.setUser(userById);
         byte[] bytes = bytesConverter.stringToBytesArray(userImageDto.getUserImageData());
@@ -35,4 +33,18 @@ public class UserImageService {
         User userById = userRepository.findUserById(userId);
         userImageRepository.deleteUserImage(userById);
     }
+
+    public UserImageDto getUserImage (Integer userId){
+        UserImage userImage = userImageRepository.getImageByUserId(userId)
+                .orElseThrow(() -> ValidationService.throwForeignKeyNotFoundException("userId", userId) );
+            byte[] bytes = userImage.getData();
+        String userImageData = BytesConverter.bytesArrayToString(bytes);
+        UserImageDto userImageDto = new UserImageDto();
+        userImageDto.setUserImageData(userImageData);
+        userImageDto.setUserId(userId);
+        return userImageDto;
+
+    }
+
+
 }

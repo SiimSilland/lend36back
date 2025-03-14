@@ -13,13 +13,22 @@ public class UserImageController {
 
     @PostMapping("/image")
     @Operation(summary = "lisab kasutaja pildi")
-    public void addUserImage(@RequestBody UserImageDto userImageDto) {
-        userImageService.addUserImage(userImageDto);
+    public void addUserImage(@RequestParam Integer userId, @RequestBody UserImageDto userImageDto) {
+        userImageService.addUserImage(userId, userImageDto);
     }
 
-    @DeleteMapping("/delete-image")
+    @DeleteMapping("/image")
     @Operation(summary = "kustutab kasutaja pildi")
     public void deleteUserImage(@RequestParam Integer userId) {
         userImageService.deleteUserImage(userId);
     }
+
+    @GetMapping("/image")
+    public UserImageDto getUserImage(@RequestParam Integer userId){
+        UserImageDto userImageDto = userImageService.getUserImage(userId);
+        return userImageDto;
+    }
+
+
+
 }
