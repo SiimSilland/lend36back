@@ -4,11 +4,13 @@ package kks.lend36back.service;
 import jakarta.validation.Valid;
 import kks.lend36back.controller.company.dto.CompanyDto;
 import kks.lend36back.controller.company.dto.NewCompany;
+import kks.lend36back.controller.student.dto.StudentProfileDto;
 import kks.lend36back.persistence.company_profile.CompanyProfile;
 import kks.lend36back.persistence.company_profile.CompanyProfileMapper;
 import kks.lend36back.persistence.company_profile.CompanyProfileRepository;
 import kks.lend36back.persistence.role.Role;
 import kks.lend36back.persistence.role.RoleRepository;
+import kks.lend36back.persistence.student_profile.StudentProfile;
 import kks.lend36back.persistence.user.User;
 import kks.lend36back.persistence.user.UserMapper;
 import kks.lend36back.persistence.user.UserRepository;
@@ -32,22 +34,25 @@ public class CompanyService {
     private final CompanyProfileRepository companyProfileRepository;
 
     @Transactional
-    public void updateCompanyProfile(Integer userId, @Valid CompanyDto companyDto) {
-        User user = userRepository.findById(userId).orElseThrow(() -> ValidationService.throwPrimaryKeyNotFoundException("userId", userId));
-        user.setEmail(companyDto.getEmail());
-        userRepository.save(user);
-
-        CompanyProfile existingProfile = companyProfileRepository.findProfileBy(userId).
+    public void updateCompanyProfile(Integer userId, CompanyDto companyDto) {
+        CompanyProfile companyProfile = companyProfileRepository.findProfileBy(userId).
                 orElseThrow(() -> ValidationService.throwForeignKeyNotFoundException("userId", userId));
-        companyProfileMapper.updateCompanyProfile(companyDto, existingProfile);
-        companyProfileRepository.save(existingProfile);
+        companyProfileMapper.updateCompanyProfile(companyDto, companyProfile);
+        companyProfileRepository.save(companyProfile);
     }
 
     public List<NewCompany> getAllCompanyProfiles() {
         List<CompanyProfile> companyProfiles = companyProfileRepository.findAll();
         return companyProfileMapper.toCompanyProfile(companyProfiles);
     }
-
+    public CompanyDto getCompanyProfileByUserId(Integer userId) {
+        CompanyProfile companyProfile = companyProfileRepository.findProfileBy(userId)
+                .orElseThrow(() -> ValidationService.throwForeignKeyNotFoundException("userId", userId));
+        CompanyDto companyDto = companyProfileMapper.mapToCompanyProfileDto(companyProfile);
+        User user = userRepository.findById(userId).orElseThrow(() -> ValidationService.throwPrimaryKeyNotFoundException("userId", userId));
+        companyDto.setEmail(user.getEmail());
+        return companyDto;
+    }
     public void addNewCompany(NewCompany newCompany) {
         User user = createAndSaveCompanyUser(newCompany);
         createAndSaveCompanyProfile(newCompany, user);

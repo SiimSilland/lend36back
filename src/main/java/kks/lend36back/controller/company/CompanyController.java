@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import kks.lend36back.controller.company.dto.CompanyDto;
 import kks.lend36back.controller.company.dto.NewCompany;
+import kks.lend36back.controller.student.dto.StudentProfileDto;
 import kks.lend36back.service.CompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,13 @@ public class CompanyController {
     @Operation(summary = "Muudetakse firma profiili")
     public void updateCompanyProfile(@RequestParam Integer userId, @RequestBody @Valid CompanyDto companyDto) {
         companyService.updateCompanyProfile(userId, companyDto);
+    }
+
+    @GetMapping("/company/profile")
+    @Operation(summary = "Returns company profile by userId")
+    public CompanyDto getCompanyProfile(@RequestParam Integer userId) {
+        CompanyDto companyProfileByUserId = companyService.getCompanyProfileByUserId(userId);
+        return companyProfileByUserId;
     }
 
     @GetMapping("/company/profile/all")

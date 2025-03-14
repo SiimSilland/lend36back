@@ -25,7 +25,8 @@ public class InternshipController {
     public List<InternshipDto> getAllInternships() {
         return internshipService.getAllInternships();
     }
-    @PostMapping("/company/internship")
+
+    @PutMapping("/company/internship")
     @Operation(summary = "lisab uue praktikakoha ja uuendab juhendaja andmeid/")
     public void addNewInternship (@RequestBody InternshipDto internshipDto, @RequestParam User user) {
         internshipService.addNewInternship(user, internshipDto);
