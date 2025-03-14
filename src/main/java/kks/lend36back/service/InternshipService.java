@@ -26,14 +26,17 @@ public class InternshipService {
         Internship internship = createNewInternship(internshipDto, companyUser);
         internshipRepository.save(internship);
         }
+
     private Internship createNewInternship(InternshipDto internshipDto, User companyUser) {
-            Internship internship = internshipMapper.toInternship(internshipDto);
-            internship.setUser(companyUser);
-            return internship;
+        Internship internship = internshipMapper.toInternship(internshipDto);
+        internship.setCompanyUser(companyUser);  // ✅ Correct way to set it
+        return internship;
     }
-    public List<InternshipDto> getAllInternships() {
+
+    public Internship getAllInternships() {
         List<Internship> internships = internshipRepository.findAll();
-        return internshipMapper.toInternship(internships);
+        Internship internship = new Internship();
+        return internship;
 
     }
     @Transactional
@@ -45,3 +48,11 @@ public class InternshipService {
 
 }
 
+/*
+
+private Internship createNewInternship(InternshipDto internshipDto, User companyUser) {
+            Internship internship = internshipMapper.toInternship(internshipDto);
+            internship.setUser(companyUser);
+            return internship;
+    }
+ */
