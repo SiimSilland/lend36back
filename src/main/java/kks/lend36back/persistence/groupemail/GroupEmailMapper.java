@@ -12,15 +12,6 @@ import java.util.List;
 public interface GroupEmailMapper {
 
 
-    /*
-        private Group group;
-        private Integer groupNumber;
-        private String firstName;
-        private String lastName;
-        private String email;
-        private String status;
-    */
-    // Ei saa MÄPPIDA @Mapping(source = "", target = "groupId")
     @Mapping(source = "firstName", target = "firstName")
     @Mapping(source = "lastName", target = "lastName")
     @Mapping(source = "email", target = "email")

@@ -14,7 +14,7 @@ public interface GroupEmailRepository extends JpaRepository<GroupEmail, Integer>
     @Query("select g from GroupEmail g where g.email = :email and g.status = :status")
     Optional<GroupEmail> findGroupEmailBy(String email, String status);
 
-    @Query("select g from GroupEmail g where g.group.id = :groupId order by g.firstName, g.lastName")
+    @Query("select g from GroupEmail g where (:groupId = 0 or g.group.id = :groupId) order by g.firstName, g.lastName")
     List<GroupEmail> findGroupEmailsBy(Integer groupId);
 
 
