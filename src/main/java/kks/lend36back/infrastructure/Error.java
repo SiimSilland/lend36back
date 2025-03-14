@@ -13,7 +13,8 @@ public enum Error {
     NO_COMPANY_FOUND("Ei leitud ühtegi firma", 222),
     COMPANY_NUMBER_IN_USE("Sellise numbriga firma on juba registreeritud", 444),
     PRIMARY_KEY_NOT_FOUND("Ei leidnud primary keyd: ", 888),
-    FOREIGN_KEY_NOT_FOUND("Ei leidnud foreign keyd: ", 999);
+    FOREIGN_KEY_NOT_FOUND("Ei leidnud foreign keyd: ", 999),
+    GROUP_EMAIL_ALREADY_EXISTS ("Sellise e-postiga õppur on juba lisatud", 777);
 
     private final String message;
     private final int errorCode;
