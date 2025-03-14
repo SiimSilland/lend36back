@@ -9,6 +9,7 @@ public enum Error {
     INCORRECT_CREDENTIALS("Vale kasutajanimi või parool", 111),
     INCORRECT_EMAIL("Ei leitud emaili registreeritute nimekirjast", 112),
     COMPANY_USER_NOT_FOUND( "Ei leitud firma kasutaja ID",  303),
+    GROUP_NUMBER_UNAVAILABLE( "Selline lennu number on juba süsteemis olemas",  113),
     NO_COMPANY_FOUND("Ei leitud ühtegi firma", 222),
     COMPANY_NUMBER_IN_USE("Sellise numbriga firma on juba registreeritud", 444),
     PRIMARY_KEY_NOT_FOUND("Ei leidnud primary keyd: ", 888),
