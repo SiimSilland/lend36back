@@ -1,12 +1,13 @@
 package kks.lend36back.service;
 
 
-
 import jakarta.persistence.EntityNotFoundException;
 import kks.lend36back.controller.group.dto.GroupInfo;
 import kks.lend36back.controller.group.dto.NewGroup;
 import kks.lend36back.controller.group.dto.NewGroupEmail;
 import kks.lend36back.controller.student.dto.NameToStudentProfileDto;
+import kks.lend36back.infrastructure.Error;
+import kks.lend36back.infrastructure.exception.ForbiddenException;
 import kks.lend36back.persistence.group.Group;
 import kks.lend36back.persistence.group.GroupMapper;
 import kks.lend36back.persistence.group.GroupRepository;
@@ -42,32 +43,24 @@ public class GroupService {
     private final UserRepository userRepository;
 
     // Todo: transactional
-    public void addNewGroup (NewGroup newGroup){
+    public void addNewGroup(NewGroup newGroup) {
+        boolean groupNumberExists = groupRepository.groupNumberExists(newGroup.getNumber());
+        if (groupNumberExists) {
+            throw new ForbiddenException(Error.GROUP_NUMBER_UNAVAILABLE.getMessage(), Error.GROUP_NUMBER_UNAVAILABLE.getErrorCode());
+        }
         Group group = groupMapper.toGroup(newGroup);
-        //GroupEmail newRow = groupEmailMapper.toGroupEmail(newGroup);
         groupRepository.save(group);
     }
 
     public void addGroupEmail(NewGroupEmail newGroupEmail) {
         Integer groupId = newGroupEmail.getGroupId();
-
-        // Ei saa MÄPPIDA FOREIGN KEYD @Mapping(source = "", target = "groupId")
         Group group = groupRepository.findById(groupId).orElseThrow(() -> ValidationService.throwForeignKeyNotFoundException("groupId", groupId));
         GroupEmail groupEmail = groupEmailMapper.toGroupEmail(newGroupEmail);
         groupEmail.setGroup(group);
         groupEmail.setStatus(PENDING.getCode());
         groupEmailRepository.save(groupEmail);
-
-        // @Mapping(constant = "EI SAA MÄPPIDA", target = "groupNumber")
-        //GroupEmail groupEmail = groupEmailMapper.toGroupEmail(newGroupEmail);
-        //groupEmail.setGroup(group);
-        //groupEmail.setGroupNumber();
-        //groupEmail.setStatus(PENDING.getCode());
-        // Ei saa MÄPPIDA @Mapping(source = "", target = "status")
-        // Ei saa MäPPIDA @Mapping(source = "", target = "groupNumber")
-       // groupEmailRepository.save(groupEmail);
-
     }
+
     public void addStudentName(NameToStudentProfileDto nameToStudentProfileDto, Long userId) {
         User user = userRepository.findById(Math.toIntExact(userId))
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));

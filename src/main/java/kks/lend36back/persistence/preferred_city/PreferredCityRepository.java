@@ -8,7 +8,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 public interface PreferredCityRepository extends JpaRepository<PreferredCity, Integer> {
+  @Query("select p from PreferredCity p where p.user.id = :userId")
+  List<PreferredCity> getAllPreferredCities(Integer userId);
+
+  @Query("select p from PreferredCity p where p.user.id = :userId and p.city.id = :cityId")
+  PreferredCity findPreferredCity(Integer userId, Integer cityId);
+
+
   @Transactional
   @Modifying
   @Query("delete from PreferredCity p where p.user = :userId and p.city = :cityId")
