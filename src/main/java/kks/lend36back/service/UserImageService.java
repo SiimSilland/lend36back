@@ -10,6 +10,8 @@ import kks.lend36back.validation.ValidationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserImageService {
@@ -18,15 +20,22 @@ public class UserImageService {
     private final BytesConverter bytesConverter;
     private final UserImageRepository userImageRepository;
 
-
-
     public void addUserImage(Integer userId, UserImageDto userImageDto) {
-        User userById = userRepository.findUserById(userId);
-        UserImage userImage = new UserImage();
-        userImage.setUser(userById);
-        byte[] bytes = bytesConverter.stringToBytesArray(userImageDto.getUserImageData());
-        userImage.setData(bytes);
-        userImageRepository.save(userImage);
+
+        Optional<UserImage> optionalUserImage = userImageRepository.findUserImageBy(userId);
+
+        if (optionalUserImage.isPresent()) {
+            UserImage userImage = optionalUserImage.get();
+            userImage.setData(BytesConverter.stringToBytesArray(userImageDto.getUserImageData()));
+            userImageRepository.save(userImage);
+        } else {
+            User userById = userRepository.findUserById(userId);
+            UserImage userImage = new UserImage();
+            userImage.setUser(userById);
+            byte[] bytes = BytesConverter.stringToBytesArray(userImageDto.getUserImageData());
+            userImage.setData(bytes);
+            userImageRepository.save(userImage);
+        }
     }
 
     public void deleteUserImage(Integer userId) {
@@ -34,10 +43,10 @@ public class UserImageService {
         userImageRepository.deleteUserImage(userById);
     }
 
-    public UserImageDto getUserImage (Integer userId){
-        UserImage userImage = userImageRepository.getImageByUserId(userId)
-                .orElseThrow(() -> ValidationService.throwForeignKeyNotFoundException("userId", userId) );
-            byte[] bytes = userImage.getData();
+    public UserImageDto getUserImage(Integer userId) {
+        UserImage userImage = userImageRepository.findUserImageBy(userId)
+                .orElseThrow(() -> ValidationService.throwForeignKeyNotFoundException("userId", userId));
+        byte[] bytes = userImage.getData();
         String userImageData = BytesConverter.bytesArrayToString(bytes);
         UserImageDto userImageDto = new UserImageDto();
         userImageDto.setUserImageData(userImageData);

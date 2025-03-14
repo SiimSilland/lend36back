@@ -8,8 +8,8 @@ import java.util.List;
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface PreferredCityMapper {
 
-    @Mapping(source = "user", target = "userId")
-    @Mapping(source = "city", target = "cityId")
+    @Mapping(source = "user.id", target = "userId")
+    @Mapping(source = "city.id", target = "cityId")
     PreferredCityDto toPreferredCityDto (PreferredCity preferredCity);
 
     List<PreferredCityDto> toPreferredCityDto (List<PreferredCity>preferredCityList);
