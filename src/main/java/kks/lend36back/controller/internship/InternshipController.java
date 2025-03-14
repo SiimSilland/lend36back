@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import kks.lend36back.controller.company.dto.NewCompany;
 import kks.lend36back.controller.internship.dto.InternshipDto;
+import kks.lend36back.persistence.internship.InternshipRepository;
 import kks.lend36back.persistence.user.User;
 import kks.lend36back.service.InternshipService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ import java.util.List;
 
 public class InternshipController {
     private final InternshipService internshipService;
+    private final InternshipRepository internshipRepository;
 
     @GetMapping("/company/intrenship/all")
     @Operation(summary = "Leiab süsteemist praktika kohad")
@@ -36,8 +38,8 @@ public class InternshipController {
 
     @PostMapping("/company/internship")
     public void addNewInternship(@RequestBody InternshipDto internshipDto, @RequestParam Long userId) {
-        User companyUser = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        internshipService.addNewInternship(companyUser, internshipDto);
+        User companyUser = internshipRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        internshipService.updateInternship(companyUser, internshipDto);
     }
 
 }

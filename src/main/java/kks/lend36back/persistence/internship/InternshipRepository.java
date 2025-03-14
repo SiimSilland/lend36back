@@ -8,6 +8,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+
 public interface InternshipRepository extends JpaRepository<Internship, Integer> {
 
     @Query("select i from Internship i where i.companyUser.id = :id")
@@ -21,5 +23,8 @@ public interface InternshipRepository extends JpaRepository<Internship, Integer>
     @Modifying
     @Query("delete from Internship i where i.companyUser = :companyUser")
     void deleteInternship(@Param("companyUser") User companyUser);
+    Optional<Internship> findByCompanyUser(User companyUser);
+
+    Optional<Object> findById(Long userId);
 
 }

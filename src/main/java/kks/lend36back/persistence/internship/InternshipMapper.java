@@ -15,14 +15,14 @@ import java.util.List;
 
         @Mapping(source = "title", target = "title")
         @Mapping(source = "description", target = "description")
-        @Mapping(source = "coordinatorName", target = "coordinatorName")
-        @Mapping(source = "coordinatorEmail", target = "coordinatorEmail")
+        @Mapping(source = "name", target = "name")
+        @Mapping(source = "email", target = "email")
         Internship toInternship(InternshipDto internshipDto);
 
-        @Mapping(source = "title ", target = "title")
-        @Mapping(source = "description ", target = "description")
-        @Mapping(source = "coordinatorName ", target = "coordinatorName ")
-        @Mapping(source = "coordinatorEmail ", target = "coordinatorEmail ")
+        @Mapping(source = "title", target = "title")
+        @Mapping(source = "description", target = "description")
+        @Mapping(source = "name", target = "name")
+        @Mapping(source = "email", target = "email")
         Internship updateInternship(InternshipDto internshipDto, @MappingTarget Internship internship);
 
           List<InternshipDto> toInternship (List<Internship> internships);

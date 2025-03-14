@@ -36,12 +36,12 @@ public class Internship {
     @Size(max = 255)
     @NotNull
     @Column(name = "coordinator_name", nullable = false)
-    private String coordinatorName;
+    private String name;
 
     @Size(max = 255)
     @NotNull
     @Column(name = "coordinator_email", nullable = false)
-    private String coordinatorEmail;
+    private String email;
 
     @Size(max = 1)
     @NotNull

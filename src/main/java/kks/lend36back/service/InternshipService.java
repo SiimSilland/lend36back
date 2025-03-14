@@ -22,7 +22,7 @@ public class InternshipService {
     private final UserRepository userRepository; //
 
     @Transactional
-    public void addNewInternship (User companyUser, InternshipDto internshipDto) {
+    public void updateInternship (User companyUser, InternshipDto internshipDto) {
         Internship internship = createNewInternship(internshipDto, companyUser);
         internshipRepository.save(internship);
         }
@@ -38,8 +38,10 @@ public class InternshipService {
     }
     @Transactional
     public void deleteInternship(User companyUser) {
-        Internship internship = internshipRepository.findInternshipBy(companyUser);
-        internshipRepository.deleteInternship(companyUser);
+        Internship internship = internshipRepository.findByCompanyUser(companyUser)
+                .orElseThrow(() -> new RuntimeException("Internship not found"));
+        internshipRepository.delete(internship);
     }
+
 }
 

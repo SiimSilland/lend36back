@@ -25,11 +25,11 @@ public class InternshipDto implements Serializable {
 
     @NotNull
     @Size(max = 255)
-    private String coordinatorName;
+    private String name;
 
     @NotNull
     @Size(max = 255)
-    private String coordinatorEmail;
+    private String email;
 
     private String status;
 }
