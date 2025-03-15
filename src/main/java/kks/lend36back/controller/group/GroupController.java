@@ -19,14 +19,14 @@ public class GroupController {
     private final GroupService groupService;
 
 
-    @PostMapping ("/group")
-    @Operation (summary = "lisab uue lennu/")
-    public void addNewGroup (@RequestBody NewGroup newGroup) {
+    @PostMapping("/group")
+    @Operation(summary = "lisab uue lennu/")
+    public void addNewGroup(@RequestBody NewGroup newGroup) {
         groupService.addNewGroup(newGroup);
     }
 
-    @PostMapping ("/group-email")
-    @Operation (summary = "Lisab uue õpilase emaili lubatud õpilaste registreerimiseks")
+    @PostMapping("/group-email")
+    @Operation(summary = "Lisab uue õpilase emaili lubatud õpilaste registreerimiseks")
     public void addGroupEmail(@RequestBody @Valid NewGroupEmail newGroupEmail) {
         groupService.addGroupEmail(newGroupEmail);
 
@@ -44,9 +44,10 @@ public class GroupController {
         List<GroupInfo> allActiveGroups = groupService.getAllActiveGroups();
         return allActiveGroups;
     }
+
     @DeleteMapping("/delete-group")
     @Operation(summary = "Kustutab konkreetse lennu")
-    public void deleteGroup (@RequestParam Integer groupId) {
+    public void deleteGroup(@RequestParam Integer groupId) {
         groupService.deleteGroup(groupId);
     }
 }
