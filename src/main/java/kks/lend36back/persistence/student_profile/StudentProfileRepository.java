@@ -9,4 +9,6 @@ public interface StudentProfileRepository extends JpaRepository<StudentProfile, 
     @Query("select s from StudentProfile s where s.user.id = :userId")
    Optional<StudentProfile> findByUserId(Integer userId);
 
+
+
 }

@@ -4,9 +4,14 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import kks.lend36back.controller.student.dto.NewStudent;
 import kks.lend36back.controller.student.dto.StudentProfileDto;
+import kks.lend36back.persistence.student_profile.StudentProfile;
+import kks.lend36back.persistence.student_profile.StudentProfileRepository;
 import kks.lend36back.service.StudentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -34,5 +39,11 @@ public class StudentController {
         studentService.updateStudentProfile(userId, studentProfileDto);
     }
 
+    @Autowired
+    private StudentProfileRepository studentProfileRepository;
+        @GetMapping("/student/profile")
+        public List<StudentProfile> getAllStudentProfiles() {
+            return studentProfileRepository.findAll();
+        }
+    }
 
-}
