@@ -17,7 +17,6 @@ public class PreferredCityController {
 
     @PostMapping("/city")
     @Operation(summary = " Võtab userId ja cityId ning seob need kokku")
-
     public void addPreferredCity(@RequestParam Integer userId, @RequestParam Integer cityId) {
         preferredCityService.addPreferredCity(userId, cityId);
     }

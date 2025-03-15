@@ -19,4 +19,8 @@ public class ValidationService {
         return new DataNotFoundException(FOREIGN_KEY_NOT_FOUND.getMessage() + fieldName + " = " + value, FOREIGN_KEY_NOT_FOUND.getErrorCode());
     }
 
+    public static DataNotFoundException throwRowExistsException (String fieldName, Integer value) {
+        return new DataNotFoundException(ROW_ALREADY_EXISTS.getMessage() + fieldName + " = " + value, ROW_ALREADY_EXISTS.getErrorCode());
+    }
+
 }

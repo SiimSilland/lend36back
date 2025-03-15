@@ -23,6 +23,8 @@ public interface PreferredCityRepository extends JpaRepository<PreferredCity, In
   @Query("delete from PreferredCity p where p.user = :userId and p.city = :cityId")
   void deletePreferredCity1(User userId, City cityId);
 
+  @Query("select (count(p) > 0) from PreferredCity p where p.user.id = :userId and p.city.id = :cityId")
+  boolean preferredCityExists(Integer userId, Integer cityId);
 
 
 }
