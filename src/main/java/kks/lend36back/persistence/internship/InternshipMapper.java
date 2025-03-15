@@ -15,6 +15,9 @@ public interface InternshipMapper {
      @Mapping(source = "email", target = "email")
      @Mapping(target = "status", constant = "A") // ✅ Default status set
      Internship toInternship(InternshipDto internshipDto);
+
+     List<InternshipDto> toInternship(List<Internship> allIinternships);
+
 }
 
 

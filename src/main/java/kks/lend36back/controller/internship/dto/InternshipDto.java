@@ -17,25 +17,12 @@ import java.util.ListIterator;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class InternshipDto implements Serializable {
+public class InternshipDto {
 
-
-    @NotNull
-    @Size(max = 1000)
     private String title;
-
-    @NotNull
-    @Size(max = 1000)
     private String description;
-
-    @NotNull
-    @Size(max = 255)
     private String name;
-
-    @NotNull
-    @Size(max = 255)
     private String email;
-
     private String status;
 
 }

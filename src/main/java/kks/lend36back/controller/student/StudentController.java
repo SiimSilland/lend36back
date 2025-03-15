@@ -4,11 +4,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import kks.lend36back.controller.student.dto.NewStudent;
 import kks.lend36back.controller.student.dto.StudentProfileDto;
-import kks.lend36back.persistence.student_profile.StudentProfile;
-import kks.lend36back.persistence.student_profile.StudentProfileRepository;
 import kks.lend36back.service.StudentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,12 +35,11 @@ public class StudentController {
     public void updateStudentProfile(@RequestParam Integer userId, @RequestBody @Valid StudentProfileDto studentProfileDto) {
         studentService.updateStudentProfile(userId, studentProfileDto);
     }
+    @GetMapping("/student/profiles")
+    @Operation(summary = "Returns all student profiles")
+    public List<StudentProfileDto> getAllStudentProfiles() {
+        return studentService.getAllStudentProfiles();
+    }
 
-    @Autowired
-    private StudentProfileRepository studentProfileRepository;
-        @GetMapping("/student/profile")
-        public List<StudentProfile> getAllStudentProfiles() {
-            return studentProfileRepository.findAll();
-        }
     }
 

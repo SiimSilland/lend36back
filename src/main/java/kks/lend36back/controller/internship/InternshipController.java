@@ -1,9 +1,8 @@
 package kks.lend36back.controller.internship;
 
 import io.swagger.v3.oas.annotations.Operation;
-import jakarta.validation.Valid;
-import kks.lend36back.controller.company.dto.NewCompany;
 import kks.lend36back.controller.internship.dto.InternshipDto;
+import kks.lend36back.persistence.internship.Internship;
 import kks.lend36back.persistence.internship.InternshipRepository;
 import kks.lend36back.persistence.user.User;
 import kks.lend36back.persistence.user.UserRepository;
@@ -24,10 +23,11 @@ public class InternshipController {
     private final InternshipRepository internshipRepository;
     private final UserRepository userRepository;
 
-    @GetMapping("/company/intrenship/all")
+    @GetMapping("/company/intrenships")
     @Operation(summary = "Leiab süsteemist praktika kohad")
-    public List<InternshipDto> getAllInternships() {
-        return (List<InternshipDto>) internshipService.getAllInternships();
+    public List<InternshipDto> getAllInternships (@RequestParam Integer companyId) {
+        List<InternshipDto> allInternships = internshipService.getAllInternships(companyId);
+        return allInternships;
     }
 
     @DeleteMapping("/company/internship/delete")

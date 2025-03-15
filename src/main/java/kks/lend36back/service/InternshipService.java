@@ -33,9 +33,9 @@ public class InternshipService {
         return internship;
     }
 
-    public Internship getAllInternships() {
-        List<Internship> internships = internshipRepository.findAll();
-        Internship internship = new Internship();
+    public List<InternshipDto> getAllInternships(Integer companyId) {
+        List<Internship> allIinternships = internshipRepository.findAll();
+        List<InternshipDto> internship = internshipMapper.toInternship(allIinternships);
         return internship;
 
     }

@@ -24,6 +24,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static kks.lend36back.infrastructure.Error.INCORRECT_EMAIL;
 import static kks.lend36back.status.Status.ACTIVE;
 
@@ -105,5 +107,14 @@ public class StudentService {
         studentProfileMapper.updateStudentProfile(studentProfileDto, studentProfile);
         studentProfileRepository.save(studentProfile);
     }
-}
+
+    public List<StudentProfileDto> getAllStudentProfiles() {
+        List<StudentProfile> studentProfiles = studentProfileRepository.findAll();
+        return studentProfileMapper.toStudentProfile(studentProfiles);
+
+    }
+
+
+    }
+
 
