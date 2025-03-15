@@ -3,6 +3,7 @@ package kks.lend36back.controller.internship.dto;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import kks.lend36back.persistence.internship.Internship;
+import kks.lend36back.persistence.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,5 +25,6 @@ public class InternshipDto {
     private String name;
     private String email;
     private String status;
+    private Integer companyUserId;
 
 }

@@ -1,6 +1,7 @@
 package kks.lend36back.service;
 
 
+import jakarta.validation.constraints.NotNull;
 import kks.lend36back.controller.internship.dto.InternshipDto;
 import kks.lend36back.persistence.internship.Internship;
 import kks.lend36back.persistence.internship.InternshipMapper;
@@ -16,36 +17,38 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class InternshipService {
-
     private final InternshipRepository internshipRepository;
     private final InternshipMapper internshipMapper;
-    private final UserRepository userRepository; //
+    private final UserRepository userRepository;
 
     @Transactional
-    public void addNewInternship (User companyUser, InternshipDto internshipDto) {
-        Internship internship = createNewInternship(internshipDto, companyUser);
-        internshipRepository.save(internship);
-        }
+    public void addNewInternship(InternshipDto internshipDto) {
+        User companyUser = userRepository.findById(internshipDto.getCompanyUserId())
+                .orElseThrow(() -> new RuntimeException("Company User not found"));
 
-    private Internship createNewInternship(InternshipDto internshipDto, User companyUser) {
         Internship internship = internshipMapper.toInternship(internshipDto);
-        internship.setCompanyUser(companyUser);  // ✅ Correct way to set it
-        return internship;
+        internship.setCompanyUser(companyUser); // Set the correct user
+
+        internshipRepository.save(internship);
     }
 
-    public List<InternshipDto> getAllInternships(Integer companyId) {
-        List<Internship> allIinternships = internshipRepository.findAll();
-        List<InternshipDto> internship = internshipMapper.toInternship(allIinternships);
-        return internship;
-
+    public List<InternshipDto> getAllInternships() {
+        List<Internship> allInternships = internshipRepository.findAll();
+        return internshipMapper.toInternship(allInternships);
     }
+
     @Transactional
-    public void deleteInternship(User companyUser) {
-        Internship internship = internshipRepository.findByCompanyUser(companyUser)
-                .orElseThrow(() -> new RuntimeException("Internship not found"));
-        internshipRepository.delete(internship);
-    }
+    public void deleteInternship(InternshipDto internshipDto) {
+        User companyUser = userRepository.findById(internshipDto.getCompanyUserId())
+                .orElseThrow(() -> new RuntimeException("Company User not found"));
 
+        Internship internship = internshipRepository.findInternshipBy(companyUser);
+        if (internship != null) {
+            internshipRepository.delete(internship);
+        } else {
+            throw new RuntimeException("Internship not found");
+        }
+    }
 }
 
 /*

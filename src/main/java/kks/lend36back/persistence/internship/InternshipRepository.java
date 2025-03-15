@@ -1,5 +1,6 @@
 package kks.lend36back.persistence.internship;
 
+import kks.lend36back.controller.internship.dto.InternshipDto;
 import kks.lend36back.persistence.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -23,7 +24,7 @@ public interface InternshipRepository extends JpaRepository<Internship, Integer>
     @Modifying
     @Query("delete from Internship i where i.companyUser = :companyUser")
     void deleteInternship(@Param("companyUser") User companyUser);
-    Optional<Internship> findByCompanyUser(User companyUser);
+    Optional<Internship> findByCompanyUser(InternshipDto internshipDto);
 
     Optional<Object> findById(Long userId);
 

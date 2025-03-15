@@ -1,8 +1,8 @@
 package kks.lend36back.controller.internship;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.constraints.NotNull;
 import kks.lend36back.controller.internship.dto.InternshipDto;
-import kks.lend36back.persistence.internship.Internship;
 import kks.lend36back.persistence.internship.InternshipRepository;
 import kks.lend36back.persistence.user.User;
 import kks.lend36back.persistence.user.UserRepository;
@@ -14,34 +14,27 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequiredArgsConstructor
-
 public class InternshipController {
     private final InternshipService internshipService;
-    private final InternshipRepository internshipRepository;
-    private final UserRepository userRepository;
 
-    @GetMapping("/company/intrenships")
+    @GetMapping("/company/internships")
     @Operation(summary = "Leiab süsteemist praktika kohad")
-    public List<InternshipDto> getAllInternships (@RequestParam Integer companyId) {
-        List<InternshipDto> allInternships = internshipService.getAllInternships(companyId);
-        return allInternships;
+    public List<InternshipDto> getAllInternships() {
+        return internshipService.getAllInternships();
     }
 
     @DeleteMapping("/company/internship/delete")
-    @Operation(summary = "kustutab praktika sisendi")
-    public void deleteInternship (@RequestParam User comnpanyUser) {
-        internshipService.deleteInternship(comnpanyUser);
+    @Operation(summary = "Kustutab praktika sisendi")
+    public void deleteInternship(@RequestBody InternshipDto internshipDto) {
+        internshipService.deleteInternship(internshipDto);
     }
 
     @PostMapping("/company/internship")
     @Operation(summary = "Lisab uue praktika koha")
-    public void addNewInternship(@RequestBody InternshipDto internshipDto, @RequestParam ("userid") Integer userId) {
-       User companyUser = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        internshipService.addNewInternship(companyUser, internshipDto);
+    public void addNewInternship(@RequestBody InternshipDto internshipDto) {
+        internshipService.addNewInternship(internshipDto);
     }
 }
 /*
