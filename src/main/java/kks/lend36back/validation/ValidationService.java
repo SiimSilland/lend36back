@@ -25,7 +25,7 @@ public class ValidationService {
     }
 
     public static InvalidStateException throwGroupNotEmptyException() {
-        return new InvalidStateException(GROUP_NOT_EMPTY.getMessage(), FOREIGN_KEY_NOT_FOUND.getErrorCode());
+        return new InvalidStateException(GROUP_NOT_EMPTY.getMessage(), GROUP_NOT_EMPTY.getErrorCode());
     }
 
 }
