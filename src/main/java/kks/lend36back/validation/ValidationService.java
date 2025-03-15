@@ -19,4 +19,8 @@ public class ValidationService {
         return new DataNotFoundException(FOREIGN_KEY_NOT_FOUND.getMessage() + fieldName + " = " + value, FOREIGN_KEY_NOT_FOUND.getErrorCode());
     }
 
+    public static DataNotFoundException throwNotFoundException(String fieldName, String value) {
+        return new DataNotFoundException(FOREIGN_KEY_NOT_FOUND.getMessage() + fieldName + " = " + value, FOREIGN_KEY_NOT_FOUND.getErrorCode());
+    }
+
 }

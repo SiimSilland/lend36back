@@ -83,5 +83,9 @@ public class GroupService {
         return studentProfile;
     }
 
-
+    public void deleteGroup(Integer groupId) {
+        Group group = groupRepository.findById(groupId)
+                .orElseThrow(() -> ValidationService.throwPrimaryKeyNotFoundException("groupId", groupId));
+        groupRepository.deleteGroup(group.getId());
+    }
 }

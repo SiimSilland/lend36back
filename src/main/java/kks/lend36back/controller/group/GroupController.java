@@ -44,6 +44,10 @@ public class GroupController {
         List<GroupInfo> allActiveGroups = groupService.getAllActiveGroups();
         return allActiveGroups;
     }
-
+    @DeleteMapping("/delete-group")
+    @Operation(summary = "Kustutab konkreetse lennu")
+    public void deleteGroup (@RequestParam Integer groupId) {
+        groupService.deleteGroup(groupId);
+    }
 }
 
