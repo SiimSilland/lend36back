@@ -86,6 +86,12 @@ public class GroupService {
     public void deleteGroup(Integer groupId) {
         Group group = groupRepository.findById(groupId)
                 .orElseThrow(() -> ValidationService.throwPrimaryKeyNotFoundException("groupId", groupId));
+        List<GroupEmail> groupEmailsBy = groupEmailRepository.findGroupEmailsBy(group.getId());
+        if (!groupEmailsBy.isEmpty()) {
+            throw ValidationService.throwGroupNotEmptyException();
+        }
+
+
         groupRepository.deleteGroup(group.getId());
     }
 }

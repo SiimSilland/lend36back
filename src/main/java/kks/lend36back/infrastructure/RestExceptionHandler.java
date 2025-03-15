@@ -2,6 +2,7 @@ package kks.lend36back.infrastructure;
 
 import kks.lend36back.infrastructure.error.ApiError;
 import kks.lend36back.infrastructure.exception.DataNotFoundException;
+import kks.lend36back.infrastructure.exception.InvalidStateException;
 import kks.lend36back.infrastructure.exception.ForbiddenException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -29,6 +30,14 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         apiError.setMessage(exception.getMessage());
         apiError.setErrorCode(exception.getErrorCode());
         return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ApiError> handleInvalidStateException(InvalidStateException exception) {
+        ApiError apiError = new ApiError();
+        apiError.setMessage(exception.getMessage());
+        apiError.setErrorCode(exception.getErrorCode());
+        return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
     }
 
     @Override

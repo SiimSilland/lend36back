@@ -14,7 +14,8 @@ public enum Error {
     COMPANY_NUMBER_IN_USE("Sellise numbriga firma on juba registreeritud", 444),
     PRIMARY_KEY_NOT_FOUND("Ei leidnud primary keyd: ", 888),
     FOREIGN_KEY_NOT_FOUND("Ei leidnud foreign keyd: ", 999),
-    GROUP_EMAIL_ALREADY_EXISTS ("Sellise e-postiga õppur on juba lisatud", 777);
+    GROUP_EMAIL_ALREADY_EXISTS ("Sellise e-postiga õppur on juba lisatud", 777),
+    GROUP_NOT_EMPTY ("Lendu ei saa kustutada kuna sinna on registreeritud õppurid", 666);
 
     private final String message;
     private final int errorCode;

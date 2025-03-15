@@ -2,6 +2,7 @@ package kks.lend36back.validation;
 
 import kks.lend36back.infrastructure.exception.DataNotFoundException;
 import kks.lend36back.infrastructure.exception.DuplicationResourceException;
+import kks.lend36back.infrastructure.exception.InvalidStateException;
 import kks.lend36back.persistence.company_profile.CompanyProfile;
 // import kks.lend36back.persistence.location.Location;
 
@@ -21,6 +22,10 @@ public class ValidationService {
 
     public static DataNotFoundException throwNotFoundException(String fieldName, String value) {
         return new DataNotFoundException(FOREIGN_KEY_NOT_FOUND.getMessage() + fieldName + " = " + value, FOREIGN_KEY_NOT_FOUND.getErrorCode());
+    }
+
+    public static InvalidStateException throwGroupNotEmptyException() {
+        return new InvalidStateException(GROUP_NOT_EMPTY.getMessage(), FOREIGN_KEY_NOT_FOUND.getErrorCode());
     }
 
 }
