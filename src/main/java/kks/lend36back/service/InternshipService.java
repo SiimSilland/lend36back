@@ -1,6 +1,5 @@
 package kks.lend36back.service;
 
-
 import jakarta.validation.constraints.NotNull;
 import kks.lend36back.controller.internship.dto.InternshipDto;
 import kks.lend36back.persistence.internship.Internship;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,57 +22,43 @@ public class InternshipService {
     private final InternshipMapper internshipMapper;
     private final UserRepository userRepository;
 
+    /** ✅ Add a new internship */
     @Transactional
     public void addNewInternship(InternshipDto internshipDto) {
         User companyUser = userRepository.findById(internshipDto.getCompanyUserId())
                 .orElseThrow(() -> new RuntimeException("Company User not found"));
 
         Internship internship = internshipMapper.toInternship(internshipDto);
-        internship.setCompanyUser(companyUser); // Set the correct user
+        internship.setCompanyUser(companyUser); // Assign the correct user
 
         internshipRepository.save(internship);
     }
+
+    /** ✅ Get all internships for a specific company */
     public List<InternshipDto> getAllInternships(Long companyUserId) {
-        List<Internship> internships = internshipRepository.findByCompanyUser_Id(companyUserId);
-        return internships.stream()
-                .map(internship -> new InternshipDto(
-                        internship.getTitle(),
-                        internship.getDescription(),
-                        internship.getName(),
-                        internship.getEmail(),
-                        internship.getStatus(),
-                        internship.getCompanyUser().getId()  // Ensuring companyUserId is included
-                ))
-                .collect(Collectors.toList());
+        if (companyUserId == null) {
+            throw new IllegalArgumentException("Company User ID cannot be null");
+        }
+
+        return internshipRepository.findInternshipsByCompanyUserId(companyUserId);
     }
 
+    /** ✅ Delete an internship if owned by the logged-in company */
     @Transactional
-    public void deleteInternship(InternshipDto internshipDto) {
-        User companyUser = userRepository.findById(internshipDto.getCompanyUserId())
-                .orElseThrow(() -> new RuntimeException("Company User not found"));
-
-        Internship internship = internshipRepository.findInternshipBy(companyUser)
+    public void deleteInternship(Long internshipId, Long companyUserId) {
+        Internship internship = internshipRepository.findById(internshipId)
                 .orElseThrow(() -> new RuntimeException("Internship not found"));
+
+        // Prevent deletion if the internship does not belong to the logged-in company
+        if (internship.getCompanyUser() == null || !internship.getCompanyUser().getId().equals(companyUserId)) {
+            throw new RuntimeException("Unauthorized: Cannot delete internship for another company");
+        }
 
         internshipRepository.delete(internship);
     }
 
+    /** ✅ Alternative: Get internships by company ID */
     public List<Internship> findByCompanyId(Long companyUserId) {
         return internshipRepository.findByCompanyUser_Id(companyUserId);
     }
-
-    }
-
-
-/*
-
-private Internship createNewInternship(InternshipDto internshipDto, User companyUser) {
-            Internship internship = internshipMapper.toInternship(internshipDto);
-            internship.setUser(companyUser);
-            return internship;
-     public List<InternshipDto> getAllInternships() {
-        List<Internship> allInternships = internshipRepository.findAll();
-        return internshipMapper.toInternship(allInternships);
-    }
-    }
- */
+}

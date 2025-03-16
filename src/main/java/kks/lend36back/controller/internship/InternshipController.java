@@ -28,10 +28,14 @@ public class InternshipController {
         return ResponseEntity.ok(internships);
     }
 
-    @DeleteMapping("/company/internship/delete")
-    @Operation(summary = "Kustutab praktika sisendi")
-    public void deleteInternship(@RequestBody InternshipDto internshipDto) {
-        internshipService.deleteInternship(internshipDto);
+    @DeleteMapping("/company/internship/{internshipId}")
+    @Operation(summary = "Deletes an internship")
+    public ResponseEntity<String> deleteInternship(
+            @PathVariable Long internshipId,
+            @RequestParam Long companyUserId) {
+
+        internshipService.deleteInternship(internshipId, companyUserId);
+        return ResponseEntity.ok("Internship deleted successfully");
     }
 
     @PostMapping("/company/internship")

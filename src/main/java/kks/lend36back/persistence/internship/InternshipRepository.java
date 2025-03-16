@@ -22,11 +22,15 @@ public interface InternshipRepository extends JpaRepository<Internship, Integer>
 
     @Transactional
     @Modifying
-    @Query("delete from Internship i where i.companyUser = :companyUser")
-    void deleteInternship(@Param("companyUser") User companyUser);
-    Optional<Internship> findByCompanyUser(InternshipDto internshipDto);
 
-    Optional<Object> findById(Long userId);
+@Query("SELECT new kks.lend36back.controller.internship.dto.InternshipDto(i.title, i.description, i.name, i.email, i.status, i.companyUser.id) " +
+        "FROM Internship i WHERE i.companyUser.id = :id")
+List<InternshipDto> findInternshipsByCompanyUserId(@Param("id") Long companyUserId);
 
-    List<Internship> findByCompanyUser_Id(Long companyUserId);
+Optional<Internship> findById(Long internshipId);
+
+List<Internship> findByCompanyUser_Id(Long companyUserId);
+
+@Transactional
+void deleteById(Long id);
 }
