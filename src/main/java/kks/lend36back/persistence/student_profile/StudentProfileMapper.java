@@ -4,6 +4,8 @@ import kks.lend36back.controller.student.dto.NameToStudentProfileDto;
 import kks.lend36back.controller.student.dto.StudentProfileDto;
 import org.mapstruct.*;
 
+import java.util.List;
+
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface StudentProfileMapper {
 
@@ -38,5 +40,7 @@ public interface StudentProfileMapper {
     @Mapping(source = "email", target = "email")
     @Mapping(source = "intro", target = "intro")
     StudentProfile updateStudentProfile(StudentProfileDto studentProfileDto, @MappingTarget StudentProfile studentProfile);
+
+    List<StudentProfileDto> toStudentProfile(List<StudentProfile> studentProfiles);
 
 }

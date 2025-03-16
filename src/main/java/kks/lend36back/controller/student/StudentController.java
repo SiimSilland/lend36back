@@ -8,6 +8,8 @@ import kks.lend36back.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 public class StudentController {
@@ -19,6 +21,7 @@ public class StudentController {
         studentService.addNewStudent(newStudent);
     }
 
+
     @GetMapping("/student/profile")
     @Operation(summary = "Returns student profile by userId")
     public StudentProfileDto getStudentProfile(@RequestParam Integer userId) {
@@ -26,9 +29,17 @@ public class StudentController {
         return studentProfileByUserId;
     }
 
+
     @PutMapping("/student/profile")
     @Operation(summary = "Uue õppuri muutmine")
     public void updateStudentProfile(@RequestParam Integer userId, @RequestBody @Valid StudentProfileDto studentProfileDto) {
         studentService.updateStudentProfile(userId, studentProfileDto);
     }
-}
+    @GetMapping("/student/profiles")
+    @Operation(summary = "Returns all student profiles")
+    public List<StudentProfileDto> getAllStudentProfiles() {
+        return studentService.getAllStudentProfiles();
+    }
+
+    }
+
