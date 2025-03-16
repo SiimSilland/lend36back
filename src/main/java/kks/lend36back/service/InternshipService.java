@@ -22,42 +22,34 @@ public class InternshipService {
     private final InternshipMapper internshipMapper;
     private final UserRepository userRepository;
 
-    /** ✅ Add a new internship */
+
     @Transactional
     public void addNewInternship(InternshipDto internshipDto) {
         User companyUser = userRepository.findById(internshipDto.getCompanyUserId())
                 .orElseThrow(() -> new RuntimeException("Company User not found"));
-
         Internship internship = internshipMapper.toInternship(internshipDto);
         internship.setCompanyUser(companyUser); // Assign the correct user
-
         internshipRepository.save(internship);
     }
 
-    /** ✅ Get all internships for a specific company */
+
     public List<InternshipDto> getAllInternships(Long companyUserId) {
         if (companyUserId == null) {
             throw new IllegalArgumentException("Company User ID cannot be null");
         }
-
         return internshipRepository.findInternshipsByCompanyUserId(companyUserId);
     }
 
-    /** ✅ Delete an internship if owned by the logged-in company */
     @Transactional
     public void deleteInternship(Long internshipId, Long companyUserId) {
         Internship internship = internshipRepository.findById(internshipId)
                 .orElseThrow(() -> new RuntimeException("Internship not found"));
-
-        // Prevent deletion if the internship does not belong to the logged-in company
         if (internship.getCompanyUser() == null || !internship.getCompanyUser().getId().equals(companyUserId)) {
             throw new RuntimeException("Unauthorized: Cannot delete internship for another company");
         }
-
         internshipRepository.delete(internship);
     }
 
-    /** ✅ Alternative: Get internships by company ID */
     public List<Internship> findByCompanyId(Long companyUserId) {
         return internshipRepository.findByCompanyUser_Id(companyUserId);
     }
