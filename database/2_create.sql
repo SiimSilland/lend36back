@@ -110,14 +110,15 @@ CREATE TABLE student_preference
 -- Table: student_profile
 CREATE TABLE student_profile
 (
-    id         serial       NOT NULL,
-    user_id    int          NOT NULL,
-    first_name varchar(255) NOT NULL,
-    last_name  varchar(255) NOT NULL,
-    address    varchar(255) NULL,
-    phone      varchar(255) NULL,
-    linkedin   varchar(255) NULL,
-    email      varchar(255) NOT NULL,
+    id         serial        NOT NULL,
+    user_id    int           NOT NULL,
+    first_name varchar(255)  NOT NULL,
+    last_name  varchar(255)  NOT NULL,
+    address    varchar(255)  NULL,
+    phone      varchar(255)  NULL,
+    linkedin   varchar(255)  NULL,
+    email      varchar(255)  NOT NULL,
+    intro      varchar(1000) NULL,
     CONSTRAINT student_profile_pk PRIMARY KEY (id)
 );
 

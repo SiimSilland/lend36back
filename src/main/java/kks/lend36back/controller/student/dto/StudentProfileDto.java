@@ -1,5 +1,6 @@
 package kks.lend36back.controller.student.dto;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -28,4 +29,6 @@ public class StudentProfileDto implements Serializable {
     @NotNull
     @Size(max = 255)
     private String email;
+    @Size(max = 1000)
+    private String intro;
 }

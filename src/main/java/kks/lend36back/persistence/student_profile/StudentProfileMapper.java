@@ -13,6 +13,7 @@ public interface StudentProfileMapper {
     @Mapping(constant = "", target = "phone")
     @Mapping(constant = "", target = "linkedin")
     @Mapping(source = "email", target = "email")
+    @Mapping(constant = "", target = "intro")
     StudentProfile toStudentProfile (StudentProfileDto studentProfileDto);
 
     @Mapping(source = "firstName", target = "firstName")
@@ -25,6 +26,7 @@ public interface StudentProfileMapper {
     @Mapping(source = "phone", target = "phone")
     @Mapping(source = "linkedin", target = "linkedin")
     @Mapping(source = "email", target = "email")
+    @Mapping(source = "intro", target = "intro")
     StudentProfileDto mapToStudentProfileDto (StudentProfile studentProfile);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
@@ -34,6 +36,7 @@ public interface StudentProfileMapper {
     @Mapping(source = "phone", target = "phone")
     @Mapping(source = "linkedin", target = "linkedin")
     @Mapping(source = "email", target = "email")
+    @Mapping(source = "intro", target = "intro")
     StudentProfile updateStudentProfile(StudentProfileDto studentProfileDto, @MappingTarget StudentProfile studentProfile);
 
 }

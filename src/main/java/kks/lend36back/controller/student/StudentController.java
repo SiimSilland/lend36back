@@ -19,7 +19,6 @@ public class StudentController {
         studentService.addNewStudent(newStudent);
     }
 
-
     @GetMapping("/student/profile")
     @Operation(summary = "Returns student profile by userId")
     public StudentProfileDto getStudentProfile(@RequestParam Integer userId) {
@@ -27,12 +26,9 @@ public class StudentController {
         return studentProfileByUserId;
     }
 
-
     @PutMapping("/student/profile")
     @Operation(summary = "Uue õppuri muutmine")
     public void updateStudentProfile(@RequestParam Integer userId, @RequestBody @Valid StudentProfileDto studentProfileDto) {
         studentService.updateStudentProfile(userId, studentProfileDto);
     }
-
-
 }

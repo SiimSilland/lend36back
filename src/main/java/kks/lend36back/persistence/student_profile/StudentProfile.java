@@ -49,4 +49,8 @@ public class StudentProfile {
     @Column(name = "email", nullable = false)
     private String email;
 
+    @Size(max = 1000)
+    @Column(name = "intro", length = 1000)
+    private String intro;
+
 }
