@@ -30,7 +30,7 @@ public class PreferredCityService {
         boolean preferenceExists = preferredCityRepository.preferredCityExists(userId, cityId);
         if (preferenceExists) {
             //ValidationService.throwRowExistsException(Error.ROW_ALREADY_EXISTS.getMessage(), Error.ROW_ALREADY_EXISTS.getErrorCode());
-            throw new ValidationException(Error.ROW_ALREADY_EXISTS.getMessage());
+            throw new ValidationException();
         }
             User userById = userRepository.findUserById(userId);
             City cityById = cityRepository.findCityById(cityId);

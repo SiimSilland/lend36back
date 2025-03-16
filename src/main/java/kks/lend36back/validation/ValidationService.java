@@ -1,5 +1,6 @@
 package kks.lend36back.validation;
 
+import jakarta.validation.ValidationException;
 import kks.lend36back.infrastructure.exception.DataNotFoundException;
 import kks.lend36back.infrastructure.exception.DuplicationResourceException;
 import kks.lend36back.infrastructure.exception.InvalidStateException;
@@ -26,6 +27,9 @@ public class ValidationService {
 
     public static InvalidStateException throwGroupNotEmptyException() {
         return new InvalidStateException(GROUP_NOT_EMPTY.getMessage(), FOREIGN_KEY_NOT_FOUND.getErrorCode());
+    }
+    public static ValidationException validationException(){
+        return new ValidationException();
     }
 
 }
