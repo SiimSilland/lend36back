@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,10 +32,18 @@ public class InternshipService {
 
         internshipRepository.save(internship);
     }
-
-    public List<InternshipDto> getAllInternships() {
-        List<Internship> allInternships = internshipRepository.findAll();
-        return internshipMapper.toInternship(allInternships);
+    public List<InternshipDto> getAllInternships(Long companyUserId) {
+        List<Internship> internships = internshipRepository.findByCompanyUser_Id(companyUserId);
+        return internships.stream()
+                .map(internship -> new InternshipDto(
+                        internship.getTitle(),
+                        internship.getDescription(),
+                        internship.getName(),
+                        internship.getEmail(),
+                        internship.getStatus(),
+                        internship.getCompanyUser().getId()  // Ensuring companyUserId is included
+                ))
+                .collect(Collectors.toList());
     }
 
     @Transactional
@@ -42,14 +51,18 @@ public class InternshipService {
         User companyUser = userRepository.findById(internshipDto.getCompanyUserId())
                 .orElseThrow(() -> new RuntimeException("Company User not found"));
 
-        Internship internship = internshipRepository.findInternshipBy(companyUser);
-        if (internship != null) {
-            internshipRepository.delete(internship);
-        } else {
-            throw new RuntimeException("Internship not found");
-        }
+        Internship internship = internshipRepository.findInternshipBy(companyUser)
+                .orElseThrow(() -> new RuntimeException("Internship not found"));
+
+        internshipRepository.delete(internship);
     }
-}
+
+    public List<Internship> findByCompanyId(Long companyUserId) {
+        return internshipRepository.findByCompanyUser_Id(companyUserId);
+    }
+
+    }
+
 
 /*
 
@@ -57,5 +70,9 @@ private Internship createNewInternship(InternshipDto internshipDto, User company
             Internship internship = internshipMapper.toInternship(internshipDto);
             internship.setUser(companyUser);
             return internship;
+     public List<InternshipDto> getAllInternships() {
+        List<Internship> allInternships = internshipRepository.findAll();
+        return internshipMapper.toInternship(allInternships);
+    }
     }
  */

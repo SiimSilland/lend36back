@@ -16,9 +16,9 @@ public interface InternshipRepository extends JpaRepository<Internship, Integer>
     @Query("select i from Internship i where i.companyUser.id = :id")
     List<Internship> findByCompanyUser_Id(@Param("id") Integer id);
 
-
     @Query("SELECT i FROM Internship i WHERE i.companyUser = :companyUser")
-    Internship findInternshipBy(@Param("companyUser") User companyUser);
+    Optional<Internship> findInternshipBy(@Param("companyUser") User companyUser);
+
 
     @Transactional
     @Modifying
@@ -28,4 +28,5 @@ public interface InternshipRepository extends JpaRepository<Internship, Integer>
 
     Optional<Object> findById(Long userId);
 
+    List<Internship> findByCompanyUser_Id(Long companyUserId);
 }
