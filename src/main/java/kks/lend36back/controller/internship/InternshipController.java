@@ -37,7 +37,15 @@ public class InternshipController {
         internshipService.deleteInternship(internshipId, companyUserId);
         return ResponseEntity.ok("Internship deleted successfully");
     }
+    @PutMapping("/company/internship/{id}")
+    @Operation(summary = "Updates an existing internship")
+    public ResponseEntity<String> updateInternship(
+            @PathVariable Long id,
+            @RequestBody InternshipDto internshipDto) {
 
+        internshipService.updateInternship(id, internshipDto);
+        return ResponseEntity.ok("Internship updated successfully");
+    }
     @PostMapping("/company/internship")
     @Operation(summary = "Lisab uue praktika koha")
     public void addNewInternship(@RequestBody InternshipDto internshipDto) {

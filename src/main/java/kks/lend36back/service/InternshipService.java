@@ -32,6 +32,25 @@ public class InternshipService {
         internshipRepository.save(internship);
     }
 
+    @Transactional
+    public void updateInternship(Long id, InternshipDto internshipDto) {
+        Internship internship = internshipRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Internship not found"));
+
+        // Ensure that only the owner company can update it
+        if (!internship.getCompanyUser().getId().equals(internshipDto.getCompanyUserId())) {
+            throw new RuntimeException("Unauthorized: Cannot update internship for another company");
+        }
+
+        // Update only the necessary fields
+        internship.setTitle(internshipDto.getTitle());
+        internship.setDescription(internshipDto.getDescription());
+        internship.setName(internshipDto.getName());
+        internship.setEmail(internshipDto.getEmail());
+
+        internshipRepository.save(internship);
+    }
+
 
     public List<InternshipDto> getAllInternships(Long companyUserId) {
         if (companyUserId == null) {
@@ -42,15 +61,17 @@ public class InternshipService {
 
     @Transactional
     public void deleteInternship(Long internshipId, Long companyUserId) {
+        if (companyUserId == null) {
+            throw new IllegalArgumentException("Company User ID cannot be null");
+        }
+
         Internship internship = internshipRepository.findById(internshipId)
                 .orElseThrow(() -> new RuntimeException("Internship not found"));
-        if (internship.getCompanyUser() == null || !internship.getCompanyUser().getId().equals(companyUserId)) {
+
+        if (!internship.getCompanyUser().getId().equals(companyUserId)) {
             throw new RuntimeException("Unauthorized: Cannot delete internship for another company");
         }
-        internshipRepository.delete(internship);
-    }
 
-    public List<Internship> findByCompanyId(Long companyUserId) {
-        return internshipRepository.findByCompanyUser_Id(companyUserId);
+        internshipRepository.deleteById(internshipId);
     }
 }
